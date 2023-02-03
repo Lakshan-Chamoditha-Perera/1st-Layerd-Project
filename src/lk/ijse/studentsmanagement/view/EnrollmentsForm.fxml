@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="978.0" prefWidth="1544.0"
+            style="-fx-background-color: #333535; -fx-background-radius: 50;" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.studentsmanagement.controller.EnrollmentsFormController">
+    <children>
+        <AnchorPane fx:id="panelRegistration" layoutX="42.0" layoutY="258.0" prefHeight="660.0" prefWidth="789.0"
+                    style="-fx-background-radius: 50; -fx-background-color: White;">
+            <children>
+                <Label layoutX="43.0" layoutY="9.0" prefHeight="48.0" prefWidth="526.0"
+                       text="Students' Registration Form">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="34.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="108.0" prefHeight="21.0" prefWidth="133.0" text="Name">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="183.0" prefHeight="21.0" prefWidth="133.0" text="Address: ">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="70.0" layoutY="323.0" prefHeight="21.0" prefWidth="161.0" text="Mobile Number: ">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="225.0" prefHeight="21.0" prefWidth="133.0" text="City:">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="372.0" prefHeight="21.0" prefWidth="161.0" text="Email">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="418.0" prefHeight="21.0" prefWidth="161.0" text="Date of birth">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="464.0" prefHeight="21.0" prefWidth="161.0" text="Gender">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="517.0" prefHeight="21.0" prefWidth="161.0" text="School">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="564.0" prefHeight="23.0" prefWidth="380.0"
+                       text="Higher educational Qualification">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtStdAddress" layoutX="246.0" layoutY="172.0"
+                              onMouseClicked="#txtStdAddressOnMouseClick" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtStdCity" layoutX="246.0" layoutY="216.0"
+                              onMouseClicked="#txtStdCityOnMouseClicked" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtStdMobileNumber" layoutX="246.0" layoutY="311.0"
+                              onMouseClicked="#txtStdMobileOnMouseClicked" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtStdEmail" layoutX="246.0" layoutY="357.0"
+                              onMouseClicked="#txtStdEmailOnMouseClick" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtSchool" layoutX="246.0" layoutY="509.0"
+                              onMouseClicked="#txtStdSchoolOnMouseClicked" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXRadioButton fx:id="rBtnMale" layoutX="246.0" layoutY="467.0" selected="true" text="Male">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="gender"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="rBtnFemale" layoutX="406.0" layoutY="467.0" text="Female" toggleGroup="$gender"/>
+                <JFXDatePicker fx:id="calDob" defaultColor="#0009ff" layoutX="246.0" layoutY="408.0"
+                               onMouseClicked="#calDobOnMouseClicked" promptText="Select Date of Birth"/>
+                <JFXTextField fx:id="txtStdName" layoutX="244.0" layoutY="100.0"
+                              onMouseClicked="#txtStdNameOnMouseClicked" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXRadioButton fx:id="rBtnMaster" layoutX="239.0" layoutY="591.0" text="Master">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="edu"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="rBtnDegree" layoutX="341.0" layoutY="591.0" text="Degree" toggleGroup="$edu"/>
+                <JFXRadioButton fx:id="rBtnDiploma" layoutX="447.0" layoutY="591.0" text="Diploma" toggleGroup="$edu"/>
+                <JFXRadioButton fx:id="rBtnAL" layoutX="549.0" layoutY="591.0" text="A/L" toggleGroup="$edu"/>
+                <JFXRadioButton fx:id="rBtnOL" layoutX="633.0" layoutY="591.0" selected="true" text="O/L"
+                                toggleGroup="$edu"/>
+                <Label layoutX="71.0" layoutY="72.0" prefHeight="21.0" prefWidth="161.0" text="Registration ID">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblRegID" layoutX="246.0" layoutY="72.0" prefHeight="21.0" prefWidth="161.0"
+                       text="IT21805028">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="70.0" layoutY="273.0" prefHeight="21.0" prefWidth="133.0" text="Postal Code">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtPostalCode" layoutX="245.0" layoutY="262.0"
+                              onMouseClicked="#txtStdPostalCodeOnMouseClicked" prefHeight="26.0" prefWidth="411.0"/>
+                <Label fx:id="lblInvalidName" layoutX="244.0" layoutY="128.0"
+                       text="Invalid Name. Please Enter correct name" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidAddress" layoutX="246.0" layoutY="199.0"
+                       text="Invalid Address. Please Enter valid Address" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidCity" layoutX="245.0" layoutY="242.0"
+                       text="Invalid city. Please Enter valid city" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidPostalCode" layoutX="245.0" layoutY="288.0"
+                       text="Invalid postal code. Please Enter valid postal code" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidMobileNumber" layoutX="245.0" layoutY="341.0"
+                       text="Invalid mobile number. Please Enter valid number" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidEmail" layoutX="246.0" layoutY="387.0"
+                       text="Invalid Email. Please Enter valid Email" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidSchool" layoutX="246.0" layoutY="540.0"
+                       text="Invalid School name. Please Enter valid name" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="70.0" layoutY="617.0" prefHeight="23.0" prefWidth="344.0"
+                       text="Former Student in your family">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXRadioButton fx:id="rBtnYes" layoutX="400.0" layoutY="621.0" onAction="#rBtnYesOnAction" text="Yes">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="familyMember"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="rBtnNo" layoutX="502.0" layoutY="621.0" onAction="#rBtnNoOnAction"
+                                selected="true" text="No" toggleGroup="$familyMember"/>
+                <Label fx:id="lblSelectDob" layoutX="441.0" layoutY="418.0" prefHeight="16.0" prefWidth="182.0"
+                       text="Select Date of Birth" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="71.0" layoutY="150.0" prefHeight="21.0" prefWidth="133.0" text="NIC">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtStdNic" layoutX="245.0" layoutY="138.0" onMouseClicked="#txtStdNicOnAction"
+                              prefHeight="26.0" prefWidth="411.0"/>
+                <Label fx:id="lblInvalidStdNic" layoutX="245.0" layoutY="166.0"
+                       text="Invalid ID. Please Enter correct ID" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="panelGuardian" layoutX="863.0" layoutY="64.0" prefHeight="448.0" prefWidth="652.0"
+                    style="-fx-background-color: white; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="30.0" layoutY="14.0" prefHeight="48.0" prefWidth="411.0" text="Gardian Details">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="34.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="62.0" layoutY="139.0" prefHeight="21.0" prefWidth="161.0" text="Name">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentAddress" layoutX="208.0" layoutY="179.0"
+                              onMouseClicked="#txtParentAddressOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <Label layoutX="63.0" layoutY="188.0" prefHeight="23.0" prefWidth="139.0" text="Address">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentMobile" layoutX="211.0" layoutY="234.0"
+                              onMouseClicked="#txtParentMobileOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <Label layoutX="66.0" layoutY="243.0" prefHeight="23.0" prefWidth="139.0" text="Mobile Number">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentName" layoutX="208.0" layoutY="130.0"
+                              onMouseClicked="#txtParentNameOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtParentEmail" layoutX="211.0" layoutY="284.0"
+                              onMouseClicked="#txtParentEmailOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <Label layoutX="66.0" layoutY="293.0" prefHeight="23.0" prefWidth="133.0" text="Email">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentDesignation" layoutX="211.0" layoutY="333.0"
+                              onMouseClicked="#txtParentDesignationOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <Label layoutX="66.0" layoutY="339.0" prefHeight="23.0" prefWidth="139.0" text="Designation">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentWorkPlace" layoutX="212.0" layoutY="382.0"
+                              onMouseClicked="#txtWorkingPlaceOnAction" prefHeight="26.0" prefWidth="411.0"/>
+                <Label layoutX="66.0" layoutY="383.0" prefHeight="23.0" prefWidth="139.0" text="Working Place">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="62.0" layoutY="96.0" prefHeight="21.0" prefWidth="161.0" text="ID">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtParentID" layoutX="208.0" layoutY="88.0" onMouseClicked="#txtParentIDOnAction"
+                              prefHeight="26.0" prefWidth="411.0"/>
+                <JFXTextField fx:id="txtSearchParent" disable="true" layoutX="361.0" layoutY="29.0"
+                              onMouseClicked="#txtSearchOnMouseClicked" prefHeight="26.0" prefWidth="182.0"
+                              promptText="Parent ID" style="-fx-background-color: lightgrey;"/>
+                <JFXButton fx:id="btnSearch" disable="true" layoutX="557.0" layoutY="29.0" onAction="#btnSearchOnaction"
+                           style="-fx-background-color: #008BE4;" text="Search"/>
+                <Label fx:id="lblInvalidParentID" layoutX="207.0" layoutY="117.0"
+                       text="Invalid ID. Please Enter Valid ID" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentName" layoutX="208.0" layoutY="159.0"
+                       text="Invalid Name.Please Enter Valid Name" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentAddress" layoutX="209.0" layoutY="209.0"
+                       text="Invalid Address. Please Enter Valid Address" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentMobile" layoutX="209.0" layoutY="261.0"
+                       text="Invalid Mobile number !. Please Enter Valid Mobile Number" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentDesignaion" layoutX="210.0" layoutY="362.0" text="Invalid Entery !"
+                       textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentWorkingPlace" layoutX="212.0" layoutY="409.0" text="Invalid Entery !"
+                       textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidParentEmail" layoutX="209.0" layoutY="311.0"
+                       text="Invalid Email !. Please Enter Valid Email" textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidSearchDetail" layoutX="363.0" layoutY="58.0" text="Invalid Entery !"
+                       textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="panelPayment" layoutX="863.0" layoutY="551.0" prefHeight="280.0" prefWidth="652.0"
+                    style="-fx-background-color: white; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="36.0" layoutY="9.0" prefHeight="48.0" prefWidth="411.0" text="Payment">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="34.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="27.0" layoutY="84.0" prefHeight="21.0" prefWidth="161.0" text="Payment ID">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblPaymentID" layoutX="202.0" layoutY="84.0" prefHeight="21.0" prefWidth="161.0"
+                       text="P0001">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="27.0" layoutY="127.0" prefHeight="21.0" prefWidth="161.0" text="Amount">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="27.0" layoutY="173.0" prefHeight="21.0" prefWidth="161.0" text="Remark">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtAmount" layoutX="194.0" layoutY="124.0"
+                              onMouseClicked="#txtAmountOnMouseClicked" prefHeight="26.0" prefWidth="411.0"
+                              promptText="5000.00" text="5000.00"/>
+                <JFXTextField fx:id="txtRemark" editable="false" layoutX="191.0" layoutY="167.0"
+                              onMouseClicked="#txtRegistrationOnMouseClicked" prefHeight="26.0" prefWidth="411.0"
+                              promptText="Registration Fee" text="Registration"/>
+                <Label fx:id="lblInvalidAmount" layoutX="194.0" layoutY="151.0" text="Invalid Amount" textFill="RED"
+                       visible="false"/>
+                <Label fx:id="lblInvalidRemark" layoutX="196.0" layoutY="196.0" text="Invalid Registration"
+                       textFill="RED" visible="false"/>
+            </children>
+        </AnchorPane>
+        <JFXButton fx:id="btnView" layoutX="1338.0" layoutY="852.0" onAction="#btnViewOnAction" prefHeight="60.0"
+                   prefWidth="139.0" style="-fx-background-color: #FF85A2; -fx-background-radius: 50;" text="View"/>
+        <JFXButton fx:id="btnEnroll" layoutX="1110.0" layoutY="851.0" onAction="#btnEnrollClickOnAction"
+                   prefHeight="60.0" prefWidth="191.0"
+                   style="-fx-border-radius: 50; -fx-border-color: #FF5159; -fx-background-radius: 50; -fx-background-color: #FF5159;"
+                   text="Make Payment &amp; Enroll"/>
+        <Label layoutX="64.0" layoutY="14.0" prefHeight="66.0" prefWidth="703.0" text="ENROLLMENTS"
+               textAlignment="RIGHT" textFill="WHITE">
+            <font>
+                <Font name="Ubuntu Mono Bold" size="50.0"/>
+            </font>
+        </Label>
+        <AnchorPane layoutX="39.0" layoutY="69.0" prefHeight="172.0" prefWidth="789.0"
+                    style="-fx-background-color: white; -fx-background-radius: 35;">
+            <children>
+                <Label layoutX="22.0" layoutY="11.0" prefHeight="21.0" prefWidth="161.0" text="Course">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="34.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="lblSelectCourse" layoutX="250.0" layoutY="87.0" text="Please select course" textFill="RED"
+                       visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <JFXComboBox fx:id="cmbCourse" layoutX="275.0" layoutY="56.0" onAction="#cmbCourseOnAction"
+                             onMouseClicked="#cmbCourseOnMouseClicked" prefHeight="26.0" prefWidth="220.0"/>
+                <Label fx:id="lblSelectCourseFirst" layoutX="274.0" layoutY="87.0" text="Select Course First"
+                       textFill="RED" visible="false">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="74.0" layoutY="106.0" prefHeight="23.0" prefWidth="120.0" text="Batch">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="72.0" layoutY="57.0" prefHeight="21.0" prefWidth="161.0" text="Select a Course">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="txtBatch" layoutX="270.0" layoutY="108.0" prefHeight="23.0" prefWidth="230.0"
+                       text="No any Ongoing Batch">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="21.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

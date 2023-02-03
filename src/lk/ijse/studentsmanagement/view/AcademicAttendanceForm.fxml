@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="978.0" prefWidth="1544.0" styleClass="sideBar" stylesheets="@../asserts/newStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.studentsmanagement.controller.AcademicAttendanceFormController">
+    <children>
+        <Label layoutX="44.0" layoutY="24.0" prefHeight="62.0" prefWidth="334.0" text="Attendance" textAlignment="RIGHT" textFill="WHITE">
+            <font>
+                <Font name="Ubuntu Mono Bold" size="50.0" />
+            </font>
+        </Label>
+        <AnchorPane fx:id="pane" layoutX="54.0" layoutY="108.0" prefHeight="840.0" prefWidth="1448.0" style="-fx-background-color: white; -fx-background-radius: 50;">
+            <children>
+                <TableView fx:id="tblAttendance" layoutX="18.0" layoutY="150.0" prefHeight="648.0" prefWidth="715.0" style="-fx-background-color: Grey; -fx-background-radius: 50;">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="126.0" text="Student ID" />
+                        <TableColumn fx:id="colDate" prefWidth="223.0" text="Date" />
+                        <TableColumn fx:id="colStatus" prefWidth="181.0" text="Staus" />
+                        <TableColumn fx:id="colBatch" prefWidth="181.0" text="Batch" />
+                    </columns>
+                </TableView>
+                <TextField fx:id="txtRegistrationId" layoutX="17.0" layoutY="17.0" onAction="#txtRegistrationIDOnAction" onMouseClicked="#txtRegistrationIDOnMouseClicked" prefHeight="48.0" prefWidth="388.0" promptText="Enter registration ID" style="-fx-background-radius: 50;" />
+                <Button fx:id="btnMark" layoutX="479.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnMarkOnAction" prefHeight="48.0" prefWidth="99.0" style="-fx-background-radius: 50;" text="Mark" />
+                <Label layoutX="798.0" layoutY="160.0" text="Name">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="29.0" />
+                    </font>
+                </Label>
+                <Label layoutX="798.0" layoutY="208.0" text="Batch">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="29.0" />
+                    </font>
+                </Label>
+                <Label layoutX="11.0" layoutY="106.0" text="Attendance Table">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="42.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblName" layoutX="946.0" layoutY="160.0" prefHeight="30.0" prefWidth="410.0" text="Name">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="29.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblBatch" layoutX="946.0" layoutY="208.0" prefHeight="30.0" prefWidth="410.0" text="Batch">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="29.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblInvalidID" layoutX="27.0" layoutY="65.0" prefHeight="16.0" prefWidth="113.0" text="Invalid ID" textFill="RED" />
+                <JFXDatePicker fx:id="calender" layoutX="1106.0" layoutY="17.0" onAction="#calenderOnAction" prefHeight="48.0" prefWidth="300.0" promptText="View Attendance" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

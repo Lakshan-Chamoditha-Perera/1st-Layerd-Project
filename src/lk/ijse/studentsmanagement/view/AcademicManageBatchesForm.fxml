@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="978.0" prefWidth="1544.0" styleClass="sideBar"
+            stylesheets="@../asserts/newStyle.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.studentsmanagement.controller.AcademicManageBatchesForm">
+    <children>
+        <JFXButton layoutX="1082.0" layoutY="553.0" onAction="#btnAddNewBatchOnAction" prefHeight="103.0"
+                   prefWidth="139.0" style="-fx-background-color: gray; -fx-background-radius: 30;"
+                   text="Add New batch"/>
+        <AnchorPane layoutX="108.0" layoutY="124.0" prefHeight="394.0" prefWidth="1387.0"
+                    style="-fx-background-color: white; -fx-background-radius: 50;">
+            <children>
+                <TableView fx:id="tableBatches" layoutX="17.0" layoutY="42.0" onMouseClicked="#tblOnMouseClicked"
+                           prefHeight="317.0" prefWidth="1353.0">
+                    <columns>
+                        <TableColumn fx:id="colBatchID" prefWidth="180.00003051757812" text="BatchID"/>
+                        <TableColumn fx:id="colBatchNo" prefWidth="192.99996948242188" text="Batch No"/>
+                        <TableColumn fx:id="colCourseId" prefWidth="227.0" text="Course ID"/>
+                        <TableColumn fx:id="colFee" prefWidth="237.0" text="Fee"/>
+                        <TableColumn fx:id="colDate" prefWidth="258.0" text="Start date"/>
+                        <TableColumn fx:id="colMaxCount" prefWidth="250.0" text="Max Crowd"/>
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <Label layoutX="45.0" layoutY="44.0" prefHeight="52.0" prefWidth="572.0" style="-fx-text-fill: White;"
+               text="MANAGE BATCHES">
+            <font>
+                <Font name="Ubuntu Mono Bold" size="51.0"/>
+            </font>
+        </Label>
+        <AnchorPane layoutX="103.0" layoutY="540.0" prefHeight="381.0" prefWidth="896.0"
+                    style="-fx-background-color: white; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="38.0" layoutY="84.0" prefHeight="37.0" prefWidth="193.0" text="Fee">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="38.0" layoutY="158.0" prefHeight="37.0" prefWidth="199.0" text="Start date">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="39.0" layoutY="230.0" prefHeight="37.0" prefWidth="182.0" text="Max Crowd">
+                    <font>
+                        <Font name="Ubuntu Mono Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtFee" layoutX="241.0" layoutY="67.0" onMouseClicked="#txtFeeOnMouseClicked"
+                              prefHeight="47.0" prefWidth="341.0"/>
+                <Label fx:id="lblInvalidAmount" layoutX="241.0" layoutY="116.0" prefHeight="13.0" prefWidth="258.0"
+                       text="Please enter valid amount" textFill="#ee0101">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="txtCrowd" layoutX="241.0" layoutY="216.0"
+                              onMouseClicked="#txtMaxCroedOnMouseClicked" prefHeight="47.0" prefWidth="341.0"/>
+                <Label fx:id="lblInvalidCount" layoutX="241.0" layoutY="267.0" prefHeight="13.0" prefWidth="258.0"
+                       text="Please enter valid count" textFill="#ee0101">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <JFXDatePicker fx:id="cmbDate" layoutX="241.0" layoutY="154.0" onMouseClicked="#cmbDateOnMouseClicked"
+                               prefHeight="37.0" prefWidth="341.0"/>
+                <Label fx:id="lblInvalidDate" layoutX="241.0" layoutY="195.0" prefHeight="13.0" prefWidth="258.0"
+                       text="Select valid date" textFill="#ee0101">
+                    <font>
+                        <Font name="Ubuntu Mono" size="15.0"/>
+                    </font>
+                </Label>
+                <JFXButton fx:id="btnUpdate" layoutX="572.0" layoutY="320.0" onAction="#btnUpdateOnAction"
+                           prefHeight="47.0" prefWidth="112.0" style="-fx-background-color: green;" text="UPDATE "
+                           textFill="WHITE"/>
+                <JFXButton fx:id="btnDelete" layoutX="737.0" layoutY="320.0" onAction="#btnDeleteOnAction"
+                           prefHeight="47.0" prefWidth="112.0" style="-fx-background-color: Red;" text="DELETE"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OfficialReceipt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2ff00dc-d140-4318-9c14-29bb829cb996">
+	<parameter name="receptNo" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="nic" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="remark" class="java.lang.String"/>
+	<parameter name="amount" class="java.lang.String"/>
+	<parameter name="regId" class="java.lang.String"/>
+	<parameter name="batchID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="152" splitType="Stretch">
+			<staticText>
+				<reportElement x="-10" y="22" width="428" height="25" uuid="ca5a9c95-cc9b-461b-9800-27071945710a"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUE OF JAVA AND SOFTWARE ENGINEERING]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-10" y="-10" width="116" height="50" uuid="af6150a8-afd7-48c7-9784-aa3d5ab05cb0"/>
+				<imageExpression><![CDATA["/home/shan/Desktop/StudentsManagementSystem/out/production/StudentsManagementSystem/lk/ijse/studentsmanagement/asserts/ijse@1x.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-10" y="40" width="249" height="15" uuid="6e1a67fd-ede4-41e5-94b3-385a7feeae0d"/>
+				<text><![CDATA[223A,GALLE ROAD, PANADURA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="50" width="246" height="15" uuid="6d84cdb9-4b83-4a6c-b8a3-f061379e0960"/>
+				<text><![CDATA[example@ijse.lk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="62" width="202" height="17" uuid="5d2f808c-6f45-4b42-8ef6-a13c7193b156"/>
+				<text><![CDATA[TELE: 0714066967]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="100" width="331" height="30" uuid="e39818aa-e37b-4cdf-872c-7ce672bd656b"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFFICIAL RECEIPT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="100" width="100" height="30" uuid="0aa3530a-3d5c-4616-94d6-81b054422009"/>
+				<textFieldExpression><![CDATA[$P{receptNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="397" y="100" width="60" height="30" uuid="29b81275-13df-4f0a-8c14-18be352ac636"/>
+				<text><![CDATA[Recept No:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="397" splitType="Stretch">
+			<staticText>
+				<reportElement x="82" y="6" width="100" height="22" uuid="33fd60e5-0b9c-4073-ad78-3bffeef4e3c2"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="130" width="100" height="20" uuid="ad69df83-85c6-4196-ad65-f152ec494354"/>
+				<text><![CDATA[NIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="146" width="155" height="16" uuid="441a9b03-2995-4d4f-9f7d-3be7eea08b4e"/>
+				<text><![CDATA[Students Name]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="432" y="10" width="100" height="18" uuid="a3e81511-9afc-4842-a849-93759500d0b1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="129" width="100" height="13" uuid="ede92e13-ebe2-4592-bdac-84f6a5895509"/>
+				<textFieldExpression><![CDATA[$P{nic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="145" width="125" height="30" uuid="92a6326c-44d5-4cb8-aca0-3ea434364c97"/>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="50" width="100" height="20" uuid="60902284-24e1-4939-8005-d573ed4c1c94"/>
+				<text><![CDATA[Registration ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="80" width="100" height="20" uuid="11575df6-a896-42f1-8768-341c56d3a3ce"/>
+				<text><![CDATA[Batch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="280" width="100" height="20" uuid="598b37be-1598-4f33-8f2b-7e35bae28275"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="280" width="200" height="30" uuid="3f05b06a-bac0-4ee4-8a92-247d88ac0b8e"/>
+				<textFieldExpression><![CDATA[$P{remark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="280" width="100" height="30" uuid="6ef6b619-8094-4691-9c53-635572015b72"/>
+				<textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="50" width="128" height="19" uuid="a2a0dcdf-1416-48cb-8be4-11135c5cda8a"/>
+				<textFieldExpression><![CDATA[$P{regId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="393" y="74" width="100" height="30" uuid="97727707-f804-4055-9262-edf5e6f9fc68"/>
+				<textFieldExpression><![CDATA[$P{batchID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="293" height="19" uuid="a3f5a769-1411-4be9-b736-d26b4101728f"/>
+				<text><![CDATA[Any payment can not be transfered or refunded.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="293" height="19" uuid="35ee4093-0eee-4aca-bbd1-7863e318d481"/>
+				<text><![CDATA[Cheque payments subject to realization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="-1" width="555" height="30" uuid="10c2c242-d32b-46e5-8b5c-e9d2ab06d49d"/>
+				<text><![CDATA[If your payment methd is cheque, please draw the cheque in favour of "INSTITUE OF JAVA & SOFTWARE ENGINEERING (PRIVATE) LIMITED"]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="29" width="300" height="12" uuid="e9ab7f7f-dd55-4ef9-a553-8ccd5231e290"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL RECEIPT AMOUNT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="29" width="100" height="19" uuid="98c2c70c-4587-44d9-8cbc-6b2b35641aee"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

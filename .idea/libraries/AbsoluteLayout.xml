@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="AbsoluteLayout">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/activation-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/AnimateFX-1.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bridj-0.6.2-linux-only.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/GNCalendar-1.0-alpha.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javase-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jfoenix-8.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12-1.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/webcam-capture-0.3.12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
