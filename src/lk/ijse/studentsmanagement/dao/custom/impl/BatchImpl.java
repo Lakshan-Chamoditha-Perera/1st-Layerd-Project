@@ -122,7 +122,7 @@ public class BatchImpl implements BatchDAO {
             if (resultSet.next()) {
                 return new Batch(Integer.parseInt(resultSet.getString(1)));
             }
-        throw new RuntimeException("getLastBatchNo null");
+        return null;
     }
 
     @Override

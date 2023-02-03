@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="978.0" prefWidth="1544.0" styleClass="sideBar" stylesheets="@../asserts/newStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.studentsmanagement.controller.AcademicExamFormController">
+    <children>
+        <JFXButton fx:id="btnAddResults" layoutX="851.0" layoutY="129.0" onAction="#btnAddMarksOnAction" prefHeight="198.0" prefWidth="551.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="ADD Results">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" fitHeight="207.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/results.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnAddExams" layoutX="95.0" layoutY="129.0" onAction="#btnAddExamsOnAction" prefHeight="198.0" prefWidth="566.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="ADD EXAMS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" disable="true" fitHeight="166.0" fitWidth="306.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/schedule.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnAddIqTest" layoutX="103.0" layoutY="390.0" onAction="#btnIQTestOnAction" prefHeight="198.0" prefWidth="558.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="Add IQ TESTS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" fitHeight="179.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/exam.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnAddIqMarks" layoutX="843.0" layoutY="390.0" onAction="#btnAddIQTestMarksOnAction" prefHeight="198.0" prefWidth="558.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="ADD IQ MARKS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" disable="true" fitHeight="183.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/iqtest.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnViewResults" layoutX="95.0" layoutY="683.0" onAction="#btnViewResultsOnAction" prefHeight="198.0" prefWidth="566.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="Batch Results">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" disable="true" fitHeight="248.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/viewBatchResults.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnUpdateExams" layoutX="839.0" layoutY="696.0" onAction="#btnManageExamsOnAction" prefHeight="198.0" prefWidth="566.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="Update Exams">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+         <graphic>
+            <ImageView blendMode="DARKEN" disable="true" fitHeight="183.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/update%20exams.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <Label layoutX="34.0" layoutY="14.0" prefHeight="62.0" prefWidth="334.0" text="MANAGE EXAMS" textAlignment="RIGHT" textFill="WHITE">
+            <font>
+                <Font name="Ubuntu Mono Bold" size="50.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

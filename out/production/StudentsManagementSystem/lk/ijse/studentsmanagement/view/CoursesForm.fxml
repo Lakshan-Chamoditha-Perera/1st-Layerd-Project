@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="978.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.studentsmanagement.controller.CoursesFormController">
+    <children>
+        <AnchorPane layoutX="50.0" layoutY="70.0" prefHeight="361.0" prefWidth="664.0"
+                    style="-fx-background-color: #f5f5f5; -fx-background-radius: 60;">
+            <children>
+                <ImageView fitHeight="160.0" fitWidth="518.0" layoutX="92.0" layoutY="101.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../asserts/graduate-diploma-in-software-engineering.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton layoutX="-1.0" layoutY="-3.0" onAction="#gdseOnAction" prefHeight="371.0" prefWidth="674.0"
+                           style="-fx-background-radius: 60; -fx-border-radius: 60;" text=" "/>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="802.0" layoutY="70.0" prefHeight="361.0" prefWidth="664.0"
+                    style="-fx-background-color: #f5f5f5; -fx-background-radius: 60;">
+            <children>
+                <ImageView fitHeight="140.0" fitWidth="417.0" layoutX="139.0" layoutY="108.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../asserts/cmjd-professional.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton onAction="#cmjdOnAction" prefHeight="371.0" prefWidth="674.0"
+                           style="-fx-background-radius: 60; -fx-border-radius: 60;" text=" "/>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="802.0" layoutY="538.0" prefHeight="361.0" prefWidth="664.0"
+                    style="-fx-background-color: #f5f5f5; -fx-background-radius: 60;">
+            <children>
+                <ImageView fitHeight="209.0" fitWidth="592.0" layoutX="36.0" layoutY="82.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../asserts/RMAD.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton layoutX="-5.0" layoutY="-5.0" onAction="#rmadOnAction" prefHeight="371.0" prefWidth="674.0"
+                           style="-fx-background-radius: 60; -fx-border-radius: 60;" text=" "/>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="50.0" layoutY="538.0" prefHeight="361.0" prefWidth="664.0"
+                    style="-fx-background-color: #f5f5f5; -fx-background-radius: 60;">
+            <children>
+                <ImageView fitHeight="180.0" fitWidth="592.0" layoutX="62.0" layoutY="102.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../asserts/direct-entry-program.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton layoutX="8.0" layoutY="5.0" onAction="#depOnAction" prefHeight="371.0" prefWidth="674.0"
+                           style="-fx-background-radius: 60; -fx-border-radius: 60;" text=" "/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

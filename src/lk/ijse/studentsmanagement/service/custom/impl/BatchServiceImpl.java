@@ -35,8 +35,10 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    public BatchDTO save(BatchDTO dto) throws SQLException, ClassNotFoundException, DuplicateException {
-        return null;
+    public BatchDTO save(BatchDTO dto) throws SQLException, ClassNotFoundException, RuntimeException {
+        Batch batch = batchDAO.save(converter.toBatchEntity(dto));
+        if (batch!=null) return dto;
+        throw new RuntimeException("not added");
     }
 
     @Override
@@ -57,8 +59,10 @@ public class BatchServiceImpl implements BatchService {
     @Override
     public BatchDTO getLastBatchNo(String course) throws SQLException, ClassNotFoundException,RuntimeException {
         Batch lastBatchNo = batchDAO.getLastBatchNo(course);
-        converter.toBatchDTO(lastBatchNo,BatchType2);
-        System.out.println(lastBatchNo.getBatchNo());
+        if(lastBatchNo!=null){
+           return converter.toBatchDTO(lastBatchNo,BatchType2);
+        }
+        return new BatchDTO(0);
       //  return converter.toBatchDTO(,BatchType2);
        // return new BatchDTO(1);
     }

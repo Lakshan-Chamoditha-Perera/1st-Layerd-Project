@@ -11,14 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.autogenerater.AutoGenerateID;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.dto.BatchDTO;
 import lk.ijse.studentsmanagement.dto.CourseDTO;
-import lk.ijse.studentsmanagement.entity.Batch;
-import lk.ijse.studentsmanagement.entity.Course;
-import lk.ijse.studentsmanagement.model.BatchModel;
-import lk.ijse.studentsmanagement.model.CourseModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.BatchService;
@@ -27,13 +21,11 @@ import lk.ijse.studentsmanagement.tblModels.BatchTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
-import net.sf.jasperreports.engine.util.JRStyledText;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -47,7 +39,7 @@ public class AcademicAddNewBatchFormController implements Initializable {
     public JFXTextField txtBatchNo;
     public JFXTextField txtCrowd;
     public JFXTextField txtCourseFee;
-    public TableView tblOnGoingBatches;
+    public TableView<BatchTM> tblOnGoingBatches;
     public TableColumn colBatchID;
     public TableColumn colFee;
     public TableColumn colCrowd;
@@ -56,6 +48,7 @@ public class AcademicAddNewBatchFormController implements Initializable {
     public TableColumn colBatchNo;
     public Button btnAdd;
     CourseService courseService;
+    BatchService batchService;
     @FXML
     private ComboBox<String> cmbCourse;
 
@@ -63,34 +56,23 @@ public class AcademicAddNewBatchFormController implements Initializable {
     void btnAddOnAction(ActionEvent event) {
         try {
             BatchDTO batchDTO = addNewBatch();
-            String text = (batchDTO!=null) ? "Success" : "Error";
-            if (batchDTO!=null) {
+            if (batchDTO != null) {
+                new Alert(Alert.AlertType.INFORMATION, "Added!").show();
                 txtCourseFee.clear();
                 txtCrowd.clear();
-                new Alert(Alert.AlertType.INFORMATION, text).show();
                 loadCoursesList();
-            } else {
-                new Alert(Alert.AlertType.INFORMATION, text).show();
             }
-        } catch (SQLException | ClassNotFoundException |RuntimeException e) {
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-BatchService batchService;
-    private BatchDTO addNewBatch() throws SQLException, ClassNotFoundException,RuntimeException {
+
+    private BatchDTO addNewBatch() throws SQLException, ClassNotFoundException, RuntimeException {
         if (!cmbCourse.getValue().isEmpty()) {
             if (RegExPatterns.getDoublePattern().matcher(txtCourseFee.getText()).matches()) {
                 if (cmbDate.getValue() != null) {
                     if (Integer.parseInt(txtCrowd.getText()) > 0) {
-                        return batchService.save(
-                                new BatchDTO(
-                                        lblBatchNo.getText() + cmbCourse.getValue(),
-                                        Integer.parseInt(lblBatchNo.getText()),
-                                        cmbCourse.getValue(),
-                                        Double.parseDouble(txtCourseFee.getText()),
-                                        Date.valueOf(cmbDate.getValue()),
-                                        Integer.parseInt(txtCrowd.getText())
-                                ));
+                        return batchService.save(new BatchDTO(lblBatchNo.getText() + cmbCourse.getValue(), Integer.parseInt(lblBatchNo.getText()), cmbCourse.getValue(), Double.parseDouble(txtCourseFee.getText()), Date.valueOf(cmbDate.getValue()), Integer.parseInt(txtCrowd.getText())));
                     } else {
                         new Alert(Alert.AlertType.ERROR, "Enter Crowd!").show();
                     }
@@ -141,26 +123,20 @@ BatchService batchService;
             btnAdd.setDisable(false);
             if (cmbCourse.getSelectionModel().getSelectedItem() != null) {
                 CourseDTO courseDTO = courseService.view(new CourseDTO(cmbCourse.getValue()));
-//                Course courseDetail = CourseModel.getCourseDetail(
-//                        new Course(
-//                                cmbCourse.getValue()
-//                        )
-//                );
                 lblName.setText(courseDTO.getName());
                 lblDuration.setText(courseDTO.getDuration());
                 lblId.setText(courseDTO.getId());
-               // setBatchTable(cmbCourse.getValue());
                 setBatchNo(cmbCourse.getValue());
+                setBatchTable(cmbCourse.getValue());
             }
-        } catch (SQLException | ClassNotFoundException |RuntimeException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-    void setBatchNo(String course) throws SQLException, ClassNotFoundException,RuntimeException {
-        BatchDTO batchDTO = batchService.getLastBatchNo(course);
 
-         //  Batch batchDTO = BatchModel.getLastBatchNo(course);
-        if (batchDTO == null) {
+    void setBatchNo(String course) throws SQLException, ClassNotFoundException, RuntimeException {
+        BatchDTO batchDTO = batchService.getLastBatchNo(course);
+        if (batchDTO.getBatchNo() == 0) {
             lblBatchNo.setText(String.valueOf(1));
         } else {
             int batchNo = batchDTO.getBatchNo();
@@ -173,19 +149,8 @@ BatchService batchService;
         //load batch table in specific course
         List<BatchDTO> batchesArrayList = batchService.getBatches(course);
         ObservableList<BatchTM> observableListBatchTM = FXCollections.observableArrayList();
-    //    int count = 0;
         for (BatchDTO ele : batchesArrayList) {
-           // System.out.println(ele);
-            observableListBatchTM.add(
-                    new BatchTM(
-                            ele.getId(),
-                            ele.getBatchNo(),
-                            ele.getFee(),
-                            ele.getStarting_date(),
-                            ele.getMaxStdCount()
-                    )
-            );
-        //    System.out.println(observableListBatchTM.get(count++));
+            observableListBatchTM.add(new BatchTM(ele.getId(), ele.getBatchNo(), ele.getFee(), ele.getStarting_date(), ele.getMaxStdCount()));
         }
         tblOnGoingBatches.setItems(observableListBatchTM);
     }

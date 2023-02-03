@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payments" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="paymentId" class="java.lang.String"/>
+	<parameter name="regId" class="java.lang.String"/>
+	<parameter name="amount" class="java.lang.String"/>
+	<parameter name="remark" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="178" splitType="Stretch">
+			<image>
+				<reportElement x="-10" y="-20" width="126" height="60" uuid="36dff6a1-517f-4108-bf8c-63d0dc3366ec"/>
+				<imageExpression><![CDATA["/home/shan/Desktop/StudentsManagementSystem/out/production/StudentsManagementSystem/lk/ijse/studentsmanagement/asserts/ijse@1x.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-10" y="22" width="750" height="25" uuid="ca761252-d6bb-4c84-9ed0-07dac0d43e63"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUE OF JAVA AND SOFTWARE ENGINEERING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="40" width="249" height="15" uuid="8eb894fb-d96d-4b56-b90a-3fc54d03e6e0"/>
+				<text><![CDATA[223A,GALLE ROAD, PANADURA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="50" width="246" height="15" uuid="fa4b883b-79cd-4d83-8de5-c53a29b033ea"/>
+				<text><![CDATA[example@ijse.lk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="62" width="202" height="17" uuid="71d123f4-38f5-4bb5-9367-7f723b19a6ac"/>
+				<text><![CDATA[TELE: 0714066967]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="100" width="331" height="30" uuid="dc5ffe50-dcf7-414c-8b0a-5d44ddc8f5a7"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OFFICIAL RECEIPT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="100" width="100" height="30" uuid="750f4c83-4a7d-46f4-a9f2-2c31aa2cc709"/>
+				<textFieldExpression><![CDATA[$P{paymentId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="590" y="101" width="100" height="20" uuid="30c78b43-acb8-4379-9122-36e02bd3ac79"/>
+				<text><![CDATA[Payment ID]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="700" y="123" width="100" height="30" uuid="34318f3f-8cee-4c25-ba8b-44610f8cca87"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="100" width="300" height="25" uuid="d1a9d263-93f0-4b88-ba73-4479d9ff1a09"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL RECEIPT AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="28" width="100" height="20" uuid="f30b0976-c15f-4418-b2a4-cca92170f59c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Registration ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="56" width="100" height="20" uuid="f54fe607-11a3-4913-bbc2-adf1f4df97d1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="25" width="400" height="30" uuid="9f527e0f-0441-4e30-9340-56f704b6f936"/>
+				<textFieldExpression><![CDATA[$P{regId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="54" width="100" height="30" uuid="cce03861-56b0-4699-b855-99c961dbed67"/>
+				<textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="55" width="403" height="30" uuid="9609e8e9-ad92-494e-bc11-742d2dd97e7d"/>
+				<textFieldExpression><![CDATA[$P{remark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="95" width="100" height="30" uuid="938df9d7-bd09-4f6c-80bd-6a83f1a03286"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="652" y="95" width="30" height="20" uuid="0c897037-cf97-47fd-81b4-60a9701e018c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rs.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="-11" y="11" width="811" height="30" uuid="6e5aa92d-4a32-4cae-90ef-27674b6474ae"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[If your payment methd is cheque, please draw the cheque in favour of "INSTITUE OF JAVA & SOFTWARE ENGINEERING (PRIVATE) LIMITED"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="39" width="293" height="19" uuid="98b9c65d-643a-4b15-ae8e-fb81aca2c36e"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cheque payments subject to realization.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="56" width="811" height="19" uuid="588691b9-902f-4ae0-bb32-090b9f444ebb"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Any payment can not be transfered or refunded.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="-11" y="71" width="811" height="19" uuid="de78cc6a-f734-4802-badc-2851a8520244"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[All payments should be paid on the respective date or prior to the date]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

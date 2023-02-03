@@ -3,6 +3,8 @@ package lk.ijse.studentsmanagement.service.util;
 import lk.ijse.studentsmanagement.dto.*;
 import lk.ijse.studentsmanagement.entity.*;
 
+import java.sql.Date;
+
 public class Converter {
     public InquiryDTO toInquiryDTO(Inquiry entity) {
         return new InquiryDTO(entity.getStudentID(), entity.getName(), entity.getCity(), entity.getEmail(), entity.getMobile(), entity.getDate(), entity.getGender(), entity.getStatus());
@@ -114,5 +116,16 @@ public class Converter {
             default:
                 throw new RuntimeException("Registration type does not match");
         }
+    }
+
+    public Batch toBatchEntity(BatchDTO dto) {
+        return new Batch(
+                dto.getId(),
+                dto.getBatchNo(),
+                dto.getCourseId(),
+                dto.getFee(),
+                dto.getStarting_date(),
+                dto.getMaxStdCount()
+        );
     }
 }
