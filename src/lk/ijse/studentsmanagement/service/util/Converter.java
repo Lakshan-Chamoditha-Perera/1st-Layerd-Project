@@ -156,4 +156,14 @@ public class Converter {
         }
 
     }
+
+    public TestPaymentDTO toTestPaymentDTO(TestPayment testPayment) {
+        return new TestPaymentDTO(
+                testPayment.getId(),
+                testPayment.getStudentID(),
+                testPayment.getDate(),
+                testPayment.getRemark(),
+                testPayment.getAmount()
+        );
+    }
 }

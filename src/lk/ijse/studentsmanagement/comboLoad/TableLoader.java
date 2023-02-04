@@ -195,7 +195,6 @@ public class TableLoader {
                         ele.getAmount()
                 );
                 observableList.add(t);
-              //  System.out.println(t);
             }
             tblPayments.setItems(observableList);
             return true;

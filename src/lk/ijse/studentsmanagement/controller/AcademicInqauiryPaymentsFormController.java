@@ -1,15 +1,21 @@
 package lk.ijse.studentsmanagement.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.db.DBconnection;
+import lk.ijse.studentsmanagement.dto.TestPaymentDTO;
+import lk.ijse.studentsmanagement.service.ServiceFactory;
+import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.TestPaymentService;
 import lk.ijse.studentsmanagement.tblModels.TestPaymentsTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -17,48 +23,34 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AcademicInqauiryPaymentsFormController implements Initializable {
 
-    public AreaChart graph;
-    public TextField txtStdID;
+    TestPaymentService testPaymentService;
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<TestPaymentsTM> tblPayments;
-
     @FXML
     private TableColumn<?, ?> colPaymentID;
-
     @FXML
     private TableColumn<?, ?> colStudentID;
-
     @FXML
     private TableColumn<?, ?> colDate;
-
     @FXML
     private TableColumn<?, ?> colRemark;
-
     @FXML
     private TableColumn<?, ?> colAmount;
-
     @FXML
     private JFXButton btnPrint;
 
     @FXML
-    private Button btnSearch;
-
-    @FXML
     void btnPrintOnAction(ActionEvent event) {
-        printReport();
+        //  printReport();
     }
 
-    @FXML
-    void btnSearchOnAction(ActionEvent event) {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,32 +61,30 @@ public class AcademicInqauiryPaymentsFormController implements Initializable {
         colPaymentID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         try {
-            boolean loadTestPayments = TableLoader.loadTestPayments(tblPayments);
-            if (!loadTestPayments) {
-                new Alert(Alert.AlertType.INFORMATION, "Test Payments Not added yet").show();
-            }else{
-            //    graph.set
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+            testPaymentService = ServiceFactory.getInstance().getService(ServiceTypes.TEST_PAYMENTS);
+            loadTestPayments();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-    private void printReport() {
 
+    public void loadTestPayments() throws SQLException, ClassNotFoundException {
+        List<TestPaymentDTO> list = testPaymentService.getAllPayments();
+        //    ArrayList<TestPayment> list = TestPaymentModel.getAllPayments();
+        ObservableList<TestPaymentsTM> observableList = FXCollections.observableArrayList();
+        for (TestPaymentDTO testPaymentDTO : list)
+            observableList.add(new TestPaymentsTM(testPaymentDTO.getId(), testPaymentDTO.getStudentID(), testPaymentDTO.getDate(), testPaymentDTO.getRemark(), testPaymentDTO.getAmount()));
+
+        tblPayments.setItems(observableList);
+    }
+
+    private void printReport() {
         try {
-            JasperReport compileReport = JasperCompileManager.compileReport(
-                    JRXmlLoader.load(
-                            getClass().getResourceAsStream(
-                                    "/lk/ijse/studentsmanagement/report/IQTestPaymentReport.jrxml"
-                            )
-                    )
-            );
-            JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport,null, DBconnection.getInstance().getConnection());
+            JasperReport compileReport = JasperCompileManager.compileReport(JRXmlLoader.load(getClass().getResourceAsStream("/IQTestPaymentReport.jrxml")));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, null, DBconnection.getInstance().getConnection());
             JasperViewer.viewReport(jasperPrint, false);
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e+"").show();
+        } catch (SQLException | ClassNotFoundException | JRException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 }

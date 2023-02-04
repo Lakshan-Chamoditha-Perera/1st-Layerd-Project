@@ -6,6 +6,7 @@ import lk.ijse.studentsmanagement.dao.custom.InquiryIqTestDetailDAO;
 import lk.ijse.studentsmanagement.dao.custom.TestPaymentDAO;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.TestPaymentDTO;
+import lk.ijse.studentsmanagement.entity.TestPayment;
 import lk.ijse.studentsmanagement.service.custom.TestPaymentService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
@@ -13,6 +14,8 @@ import lk.ijse.studentsmanagement.service.util.Types;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestPaymentServiceImpl implements TestPaymentService {
     TestPaymentDAO testPaymentDAO;
@@ -43,12 +46,12 @@ public class TestPaymentServiceImpl implements TestPaymentService {
         try {
             connection.setAutoCommit(false);
             if (testPaymentDAO.save(converter.toTestPaymentEntity(testPayment)) != null) {
-                if (inquiryIqTestDetailDAO.view(converter.toInquiryIqTestDetailEntity(testPayment.getInquiryIQTestDetailDTO(), Types.InquiryIQTestDetailType1))!=null) {
-                  if  (inquiryIqTestDetailDAO.save(converter.toInquiryIqTestDetailEntity(testPayment.getInquiryIQTestDetailDTO(),Types.InquiryIQTestDetailType1))!=null) {
-                      connection.commit();
-                      return testPayment;
-                  }
-                  connection.rollback();
+                if (inquiryIqTestDetailDAO.view(converter.toInquiryIqTestDetailEntity(testPayment.getInquiryIQTestDetailDTO(), Types.InquiryIQTestDetailType1)) != null) {
+                    if (inquiryIqTestDetailDAO.save(converter.toInquiryIqTestDetailEntity(testPayment.getInquiryIQTestDetailDTO(), Types.InquiryIQTestDetailType1)) != null) {
+                        connection.commit();
+                        return testPayment;
+                    }
+                    connection.rollback();
                     throw new RuntimeException("Inquiry IQ Test Detail not added");
                 }
                 connection.rollback();
@@ -64,5 +67,13 @@ public class TestPaymentServiceImpl implements TestPaymentService {
     @Override
     public double getPaymentsSum() throws SQLException, ClassNotFoundException {
         return testPaymentDAO.getPaymentsSum();
+    }
+
+    @Override
+    public List<TestPaymentDTO> getAllPayments() throws SQLException, ClassNotFoundException, RuntimeException {
+        List<TestPayment> allPayments = testPaymentDAO.getAllPayments();
+        if (allPayments.size() > 0)
+            return allPayments.stream().map(testPayment -> converter.toTestPaymentDTO(testPayment)).collect(Collectors.toList());
+        throw new RuntimeException("Empty Test Payment List");
     }
 }
