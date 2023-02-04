@@ -5,9 +5,11 @@ import lk.ijse.studentsmanagement.dao.DaoTypes;
 import lk.ijse.studentsmanagement.dao.custom.ExamDAO;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.ExamDTO;
+import lk.ijse.studentsmanagement.entity.Exam;
 import lk.ijse.studentsmanagement.service.custom.ExamService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
+import lk.ijse.studentsmanagement.service.util.Types;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -35,7 +37,18 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List<ExamDTO> getAllExams() throws SQLException, ClassNotFoundException {
-        return examDAO.getAllExams().stream().map(exam -> converter.toExamDTO(exam)).collect(Collectors.toList());
+    public List<ExamDTO> getAllExams() throws SQLException, ClassNotFoundException,RuntimeException {
+        List<Exam> allExams = examDAO.getAllExams();
+        if(allExams.size()>0){
+           return allExams.stream().map(exam -> converter.toExamDTO(exam, Types.ExamType1)).collect(Collectors.toList());
+        }
+        throw new RuntimeException("Empty Exam List");
+    }
+
+    @Override
+    public ExamDTO getLastExamID() throws SQLException, ClassNotFoundException,RuntimeException {
+        Exam lastExam = examDAO.getLastExamID();
+        if(lastExam!=null) converter.toExamDTO(lastExam,Types.ExamType2);
+        return null;
     }
 }

@@ -29,6 +29,7 @@ public class ServiceFactory {
             case SUBJECT: return (T) new SubjectServiceImpl();
             case SYSTEM_USER: return (T) new SystemUserServiceImpl();
             case TEST_PAYMENTS: return (T) new TestPaymentServiceImpl();
+            case COURSE_SUBJECT_DETAIL: return (T) new CourseSubjectDetailServiceImpl();
         }
         return null;
     }

@@ -145,7 +145,6 @@ public class BatchImpl implements BatchDAO {
     @Override
     public Batch getCourseID(String value) throws SQLException, ClassNotFoundException, RuntimeException {
         ResultSet resultSet = CrudUtil.execute("SELECT batchID,courseId FROM batch WHERE batchID = ?", value);
-        if (!resultSet.wasNull()) {
             if (resultSet.next()) {
                 return new Batch(
                         resultSet.getString(1),
@@ -153,7 +152,6 @@ public class BatchImpl implements BatchDAO {
 
                 );
             }
-        }
         throw new RuntimeException("getCourseID null");
     }
 

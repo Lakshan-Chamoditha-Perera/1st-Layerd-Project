@@ -15,60 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TableLoader {
-    public static void loadTableCourseBatch(TableView tblStd, String batch, String course) throws SQLException, ClassNotFoundException {
-        //load students
-        ArrayList<Registration> registrationsArrayList = RegistrationModel.getCourseBatchList(course, batch);
-        ObservableList<RegistrationTM> observableArrayList = FXCollections.observableArrayList();
-        int count = 0;
-        for (Registration ele : registrationsArrayList) {
-            observableArrayList.add(
-                    new RegistrationTM(
-                            ele.getRegistrationId(),
-                            ele.getName(),
-                            ele.getMobile(),
-                            ele.getEmail(),
-                            ele.getStatus()
-                    )
-            );
-        }
-        tblStd.setItems(observableArrayList);
-    }
-
-    public static void setBatchTable(TableView tblBatches, String course) throws SQLException, ClassNotFoundException {
-        //load batch table in specific course
-        ArrayList<Batch> batchesArrayList = BatchModel.getBatches(course);
-        ObservableList<BatchTM> observableListBatchTM = FXCollections.observableArrayList();
-        int count = 0;
-        for (Batch ele : batchesArrayList) {
-            System.out.println(ele);
-            observableListBatchTM.add(
-                    new BatchTM(
-                            ele.getId(),
-                            ele.getBatchNo(),
-                            ele.getFee(),
-                            ele.getStarting_date(),
-                            ele.getMaxStdCount()
-                    )
-            );
-            System.out.println(observableListBatchTM.get(count++));
-        }
-        tblBatches.setItems(observableListBatchTM);
-    }
-
-    public static void setCellValues(TableColumn[] columns) {
-        columns[0].setCellValueFactory(new PropertyValueFactory<>("registrationId"));
-        columns[1].setCellValueFactory(new PropertyValueFactory<>("name"));
-        columns[2].setCellValueFactory(new PropertyValueFactory<>("mobile"));
-        columns[3].setCellValueFactory(new PropertyValueFactory<>("email"));
-        columns[4].setCellValueFactory(new PropertyValueFactory<>("status"));
-//
-        columns[5].setCellValueFactory(new PropertyValueFactory<>("id"));
-        columns[6].setCellValueFactory(new PropertyValueFactory<>("batchNo"));
-        columns[7].setCellValueFactory(new PropertyValueFactory<>("fee"));
-        columns[8].setCellValueFactory(new PropertyValueFactory<>("starting_date"));
-        columns[9].setCellValueFactory(new PropertyValueFactory<>("maxStdCount"));
-    }
-
     public static void loadAllBatches(TableView tableBatches) throws SQLException, ClassNotFoundException {
         ArrayList<Batch> list = BatchModel.getAllBAtches();
         ObservableList<BatchTM> observableArrayList = FXCollections.observableArrayList();
@@ -151,24 +97,6 @@ public class TableLoader {
         return false;
     }
 
-    public static boolean loadSubjectTable(TableView<SubjectTM> tblSubjects) throws SQLException, ClassNotFoundException {
-        ArrayList<Subject> list = SubjectModel.getSubjectList();
-        if (list != null) {
-            ObservableList<SubjectTM> observableList = FXCollections.observableArrayList();
-            for (Subject ele : list) {
-                observableList.add(
-                        new SubjectTM(
-                                ele.getId(),
-                                ele.getName(),
-                                ele.getHours()
-                        )
-                );
-            }
-            tblSubjects.setItems(observableList);
-            return true;
-        }
-        return false;
-    }
 
     public static void loadCourseSubjectDetailJOIN(TableView<CourseSubjectDetailTM> tblCourseSubjectDetail, String courseId) throws SQLException, ClassNotFoundException {
         ArrayList<CourseSubjectDetailTM> list = CourseSubjectDetailModel.getCourseSubjecDetailList(courseId);
@@ -181,26 +109,6 @@ public class TableLoader {
         }
     }
 
-    public static boolean loadTestPayments(TableView<TestPaymentsTM> tblPayments) throws SQLException, ClassNotFoundException {
-        ArrayList<TestPayment> list = TestPaymentModel.getAllPayments();
-        if (list != null) {
-            ObservableList<TestPaymentsTM> observableList = FXCollections.observableArrayList();
-            int i = 1;
-            for (TestPayment ele : list) {
-                TestPaymentsTM t = new TestPaymentsTM(
-                        ele.getId(),
-                        ele.getStudentID(),
-                        ele.getDate(),
-                        ele.getRemark(),
-                        ele.getAmount()
-                );
-                observableList.add(t);
-            }
-            tblPayments.setItems(observableList);
-            return true;
-        }
-        return false;
-    }
 
     public static boolean loadAllPayments(TableView<PaymentsTM> tblPayments) throws SQLException, ClassNotFoundException {
         ArrayList<Payment> paymentArrayList = PaymentModel.getAllPayments();
@@ -222,25 +130,6 @@ public class TableLoader {
         return false;
     }
 
-    public static boolean loadInquiryIQTestResults(TableView tbl, IQTest iqTest) throws SQLException, ClassNotFoundException {
-        ArrayList<InquiryIQTestDetail> inquiryIQTestList = InquiryIQTestDetailModel.getInquiryIQTestList(iqTest.getId());
-        if(inquiryIQTestList!=null){
-            ObservableList<InquiryIQTestDetailTM> observableArrayList = FXCollections.observableArrayList();
-            for (InquiryIQTestDetail ele: inquiryIQTestList) {
-                observableArrayList.add(
-                        new InquiryIQTestDetailTM(
-                                ele.getStudentId(),
-                                ele.getTestId(),
-                                ele.getResult(),
-                                ele.getName()
-                        )
-                );
-            }
-            tbl.setItems(observableArrayList);
-            return true;
-        }
-        return false;
-    }
 
     public static boolean loadMarkAttendanceTable(Date valueOf, TableView<AttendanceTM> tblAttendance) throws SQLException, ClassNotFoundException {
         ArrayList<Attendance> list = AttendanceModel.loadDayAttendance(valueOf);

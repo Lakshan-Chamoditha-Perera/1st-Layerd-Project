@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao;
 
 import lk.ijse.studentsmanagement.dao.custom.impl.*;
+import lk.ijse.studentsmanagement.service.custom.impl.CourseSubjectDetailServiceImpl;
 
 import java.sql.Connection;
 
@@ -62,7 +63,8 @@ public class DAOFactory {
 
             case TEST_PAYMENTS:
                 return (T) new TestPaymentImpl(connection);
-
+            case COURSE_SUBJECT_DETAIL:
+                return (T) new CourseSubjectDetailImpl(connection);
             default:
                 return null;
         }

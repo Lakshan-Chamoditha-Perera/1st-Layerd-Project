@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ExamDAO extends CrudDAO <Exam,String>{
-    Exam getExamID() throws SQLException, ClassNotFoundException;
+    Exam getLastExamID() throws SQLException, ClassNotFoundException;
     List<Exam> getExams(String batchId, String subjectId) throws SQLException, ClassNotFoundException;
     List<Exam> getAllExams() throws SQLException, ClassNotFoundException;
     List<Exam> getExam(Exam exam) throws SQLException, ClassNotFoundException;

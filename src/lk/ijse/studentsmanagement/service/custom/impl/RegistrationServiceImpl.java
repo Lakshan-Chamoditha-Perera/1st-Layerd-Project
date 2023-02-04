@@ -15,6 +15,10 @@ import lk.ijse.studentsmanagement.service.util.Types;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static lk.ijse.studentsmanagement.service.util.Types.RegistrationType1;
 
 public class RegistrationServiceImpl implements RegistrationService {
     private final RegistrationDAO registrationDAO;
@@ -35,7 +39,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public RegistrationDTO save(RegistrationDTO dto) throws SQLException, ClassNotFoundException, DuplicateException {
         try {
             connection.setAutoCommit(false);
-            if (registrationDAO.save(converter.toRegistrationEntity(dto, Types.RegistrationType1)) != null) {
+            if (registrationDAO.save(converter.toRegistrationEntity(dto, RegistrationType1)) != null) {
                 if (paymentDAO.save(converter.toPaymentEntity(dto.getPayment())) != null) {
                     if (inquiryDAO.updateInquiryStatus(dto.getNic())) {
                         connection.commit();
@@ -60,16 +64,38 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public RegistrationDTO view(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException,RuntimeException {
+    public RegistrationDTO view(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException, RuntimeException {
         Registration registration = registrationDAO.view(converter.toRegistrationEntity(registrationDTO, Types.RegistrationType2));
-        if(registration!=null) return converter.toRegistrationDTO(registration);
+        if (registration != null) return converter.toRegistrationDTO(registration, RegistrationType1);
         throw new RuntimeException("Registration not found");
     }
 
     @Override
     public RegistrationDTO update(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException {
         Registration registration = registrationDAO.update(converter.toRegistrationEntity(registrationDTO, Types.RegistrationType3));
-        if(registration!=null) return registrationDTO;
+        if (registration != null) return registrationDTO;
         throw new RuntimeException("Registration not updated");
+    }
+
+    @Override
+    public List<RegistrationDTO> getCourseBatchList(String course, String batch) throws SQLException, ClassNotFoundException, RuntimeException {
+        List<Registration> courseBatchList = registrationDAO.getCourseBatchList(course, batch);
+        if (courseBatchList.size() > 0)
+            return courseBatchList.stream().map(registration -> converter.toRegistrationDTO(registration, Types.RegistrationType2)).collect(Collectors.toList());
+        throw new RuntimeException("Empty registration list");
+    }
+
+    @Override
+    public String getRegistrationEmail(String text) throws SQLException, ClassNotFoundException, RuntimeException {
+        String registrationEmail = registrationDAO.getRegistrationEmail(text);
+        if (registrationEmail != null) return registrationEmail;
+        throw new RuntimeException("Empty email");
+    }
+
+    @Override
+    public List<String> getRegistrationEmailList(String value) throws SQLException, ClassNotFoundException ,RuntimeException{
+        List<String> registrationEmailList = registrationDAO.getRegistrationEmailList(value);
+        if(registrationEmailList.size()>0) return registrationEmailList;
+        throw new RuntimeException("Empty registration list");
     }
 }

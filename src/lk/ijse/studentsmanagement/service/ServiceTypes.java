@@ -16,5 +16,6 @@ public enum ServiceTypes {
     SUBJECT,
     SYSTEM_USER,
     TEST_PAYMENTS,
-    MAIL
+    MAIL,
+    COURSE_SUBJECT_DETAIL
 }

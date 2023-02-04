@@ -14,4 +14,8 @@ public interface BatchService extends SuperService <BatchDTO>{
     List<BatchDTO> getBatches(String course) throws SQLException, ClassNotFoundException;
 
     BatchDTO getLastBatchNo(String course) throws SQLException, ClassNotFoundException;
+
+    List<BatchDTO> getAllBatchID() throws SQLException, ClassNotFoundException;
+
+    BatchDTO getCourseID(String value) throws SQLException, ClassNotFoundException;
 }

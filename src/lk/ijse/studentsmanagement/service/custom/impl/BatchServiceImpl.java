@@ -16,8 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lk.ijse.studentsmanagement.service.util.Types.BatchType1;
-import static lk.ijse.studentsmanagement.service.util.Types.BatchType2;
+import static lk.ijse.studentsmanagement.service.util.Types.*;
 
 public class BatchServiceImpl implements BatchService {
     final Converter converter;
@@ -63,7 +62,20 @@ public class BatchServiceImpl implements BatchService {
            return converter.toBatchDTO(lastBatchNo,BatchType2);
         }
         return new BatchDTO(0);
-      //  return converter.toBatchDTO(,BatchType2);
-       // return new BatchDTO(1);
+    }
+
+    @Override
+    public List<BatchDTO> getAllBatchID() throws SQLException, ClassNotFoundException ,RuntimeException{
+        List<Batch> allBatchIds = batchDAO.getAllBatchIds();
+        if(allBatchIds.size()>0) {
+           return allBatchIds.stream().map(batch -> converter.toBatchDTO(batch, BatchType3)).collect(Collectors.toList());
+        }
+        throw  new RuntimeException("Empty Batch List");
+    }
+
+    @Override
+    public BatchDTO getCourseID(String value) throws SQLException, ClassNotFoundException,RuntimeException {
+        Batch courseID = batchDAO.getCourseID(value);
+        return converter.toBatchDTO(courseID,BatchType4);
     }
 }

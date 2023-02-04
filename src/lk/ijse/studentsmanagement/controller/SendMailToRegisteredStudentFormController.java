@@ -3,21 +3,26 @@ package lk.ijse.studentsmanagement.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.studentsmanagement.comboLoad.ComboLoader;
-import lk.ijse.studentsmanagement.model.RegistrationModel;
-import lk.ijse.studentsmanagement.smtp.Mail;
+import lk.ijse.studentsmanagement.dto.BatchDTO;
+import lk.ijse.studentsmanagement.dto.RegistrationDTO;
+import lk.ijse.studentsmanagement.service.ServiceFactory;
+import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.BatchService;
+import lk.ijse.studentsmanagement.service.custom.RegistrationService;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 
 import javax.mail.MessagingException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SendMailToRegisteredStudentFormController implements Initializable {
@@ -26,30 +31,24 @@ public class SendMailToRegisteredStudentFormController implements Initializable 
     public Label txtSelectBatch;
     public JFXTextField txtID;
     public Label lblEnterEmail;
+    RegistrationService registrationService;
+    BatchService batchService;
     @FXML
     private AnchorPane mainPain;
-
     @FXML
     private TextArea txtMsg;
-
     @FXML
     private JFXRadioButton rBtnStd;
-
     @FXML
     private ToggleGroup group;
-
     @FXML
     private ComboBox<String> cmbBatch;
-
     @FXML
     private JFXButton btnSend;
-
     @FXML
     private JFXButton btnCancel;
-
     @FXML
     private JFXTextField txtEmail;
-
     @FXML
     private JFXTextField txtSubject;
 
@@ -59,24 +58,24 @@ public class SendMailToRegisteredStudentFormController implements Initializable 
     }
 
     @FXML
-    void btnSendOnAction(ActionEvent event){
+    void btnSendOnAction(ActionEvent event) {
         try {
             if (rBtnStd.isSelected()) {
                 sendToStudent();
             } else {
                 sendToGroup();
             }
-        } catch (SQLException | MessagingException | ClassNotFoundException e) {
-           new Alert(Alert.AlertType.ERROR,String.valueOf(e)).show();
+        } catch (SQLException | MessagingException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    private void sendToGroup() throws SQLException, ClassNotFoundException, MessagingException {
+    private void sendToGroup() throws SQLException, ClassNotFoundException, MessagingException, RuntimeException {
         if (cmbBatch.getValue() != null) {
-            ArrayList<String> emailList = RegistrationModel.getRegistrationEmailList(cmbBatch.getValue());
+            List<String> emailList = registrationService.getRegistrationEmailList(cmbBatch.getValue());
             if (txtSubject.getText() != null) {
                 if (txtMsg.getText() != null) {
-                    Mail.outMail(txtMsg.getText(), emailList, txtSubject.getText());
+                    //    Mail.outMail(txtMsg.getText(), emailList, txtSubject.getText());
                 } else {
                     new Alert(Alert.AlertType.ERROR, "enter msg").show();
                 }
@@ -88,22 +87,19 @@ public class SendMailToRegisteredStudentFormController implements Initializable 
         }
     }
 
-    private void sendToStudent() throws SQLException, ClassNotFoundException, MessagingException {
+    private void sendToStudent() throws SQLException, ClassNotFoundException, MessagingException, RuntimeException {
         if (RegExPatterns.getRegistrationIdPattern().matcher(txtID.getText()).matches()) {
-            String registrationEmail = RegistrationModel.getRegistrationEmail(txtID.getText());
-            if (registrationEmail != null) {
-                txtEmail.setText(registrationEmail);
-                if (txtSubject.getText() != null) {
-                    if (txtMsg.getText() != null) {
-                        Mail.outMail(txtMsg.getText(), txtEmail.getText(), txtSubject.getText());
-                    } else {
-                        new Alert(Alert.AlertType.ERROR, "enter msg").show();
-                    }
+            registrationService.view(new RegistrationDTO(txtID.getText()));
+            String registrationEmail = registrationService.getRegistrationEmail(txtID.getText());
+            txtEmail.setText(registrationEmail);
+            if (txtSubject.getText() != null) {
+                if (txtMsg.getText() != null) {
+                    //  Mail.outMail(txtMsg.getText(), txtEmail.getText(), txtSubject.getText());
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "enter subject").show();
+                    new Alert(Alert.AlertType.ERROR, "enter msg").show();
                 }
             } else {
-                new Alert(Alert.AlertType.ERROR, "Student does not exists").show();
+                new Alert(Alert.AlertType.ERROR, "enter subject").show();
             }
         } else {
             new Alert(Alert.AlertType.ERROR, "Enter Std ID").show();
@@ -150,14 +146,23 @@ public class SendMailToRegisteredStudentFormController implements Initializable 
         cmbBatch.setVisible(false);
         txtSelectBatch.setVisible(false);
         try {
-            boolean loadBatchIDS = ComboLoader.loadBatchIDS(cmbBatch);
-            if(!loadBatchIDS){
-                new Alert(Alert.AlertType.INFORMATION,"No any batcehs added").show();
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            registrationService = ServiceFactory.getInstance().getService(ServiceTypes.REGISTRATION);
+            batchService = ServiceFactory.getInstance().getService(ServiceTypes.BATCH);
+            loadBatchIDS();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
+
+    public void loadBatchIDS() throws SQLException, ClassNotFoundException, RuntimeException {
+        List<BatchDTO> batchList = batchService.getAllBatchID();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (BatchDTO ele : batchList) {
+            observableList.add(ele.getId());
+        }
+        cmbBatch.setItems(observableList);
+    }
+
 
     public void txtIDOnAction(ActionEvent actionEvent) {
     }

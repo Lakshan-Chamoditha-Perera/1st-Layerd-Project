@@ -39,7 +39,7 @@ public class BatchModel {
     public static ArrayList<Batch> getBatches() throws SQLException, ClassNotFoundException {
         ArrayList<Batch> list = new ArrayList<>();
         if(list!=null){
-            ResultSet resultSet = CrudUtil.execute("SELECT batchId FROM batch ");
+            ResultSet resultSet = CrudUtil.execute("SELECT batchId FROM batch");
             while (resultSet.next()) {
                 list.add(new Batch(resultSet.getString(1)));
             }

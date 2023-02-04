@@ -14,6 +14,10 @@ public enum Types {
     CourseType2,
     BatchType1,
     BatchType2,
+    BatchType3,
+    BatchType4,
     SubjectType1,
-    SubjectType2
+    SubjectType2,
+    ExamType1,
+    ExamType2
 }

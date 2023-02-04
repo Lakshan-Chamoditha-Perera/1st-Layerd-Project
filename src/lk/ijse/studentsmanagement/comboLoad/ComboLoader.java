@@ -20,24 +20,12 @@ public class ComboLoader {
         comboBox.setItems(observableArrayList);
     }
 
-    public static void LoadBatchIDS(ComboBox<String> comboBox, String courseName) throws SQLException, ClassNotFoundException {
-        ArrayList<Batch> list = BatchModel.getBatchIDListByCourseId(courseName);
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        for (Batch ele : list) {
-            observableList.add(ele.getId());
-            System.out.println(ele.getId());
-        }
-        comboBox.setItems(observableList);
-    }
-
     public static boolean loadBatchIDS(ComboBox<String> comboBox) throws SQLException, ClassNotFoundException {
         ArrayList<Batch> batches = BatchModel.getBatches();
         if(batches!=null){
-
             ObservableList<String> observableList = FXCollections.observableArrayList();
             for (Batch ele : batches) {
                 observableList.add(ele.getId());
-                System.out.println(ele.getId());
             }
             comboBox.setItems(observableList);
             return true;

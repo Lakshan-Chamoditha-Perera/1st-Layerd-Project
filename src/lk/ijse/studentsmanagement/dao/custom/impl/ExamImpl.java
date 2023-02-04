@@ -58,12 +58,12 @@ public class ExamImpl implements ExamDAO {
     }
 
     @Override
-    public Exam getExamID() throws SQLException, ClassNotFoundException {
+    public Exam getLastExamID() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT id from exam ORDER BY id DESC LIMIT 1");
         if (resultSet.next()) {
             return new Exam(resultSet.getString(1));
         }
-        throw new RuntimeException();
+       return null;
     }
 
     @Override
