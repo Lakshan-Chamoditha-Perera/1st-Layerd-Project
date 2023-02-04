@@ -18,13 +18,10 @@ public class SubjectImpl implements SubjectDAO {
     }
 
     @Override
-    public Subject save(Subject entity) throws SQLException, ClassNotFoundException {
-        if (CrudUtil.execute("INSERT INTO subject VALUES(?,?,?)",
-                entity.getId(),
-                entity.getName(),
-                entity.getHours()
-        )) return entity;
-        throw new RuntimeException();
+    public Subject save(Subject entity) throws SQLException, ClassNotFoundException, RuntimeException {
+        if (CrudUtil.execute("INSERT INTO subject VALUES(?,?,?)", entity.getId(), entity.getName(), entity.getHours()))
+            return entity;
+        throw new RuntimeException("Subject not added");
     }
 
     @Override
@@ -34,10 +31,8 @@ public class SubjectImpl implements SubjectDAO {
 
     @Override
     public Subject delete(Subject entity) throws SQLException, ClassNotFoundException {
-        if (CrudUtil.execute("DELETE FROM subject WHERE id = ?",
-                entity.getId()
-        )) return entity;
-        throw new RuntimeException();
+        if (CrudUtil.execute("DELETE FROM subject WHERE id = ?", entity.getId())) return entity;
+        throw new RuntimeException("Subject not deleted...");
     }
 
     @Override
@@ -66,15 +61,19 @@ public class SubjectImpl implements SubjectDAO {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM subject");
         ArrayList<Subject> list = new ArrayList<>();
         while (resultSet.next()) {
-            list.add(
-                    new Subject(
-                            resultSet.getString(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3)
-                    )
-            );
+            list.add(new Subject(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3)));
         }
         return list;
 
     }
+
+    @Override
+    public Subject getLastSubjectID() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT id from subject ORDER BY id DESC LIMIT 1");
+        if (resultSet.next()) {
+            return new Subject(resultSet.getString(1));
+        }
+        return null;
+    }
+
 }

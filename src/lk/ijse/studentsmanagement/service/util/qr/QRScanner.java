@@ -1,4 +1,4 @@
-package lk.ijse.studentsmanagement.qr;
+package lk.ijse.studentsmanagement.service.util.qr;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;

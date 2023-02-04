@@ -10,31 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ComboLoader {
-    public static boolean loadIQExamDatesComboBox(ComboBox<String> comboBox) throws SQLException, ClassNotFoundException {
-        ArrayList<IQTest> iqTestList = IQTestModel.getIQTestList();
-        if (iqTestList != null) {
-            ObservableList<String> observableArrayList = FXCollections.observableArrayList();
-            for (IQTest ele : iqTestList) {
-                observableArrayList.add(ele.getDate().toString());
-            }
-            comboBox.setItems(observableArrayList);
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean loadIQExamIDComboBox(ComboBox<String> comboBox) throws SQLException, ClassNotFoundException {
-        ArrayList<IQTest> iqTestList = IQTestModel.getIQTestList();
-        if (iqTestList != null) {
-            ObservableList<String> observableArrayList = FXCollections.observableArrayList();
-            for (IQTest ele : iqTestList) {
-                observableArrayList.add(ele.getId());
-            }
-            comboBox.setItems(observableArrayList);
-            return true;
-        }
-        return false;
-    }
 
     public static void loadCoursesList(ComboBox<String> comboBox) throws SQLException, ClassNotFoundException {
         ArrayList<Course> courseArrayList = CourseModel.getCourseList();

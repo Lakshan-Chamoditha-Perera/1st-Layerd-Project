@@ -10,4 +10,6 @@ public interface SubjectDAO extends CrudDAO <Subject,String>{
     List<Subject> getIDs() throws SQLException, ClassNotFoundException;
     String getSubjectName(Subject subject) throws SQLException, ClassNotFoundException;
     List<Subject> getSubjectList() throws SQLException, ClassNotFoundException;
+
+    Subject getLastSubjectID() throws SQLException, ClassNotFoundException;
 }

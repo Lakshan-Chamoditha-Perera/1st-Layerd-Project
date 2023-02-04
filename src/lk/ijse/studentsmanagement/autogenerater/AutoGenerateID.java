@@ -6,38 +6,7 @@ import lk.ijse.studentsmanagement.entity.*;
 import java.sql.SQLException;
 public class AutoGenerateID {
 
-    public static void setLblRegPaymentID(Label lblPaymentID) throws SQLException, ClassNotFoundException {
-        String lastTestPaymentID = PaymentModel.getLastPaymentID();
-        if (lastTestPaymentID == null) {
-            lblPaymentID.setText("P000001");
-        } else {
-            String[] split = lastTestPaymentID.split("[P]");
-            int lastDigits = Integer.parseInt(split[1]);
-            lastDigits++;
-            lblPaymentID.setText(String.format("P%06d", lastDigits));
-        }
-    }
-    public static void setRegistrationID(Label lblRegistrationID) throws SQLException, ClassNotFoundException {
-        String lastRegistrationId = RegistrationModel.getLastRegistrationID();
-        if (lastRegistrationId == null) {
-            lblRegistrationID.setText("IT000001");
-        } else {
-            String[] split = lastRegistrationId.split("[I][T]");
-            int lastDigits = Integer.parseInt(split[1]);
-            lastDigits++;
-            lblRegistrationID.setText(String.format("IT%06d", lastDigits));
-        }
-    }
-    public static void setBatchNo(Label lblBatchNo,String course) throws SQLException, ClassNotFoundException {
-        Batch batch = BatchModel.getLastBatchNo(course);
-        if (batch == null) {
-            lblBatchNo.setText(String.valueOf(1));
-        } else {
-            int batchNo = batch.getBatchNo();
-            batchNo++;
-            lblBatchNo.setText(String.valueOf(batchNo));
-        }
-    }
+
 
     public static void loadExamID(Label lblExamId) throws SQLException, ClassNotFoundException {
         Exam lastExamID = ExamModel.getExamID();
@@ -65,16 +34,16 @@ public class AutoGenerateID {
         }
     }
 
-    public static void generateSubjectID(Label lblSubID) throws SQLException, ClassNotFoundException {
-        Subject lastSubjectID = Subject.getLastSubjectID();
-        if(lastSubjectID==null){
-            lblSubID.setText("ITS0001");
-        }else{
-            String id = lastSubjectID.getId();
-            String[] split = id.split("[I][T][S]");
-            int lastDigits = Integer.parseInt(split[1]);
-            lastDigits++;
-            lblSubID.setText(String.format("ITS%04d", lastDigits));
-        }
-    }
+//    public static void generateSubjectID(Label lblSubID) throws SQLException, ClassNotFoundException {
+//        Subject lastSubjectID = Subject.getLastSubjectID();
+//        if(lastSubjectID==null){
+//            lblSubID.setText("ITS0001");
+//        }else{
+//            String id = lastSubjectID.getId();
+//            String[] split = id.split("[I][T][S]");
+//            int lastDigits = Integer.parseInt(split[1]);
+//            lastDigits++;
+//            lblSubID.setText(String.format("ITS%04d", lastDigits));
+//        }
+//    }
 }

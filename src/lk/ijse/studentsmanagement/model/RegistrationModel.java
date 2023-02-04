@@ -12,58 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RegistrationModel {
-    public static String getLastRegistrationID() throws SQLException, ClassNotFoundException {
-        ResultSet result = CrudUtil.execute("SELECT registration_id FROM registration ORDER BY registration_id DESC LIMIT 1");
-        if (result.next()) {
-            return result.getString(1);
-        }
-        return null;
-    }
 
-    public static boolean addRegistration(Registration registration) throws SQLException, ClassNotFoundException, IOException, WriterException {
-        return CrudUtil.execute("INSERT INTO registration VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                registration.getRegistrationId(),
-                registration.getNic(),
-                registration.getBatchId(),
-                registration.getCourseId(),
-                registration.getGardianId(),
-                registration.getName(),
-                registration.getAddress(),
-                registration.getCity(),
-                registration.getPostalCode(),
-                registration.getMobile(),
-                registration.getEmail(),
-                registration.getDob(),
-                registration.getGender(),
-                registration.getSchool(),
-                registration.getHigherEDU(),
-                registration.getStatus()
-        );
-//        if (isAdded) {
-//           // boolean inquiryStatus =
-//            //QRGenerator.getGenerator(registration.getRegistrationId());
-//        }
-       // return isAdded;
-    }
-
-//    public static boolean registrationPaymentTransaction(Registration registration) throws SQLException, ClassNotFoundException, IOException, WriterException {
-//        try {
-//            DBconnection.getInstance().getConnection().setAutoCommit(false);
-//            if (addRegistration(registration)) {
-//                if (PaymentModel.addPayment(registration.getPayment())) {
-//                    if(InquiryModel.updateInquiryStatus(registration.getNic())){
-//                        DBconnection.getInstance().getConnection().commit();
-//                        return true;
-//                    }
-//                }
-//            }
-//            DBconnection.getInstance().getConnection().rollback();
-//            return false;
-//
-//        } finally {
-//            DBconnection.getInstance().getConnection().setAutoCommit(true);
-//        }
-//    }
 
     public static ArrayList<Registration> getCourseBatchList(String courseID, String batchID) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT registration_id,full_name,mobile_number,email,status FROM registration where courseID = ? AND batchID = ?", courseID, batchID);
@@ -123,19 +72,6 @@ public class RegistrationModel {
             );
         }
         return null;
-    }
-
-    public static boolean updateRegistrationDetails(Registration registration) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("UPDATE registration SET full_name = ?, address = ?, city = ?, postal_code = ?, mobile_number = ?, dob = ?, school = ? WHERE registration_id = ?",
-                registration.getName(),
-                registration.getAddress(),
-                registration.getCity(),
-                registration.getPostalCode(),
-                registration.getMobile(),
-                registration.getDob(),
-                registration.getSchool(),
-                registration.getRegistrationId()
-        );
     }
 
     public static ArrayList<Registration> loadBatchRegistrations(String value) throws SQLException, ClassNotFoundException {

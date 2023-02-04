@@ -31,7 +31,6 @@ public class SubjectModel {
 
     public static ArrayList<Subject> getSubjectList() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM subject");
-        if (resultSet != null) {
             ArrayList<Subject> list = new ArrayList<>();
             while (resultSet.next()) {
                 list.add(
@@ -43,8 +42,6 @@ public class SubjectModel {
                 );
             }
             return list;
-        }
-        return null;
     }
 
     public static boolean addSubject(Subject subject) throws SQLException, ClassNotFoundException {

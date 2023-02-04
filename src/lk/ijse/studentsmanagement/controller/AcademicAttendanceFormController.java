@@ -16,7 +16,7 @@ import javafx.stage.WindowEvent;
 import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.model.AttendanceModel;
 import lk.ijse.studentsmanagement.model.RegistrationModel;
-import lk.ijse.studentsmanagement.qr.QRScanner;
+import lk.ijse.studentsmanagement.service.util.qr.QRScanner;
 import lk.ijse.studentsmanagement.tblModels.AttendanceTM;
 import lk.ijse.studentsmanagement.entity.Attendance;
 import lk.ijse.studentsmanagement.entity.Registration;

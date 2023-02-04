@@ -26,32 +26,4 @@ public class GardianModel {
         return null;
     }
 
-//    public static boolean addGardianT(Guardian guardian) throws SQLException, ClassNotFoundException, IOException, WriterException {
-//        try {
-//            DBconnection.getInstance().getConnection().setAutoCommit(false);
-//            boolean flag = CrudUtil.execute("INSERT INTO gardian VALUES(?,?,?,?,?,?,?)",
-//                    guardian.getId(),
-//                    guardian.getName(),
-//                    guardian.getAddress(),
-//                    guardian.getMobile(),
-//                    guardian.getEmail(),
-//                    guardian.getDesignation(),
-//                    guardian.getWorkingPlace()
-//            );
-////            if (flag) {
-//                if (RegistrationModel.addRegistration(guardian.getRegistration())) {
-//                    if (PaymentModel.addPayment(guardian.getRegistration().getPayment())) {
-//                        if (InquiryModel.updateInquiryStatus(guardian.getRegistration().getNic())) {
-//                            DBconnection.getInstance().getConnection().commit();
-//                            return true;
-//                        }
-//                    }
-//                }
-//            }
-//            DBconnection.getInstance().getConnection().rollback();
-//            return false;
-//        } finally {
-//            DBconnection.getInstance().getConnection().setAutoCommit(true);
-//        }
-//    }
 }

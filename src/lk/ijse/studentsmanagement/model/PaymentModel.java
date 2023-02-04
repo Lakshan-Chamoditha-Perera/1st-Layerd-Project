@@ -17,28 +17,6 @@ public class PaymentModel {
         }
         return null;
     }
-
-    public static ArrayList<Payment> getPayments(Registration registration) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.execute("SELECT * FROM payments WHERE registration_id = ?", registration.getRegistrationId());
-        if (resultSet != null) {
-            ArrayList<Payment> list = new ArrayList<>();
-            while (resultSet.next()) {
-                list.add(
-                        new Payment(
-                                resultSet.getString(1),
-                                resultSet.getString(2),
-                                resultSet.getString(3),
-                                resultSet.getString(4),
-                                Double.parseDouble(resultSet.getString(5)),
-                                Date.valueOf(resultSet.getString(6))
-                        )
-                );
-            }
-            return list;
-        }
-        return null;
-    }
-
     public static double getPaymentsSum() throws SQLException, ClassNotFoundException {
         ResultSet execute = CrudUtil.execute("SELECT SUM(amount) FROM payments");
         execute.next();

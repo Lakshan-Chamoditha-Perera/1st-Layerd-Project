@@ -1,22 +1,12 @@
-package lk.ijse.studentsmanagement.qr;
+package lk.ijse.studentsmanagement.service.util.qr;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import javafx.embed.swing.SwingNode;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
-import java.awt.*;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
