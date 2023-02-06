@@ -1,9 +1,7 @@
 package lk.ijse.studentsmanagement.service.custom;
 
 import lk.ijse.studentsmanagement.dto.BatchDTO;
-import lk.ijse.studentsmanagement.entity.Batch;
 import lk.ijse.studentsmanagement.service.SuperService;
-import lk.ijse.studentsmanagement.tblModels.BatchTM;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,4 +16,10 @@ public interface BatchService extends SuperService <BatchDTO>{
     List<BatchDTO> getAllBatchID() throws SQLException, ClassNotFoundException;
 
     BatchDTO getCourseID(String value) throws SQLException, ClassNotFoundException;
+
+    List<BatchDTO> getAll() throws SQLException, ClassNotFoundException;
+
+    BatchDTO delete(BatchDTO batchDTO) throws SQLException, ClassNotFoundException,RuntimeException;
+
+    BatchDTO updateBatchDetail(BatchDTO batchDTO) throws SQLException, ClassNotFoundException,RuntimeException;
 }

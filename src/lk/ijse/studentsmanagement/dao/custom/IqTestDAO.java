@@ -14,4 +14,6 @@ public interface IqTestDAO extends CrudDAO <IQTest,String>{
 
 
     IQTest getExamDetails(IQTest iqTest) throws SQLException, ClassNotFoundException;
+
+    IQTest getLastExam() throws SQLException, ClassNotFoundException;
 }

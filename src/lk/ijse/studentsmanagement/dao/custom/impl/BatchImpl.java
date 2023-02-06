@@ -19,7 +19,7 @@ public class BatchImpl implements BatchDAO {
     }
 
     @Override
-    public Batch save(Batch entity) throws SQLException, ClassNotFoundException {
+    public Batch save(Batch entity) throws SQLException, ClassNotFoundException,RuntimeException {
         if (CrudUtil.execute("INSERT INTO batch VALUES(?,?,?,?,?,?)",
                 entity.getId(),
                 entity.getBatchNo(),
@@ -34,7 +34,7 @@ public class BatchImpl implements BatchDAO {
     }
 
     @Override
-    public Batch update(Batch entity) throws SQLException, ClassNotFoundException {
+    public Batch update(Batch entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("UPDATE batch SET fee = ?, start_date = ?, maximum_std_count = ? WHERE batchID = ?",
                 entity.getFee(),
                 entity.getStarting_date(),
@@ -43,11 +43,11 @@ public class BatchImpl implements BatchDAO {
         )) {
             return entity;
         }
-        throw new RuntimeException();
+        return null;
     }
 
     @Override
-    public Batch delete(Batch entity) throws SQLException, ClassNotFoundException {
+    public Batch delete(Batch entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("DELETE FROM batch WHERE batchID = ?", entity.getId())) {
             return entity;
         }

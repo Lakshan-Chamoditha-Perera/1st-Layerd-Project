@@ -19,5 +19,12 @@ public enum Types {
     SubjectType1,
     SubjectType2,
     ExamType1,
-    ExamType2
+    ExamType2,
+    ExamType3,
+    ExamType4,
+    RegistrationExamResultType1,
+
+    RegistrationExamResultType2,
+    IQTestType1,
+    IQTestType2
 }

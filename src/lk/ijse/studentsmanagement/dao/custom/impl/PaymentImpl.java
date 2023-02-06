@@ -21,24 +21,18 @@ public class PaymentImpl implements PaymentDAO {
 
     @Override
     public Payment save(Payment entity) throws SQLException, ClassNotFoundException {
-        if (CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)",
-                entity.getId(),
-                entity.getRegistrationId(),
-                entity.getType(),
-                entity.getRemark(),
-                entity.getAmount(),
-                entity.getDate()
-        )) return entity;
+        if (CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)", entity.getId(), entity.getRegistrationId(), entity.getType(), entity.getRemark(), entity.getAmount(), entity.getDate()))
+            return entity;
         throw new RuntimeException();
     }
 
     @Override
-    public Payment update(Payment entity) throws SQLException, ClassNotFoundException {
+    public Payment update(Payment entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
     @Override
-    public Payment delete(Payment entity) throws SQLException, ClassNotFoundException {
+    public Payment delete(Payment entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
@@ -67,19 +61,9 @@ public class PaymentImpl implements PaymentDAO {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM payments");
         List<Payment> list = new ArrayList<>();
         while (resultSet.next()) {
-            list.add(
-                    new Payment(
-                            resultSet.getString(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            Double.parseDouble(resultSet.getString(5)),
-                            Date.valueOf(resultSet.getString(6))
-                    )
-            );
+            list.add(new Payment(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), Double.parseDouble(resultSet.getString(5)), Date.valueOf(resultSet.getString(6))));
         }
         return list;
-
     }
 
     @Override
@@ -87,16 +71,7 @@ public class PaymentImpl implements PaymentDAO {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM payments WHERE registration_id = ?", registration.getRegistrationId());
         List<Payment> list = new ArrayList<>();
         while (resultSet.next()) {
-            list.add(
-                    new Payment(
-                            resultSet.getString(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            Double.parseDouble(resultSet.getString(5)),
-                            Date.valueOf(resultSet.getString(6))
-                    )
-            );
+            list.add(new Payment(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), Double.parseDouble(resultSet.getString(5)), Date.valueOf(resultSet.getString(6))));
         }
         return list;
     }

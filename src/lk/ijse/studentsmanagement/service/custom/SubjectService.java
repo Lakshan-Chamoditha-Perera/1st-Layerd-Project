@@ -15,4 +15,5 @@ public interface SubjectService extends SuperService <SubjectDTO>{
 
     SubjectDTO delete(SubjectDTO subjectDTO) throws SQLException, ClassNotFoundException;
 
+    String getSubjectName(SubjectDTO subjectDTO) throws SQLException, ClassNotFoundException;
 }

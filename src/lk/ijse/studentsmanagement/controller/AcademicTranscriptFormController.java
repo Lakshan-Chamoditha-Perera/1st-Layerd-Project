@@ -2,6 +2,8 @@ package lk.ijse.studentsmanagement.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,18 +14,22 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
-import lk.ijse.studentsmanagement.model.CourseModel;
-import lk.ijse.studentsmanagement.model.RegistrationModel;
-import lk.ijse.studentsmanagement.util.RegExPatterns;
-import lk.ijse.studentsmanagement.entity.Course;
-import lk.ijse.studentsmanagement.entity.Registration;
+import lk.ijse.studentsmanagement.dto.CourseDTO;
+import lk.ijse.studentsmanagement.dto.RegistrationDTO;
+import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
+import lk.ijse.studentsmanagement.service.ServiceFactory;
+import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.CourseService;
+import lk.ijse.studentsmanagement.service.custom.RegistrationService;
+import lk.ijse.studentsmanagement.tblModels.RegistrationExamResultTM;
 import lk.ijse.studentsmanagement.util.Navigation;
+import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AcademicTranscriptFormController implements Initializable {
@@ -34,39 +40,30 @@ public class AcademicTranscriptFormController implements Initializable {
     public TableColumn colGrade;
     public JFXButton btnSendEmail;
     public Label lblStdNic1;
+    CourseService courseService;
+    RegistrationService registrationService;
     @FXML
     private AnchorPane pane;
-
     @FXML
     private JFXTextField txtId;
-
     @FXML
     private JFXButton btnSearch;
-
     @FXML
     private Label lblStdName;
-
     @FXML
     private Label lblStdNic;
-
     @FXML
     private Label lblRegDate;
-
     @FXML
     private Label lblCourseId;
-
     @FXML
     private Label lblBatch;
-
     @FXML
     private Label lblCourseDuration;
-
     @FXML
     private Label lblCourseName;
-
     @FXML
     private JFXButton btnPrint;
-
     @FXML
     private JFXButton btnCancel;
 
@@ -78,47 +75,58 @@ public class AcademicTranscriptFormController implements Initializable {
     public void txtIdOnAction(ActionEvent actionEvent) {
         try {
             if (RegExPatterns.getRegistrationIdPattern().matcher(txtId.getText()).matches()) {
-                Registration registrationDetails = RegistrationModel.getRegistrationDetails(txtId.getText());
-                if (registrationDetails != null) {
-                    lblStdName.setText(registrationDetails.getName());
-                    lblStdNic.setText(registrationDetails.getNic());
-                    lblBatch.setText(registrationDetails.getBatchId());
-                    Course course = CourseModel.getCourseDetail(new Course(registrationDetails.getCourseId()));
-                    lblCourseId.setText(course.getId());
-                    lblCourseName.setText(course.getName());
-                    lblCourseDuration.setText(course.getDuration());
+                RegistrationDTO registrationDTO = registrationService.view(new RegistrationDTO(txtId.getText()));
+                //  Registration registrationDTO = RegistrationModel.getRegistrationDetails(txtId.getText());
+                if (registrationDTO != null) {
+                    lblStdName.setText(registrationDTO.getName());
+                    lblStdNic.setText(registrationDTO.getNic());
+                    lblBatch.setText(registrationDTO.getBatchId());
+                    CourseDTO courseDTO = courseService.view(new CourseDTO(registrationDTO.getCourseId()));
+                    lblCourseId.setText(courseDTO.getId());
+                    lblCourseName.setText(courseDTO.getName());
+                    lblCourseDuration.setText(courseDTO.getDuration());
                     loadResults();
-
                 } else {
                     lblStdName.setText("");
                     lblStdNic.setText("");
                     lblCourseId.setText("");
                     lblCourseName.setText("");
                     lblCourseDuration.setText("");
-                    new Alert(Alert.AlertType.ERROR, "Student Does not exists!").show();
                 }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Invalid Registration ID! Enter Correct ID").show();
                 txtId.setFocusColor(Color.RED);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
     private void loadResults() throws SQLException, ClassNotFoundException {
-        boolean isLoaded = TableLoader.loadTableTranscript(new Registration(txtId.getText()), tblResults);
-        if(!isLoaded){
-            new Alert(Alert.AlertType.INFORMATION,"No any exams ").show();
-        }else{
-            new Alert(Alert.AlertType.INFORMATION,"table loaded").show();
+        loadTableTranscript(new RegistrationDTO(txtId.getText()), tblResults);
+    }
+
+    public void loadTableTranscript(RegistrationDTO registration, TableView tblResults) throws SQLException, ClassNotFoundException, RuntimeException {
+        List<RegistrationExamResultDTO> registrationExamResultDTOList = registrationService.getTranscript(registration);
+        // ArrayList<RegistrationExamResult> transcript = RegistrationExamResultModel.getTranscript(registration);
+        ObservableList<RegistrationExamResultTM> registrationExamResultTMS = FXCollections.observableArrayList();
+        for (RegistrationExamResultDTO ele : registrationExamResultDTOList) {
+            registrationExamResultTMS.add(new RegistrationExamResultTM(ele.getMark(), ele.getResult(), ele.getSubject()));
         }
+        tblResults.setItems(registrationExamResultTMS);
+        new Alert(Alert.AlertType.INFORMATION, "table loaded").show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            colGrade.setCellValueFactory(new PropertyValueFactory<>("result"));
-            colMarks.setCellValueFactory(new PropertyValueFactory<>("mark"));
-            colSubName.setCellValueFactory(new PropertyValueFactory<>("sub"));
+        try {
+            courseService = ServiceFactory.getInstance().getService(ServiceTypes.COURSE);
+            registrationService = ServiceFactory.getInstance().getService(ServiceTypes.REGISTRATION);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        colGrade.setCellValueFactory(new PropertyValueFactory<>("result"));
+        colMarks.setCellValueFactory(new PropertyValueFactory<>("mark"));
+        colSubName.setCellValueFactory(new PropertyValueFactory<>("sub"));
     }
 }

@@ -19,8 +19,6 @@ import lk.ijse.studentsmanagement.dto.IQTestDTO;
 import lk.ijse.studentsmanagement.dto.InquiryDTO;
 import lk.ijse.studentsmanagement.dto.InquiryIQTestDetailDTO;
 import lk.ijse.studentsmanagement.dto.TestPaymentDTO;
-import lk.ijse.studentsmanagement.entity.IQTest;
-import lk.ijse.studentsmanagement.model.IQTestModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
@@ -94,11 +92,13 @@ public class AddInquiryFormController implements Initializable {
     @FXML
     void cmbExamDateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         lblDate.setVisible(false);
-        IQTest iqTestDetails = IQTestModel.getIQTestDetails(cmbExamDates.getValue());
-        lblTestID.setText(iqTestDetails.getId());
-        lblTestLab.setText(iqTestDetails.getLab());
-        lblTestTime.setText(iqTestDetails.getTime().toString());
-        lblAmount.setText(String.valueOf(iqTestDetails.getAmount()));
+        IQTestDTO iqTestDetails = iqTestService.getIQTestDetailsByDate(cmbExamDates.getValue());
+        if (iqTestDetails != null) {
+            lblTestID.setText(iqTestDetails.getId());
+            lblTestLab.setText(iqTestDetails.getLab());
+            lblTestTime.setText(iqTestDetails.getTime().toString());
+            lblAmount.setText(String.valueOf(iqTestDetails.getAmount()));
+        }
     }
 
     @FXML

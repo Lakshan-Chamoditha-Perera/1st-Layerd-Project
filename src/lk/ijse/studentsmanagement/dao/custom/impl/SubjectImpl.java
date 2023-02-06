@@ -25,12 +25,12 @@ public class SubjectImpl implements SubjectDAO {
     }
 
     @Override
-    public Subject update(Subject entity) throws SQLException, ClassNotFoundException {
+    public Subject update(Subject entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
     @Override
-    public Subject delete(Subject entity) throws SQLException, ClassNotFoundException {
+    public Subject delete(Subject entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("DELETE FROM subject WHERE id = ?", entity.getId())) return entity;
         throw new RuntimeException("Subject not deleted...");
     }
@@ -53,6 +53,7 @@ public class SubjectImpl implements SubjectDAO {
     @Override
     public String getSubjectName(Subject subject) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT name FROM subject WHERE id = ?", subject.getId());
+        resultSet.next();
         return resultSet.getString(1);
     }
 

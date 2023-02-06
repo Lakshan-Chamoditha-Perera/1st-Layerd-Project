@@ -1,6 +1,8 @@
 package lk.ijse.studentsmanagement.entity;
 
-public class RegistrationExamResult implements SuperEntity{
+import lk.ijse.studentsmanagement.dto.SuperDTO;
+
+public class RegistrationExamResult implements SuperEntity, SuperDTO  {
     String examId;
     String registrationId;
     int mark;

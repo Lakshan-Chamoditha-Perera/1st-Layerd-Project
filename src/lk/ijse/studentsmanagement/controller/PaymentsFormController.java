@@ -11,22 +11,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.autogenerater.AutoGenerateID;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.dto.PaymentDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
-import lk.ijse.studentsmanagement.entity.Registration;
-import lk.ijse.studentsmanagement.model.PaymentModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.PaymentService;
-import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.tblModels.PaymentsTM;
-import lk.ijse.studentsmanagement.entity.Payment;
 import lk.ijse.studentsmanagement.util.Navigation;
+import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.util.JRStyledText;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -35,7 +29,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -139,7 +132,7 @@ public class PaymentsFormController implements Initializable {
                                 Date.valueOf(lblDate.getText())
                         ));
 
-                        if (paymentDTO!=null) {
+                        if (paymentDTO != null) {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Payment Success! Do you want to print invoice?", ButtonType.OK, ButtonType.NO);
                             loadRegistrationPayments(txtSearchRegID.getText());
                             alert.showAndWait();
@@ -187,12 +180,15 @@ public class PaymentsFormController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
         }
     } //does not work correctly...
+
     public void remarkOnMouseClick(MouseEvent mouseEvent) {
         lblInValidRemark.setVisible(false);
     }
+
     public void amountOnMouseClicked(MouseEvent mouseEvent) {
         lblInvalidAmount.setVisible(false);
     }
+
     public void regOnMouseClick(MouseEvent mouseEvent) {
         lblInvalidRegistration.setVisible(false);
     }

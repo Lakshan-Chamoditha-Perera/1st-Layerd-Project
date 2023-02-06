@@ -18,18 +18,18 @@ public class RegistrationExamResultsImpl implements RegistrationExamResultsDAO {
     }
 
     @Override
-    public RegistrationExamResult save(RegistrationExamResult entity) throws SQLException, ClassNotFoundException {
+    public RegistrationExamResult save(RegistrationExamResult entity) throws SQLException, ClassNotFoundException,RuntimeException {
         if (CrudUtil.execute("INSERT INTO registration_exam_results VALUES(?,?,?,?)",
                 entity.getExamId(),
                 entity.getRegistrationId(),
                 entity.getMark(),
                 entity.getResult()
         )) return entity;
-        throw new RuntimeException();
+        throw new RuntimeException("not added");
     }
 
     @Override
-    public RegistrationExamResult update(RegistrationExamResult entity) throws SQLException, ClassNotFoundException {
+    public RegistrationExamResult update(RegistrationExamResult entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("UPDATE registration_exam_results SET marks =?, result=? WHERE exam_id=? AND registration_id =?",
                 entity.getMark(),
                 entity.getResult(),
@@ -40,7 +40,7 @@ public class RegistrationExamResultsImpl implements RegistrationExamResultsDAO {
     }
 
     @Override
-    public RegistrationExamResult delete(RegistrationExamResult entity) throws SQLException, ClassNotFoundException {
+    public RegistrationExamResult delete(RegistrationExamResult entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("DELETE FROM registration_exam_results WHERE exam_id=? AND registration_id =?",
                 entity.getExamId(),
                 entity.getRegistrationId()

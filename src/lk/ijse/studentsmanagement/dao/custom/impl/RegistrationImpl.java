@@ -42,7 +42,7 @@ public class RegistrationImpl implements RegistrationDAO {
     }
 
     @Override
-    public Registration update(Registration entity) throws SQLException, ClassNotFoundException, RuntimeException{
+    public Registration update(Registration entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if (CrudUtil.execute("UPDATE registration SET full_name = ?, address = ?, city = ?, postal_code = ?, mobile_number = ?, dob = ?, school = ? WHERE registration_id = ?",
                 entity.getName(),
                 entity.getAddress(),
@@ -57,7 +57,7 @@ public class RegistrationImpl implements RegistrationDAO {
     }
 
     @Override
-    public Registration delete(Registration entity) throws SQLException, ClassNotFoundException {
+    public Registration delete(Registration entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 

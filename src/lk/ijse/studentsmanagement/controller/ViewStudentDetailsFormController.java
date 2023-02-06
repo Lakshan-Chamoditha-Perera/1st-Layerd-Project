@@ -10,13 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.studentsmanagement.dto.InquiryDTO;
-import lk.ijse.studentsmanagement.model.InquiryModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
-import lk.ijse.studentsmanagement.util.RegExPatterns;
-import lk.ijse.studentsmanagement.entity.Inquiry;
 import lk.ijse.studentsmanagement.util.Navigation;
+import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
 
 import java.io.IOException;
@@ -32,6 +30,7 @@ public class ViewStudentDetailsFormController implements Initializable {
     public JFXButton btnSearch;
     public JFXTextField txtID;
     public Label lblInvalidID;
+    InquiryService inquiryService;
     @FXML
     private AnchorPane pane;
     @FXML
@@ -46,7 +45,6 @@ public class ViewStudentDetailsFormController implements Initializable {
     private JFXTextField txtEmail;
     @FXML
     private JFXTextField txtCity;
-    InquiryService inquiryService;
 
     @FXML
     void backClickOnAction(ActionEvent event) throws IOException {

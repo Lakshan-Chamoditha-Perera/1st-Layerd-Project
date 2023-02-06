@@ -1,8 +1,8 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.CourseSubjectDetailDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.CourseSubjectDetail;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,17 +18,19 @@ public class CourseSubjectDetailImpl implements CourseSubjectDetailDAO {
     }
 
     @Override
-    public CourseSubjectDetail save(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException {
+    public CourseSubjectDetail save(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException,RuntimeException {
+        if (CrudUtil.execute("INSERT INTO course_subject_detail VALUES(?,?)", entity.getCourseId(), entity.getSubjectId())) return entity;
         return null;
     }
 
     @Override
-    public CourseSubjectDetail update(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException {
+    public CourseSubjectDetail update(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
     @Override
-    public CourseSubjectDetail delete(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException {
+    public CourseSubjectDetail delete(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException, RuntimeException {
+        if (CrudUtil.execute("DELETE FROM course_subject_detail WHERE courseId = ? AND subjectID = ? ", entity.getCourseId(), entity.getSubjectId())) return entity;
         return null;
     }
 

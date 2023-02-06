@@ -39,7 +39,7 @@ public class InquiryIqTestDetailImpl implements InquiryIqTestDetailDAO {
     }
 
     @Override
-    public InquiryIQTestDetail delete(InquiryIQTestDetail entity) throws SQLException, ClassNotFoundException {
+    public InquiryIQTestDetail delete(InquiryIQTestDetail entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 

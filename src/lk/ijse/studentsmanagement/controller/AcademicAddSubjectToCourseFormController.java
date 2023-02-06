@@ -9,17 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.studentsmanagement.comboLoad.ComboLoader;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
+import lk.ijse.studentsmanagement.dto.CourseDTO;
+import lk.ijse.studentsmanagement.dto.CourseSubjectDetailDTO;
 import lk.ijse.studentsmanagement.dto.SubjectDTO;
-import lk.ijse.studentsmanagement.entity.Course;
-import lk.ijse.studentsmanagement.entity.CourseSubjectDetail;
-import lk.ijse.studentsmanagement.entity.Subject;
-import lk.ijse.studentsmanagement.model.CourseModel;
-import lk.ijse.studentsmanagement.model.CourseSubjectDetailModel;
-import lk.ijse.studentsmanagement.model.SubjectModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.CourseService;
+import lk.ijse.studentsmanagement.service.custom.CourseSubjectDetailService;
 import lk.ijse.studentsmanagement.service.custom.SubjectService;
 import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
 import lk.ijse.studentsmanagement.tblModels.SubjectTM;
@@ -29,13 +25,15 @@ import lk.ijse.studentsmanagement.util.Routes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//
 public class AcademicAddSubjectToCourseFormController implements Initializable {
-
+    //
     SubjectService subjectService;
+    CourseSubjectDetailService courseSubjectDetailService;
+    CourseService courseService;
     @FXML
     private AnchorPane pane;
     @FXML
@@ -76,13 +74,11 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
         try {
             if (cmbCourse.getSelectionModel().getSelectedItem() != null) {
                 if (cmbSubject.getSelectionModel().getSelectedItem() != null) {
-                    boolean isAdded = add();
-                    if (isAdded) {
-                        new Alert(Alert.AlertType.INFORMATION, "ADDED").showAndWait();
-                        ComboLoader.loadSubjectList(cmbSubject);
-                        TableLoader.loadCourseSubjectDetailJOIN(tblCourseSubjectDetail, cmbCourse.getSelectionModel().getSelectedItem());
-                    } else {
-                        new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+                    CourseSubjectDetailDTO add = add();
+                    if (add != null) {
+                        new Alert(Alert.AlertType.INFORMATION, "ADDED").show();
+                        loadSubjectList();
+                        loadCourseSubjectDetailJOIN(cmbCourse.getSelectionModel().getSelectedItem());
                     }
                 } else {
                     lblSelectSubject.setVisible(true);
@@ -90,13 +86,21 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
             } else {
                 lblSelectCourse.setVisible(true);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    private boolean add() throws SQLException, ClassNotFoundException {
-        return CourseSubjectDetailModel.addCourseSubjectDetail(new CourseSubjectDetail(cmbCourse.getSelectionModel().getSelectedItem(), cmbSubject.getSelectionModel().getSelectedItem()));
+    public void loadCourseSubjectDetailJOIN(String courseId) throws SQLException, ClassNotFoundException {
+        List<CourseSubjectDetailTM> list = courseSubjectDetailService.getCourseSubjectDetailList(courseId);
+        //  ArrayList<CourseSubjectDetailTM> list = CourseSubjectDetailModel.getCourseSubjecDetailList(courseId);
+        ObservableList<CourseSubjectDetailTM> observableList = FXCollections.observableArrayList();
+        observableList.addAll(list);
+        tblCourseSubjectDetail.setItems(observableList);
+    }
+
+    private CourseSubjectDetailDTO add() throws SQLException, ClassNotFoundException, RuntimeException {
+        return courseSubjectDetailService.save(new CourseSubjectDetailDTO(cmbCourse.getSelectionModel().getSelectedItem(), cmbSubject.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
@@ -112,35 +116,34 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
     void btnDeleteOnAction(ActionEvent event) {
         try {
             if (tblCourseSubjectDetail.getSelectionModel().getSelectedItem() != null) {
-                // boolean isDeleted = ;
                 if (delete()) {
-                    ComboLoader.loadSubjectList(cmbSubject);
-                    TableLoader.loadCourseSubjectDetailJOIN(tblCourseSubjectDetail, cmbCourse.getSelectionModel().getSelectedItem());
+                    loadSubjectList();
+                    loadCourseSubjectDetailJOIN(cmbCourse.getSelectionModel().getSelectedItem());
                     new Alert(Alert.AlertType.INFORMATION, "DELETED").showAndWait();
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "not deleted!").show();
                 }
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Select Item First!").show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         }
     }
 
     private boolean delete() throws SQLException, ClassNotFoundException {
-        return CourseSubjectDetailModel.deleteCourseSubjectDetail(new CourseSubjectDetail(tblCourseSubjectDetail.getSelectionModel().getSelectedItem().getCourseId(), tblCourseSubjectDetail.getSelectionModel().getSelectedItem().getSubjectId()));
+        CourseSubjectDetailDTO courseSubjectDetailDTO = courseSubjectDetailService.delete(new CourseSubjectDetailDTO(tblCourseSubjectDetail.getSelectionModel().getSelectedItem().getCourseId(), tblCourseSubjectDetail.getSelectionModel().getSelectedItem().getSubjectId()));
+        return courseSubjectDetailDTO != null;
     }
 
     @FXML
     void cmbCourseOnAction(ActionEvent event) {
         try {
             if (cmbCourse.getSelectionModel().getSelectedItem() != null) {
-                lblCourseName.setText(CourseModel.getCourseDetail(new Course(cmbCourse.getSelectionModel().getSelectedItem())).getName());
-                TableLoader.loadCourseSubjectDetailJOIN(tblCourseSubjectDetail, cmbCourse.getSelectionModel().getSelectedItem());
+                CourseDTO courseDTO = courseService.view(new CourseDTO(cmbCourse.getSelectionModel().getSelectedItem()));
+                lblCourseName.setText(courseDTO.getName());
+                loadCourseSubjectDetailJOIN(cmbCourse.getSelectionModel().getSelectedItem());
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -148,7 +151,8 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
     void cmbSubjectOnAction(ActionEvent event) {
         try {
             if (cmbSubject.getSelectionModel().getSelectedItem() != null) {
-                lblSubjectName.setText(SubjectModel.getSubjectName(new Subject(cmbSubject.getSelectionModel().getSelectedItem())));
+                lblSubjectName.setText(
+                        subjectService.getSubjectName(new SubjectDTO(cmbSubject.getSelectionModel().getSelectedItem())));
             } else {
                 lblSubjectName.setText("");
             }
@@ -161,6 +165,8 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             subjectService = ServiceFactory.getInstance().getService(ServiceTypes.SUBJECT);
+            courseService = ServiceFactory.getInstance().getService(ServiceTypes.COURSE);
+            courseSubjectDetailService = ServiceFactory.getInstance().getService(ServiceTypes.COURSE_SUBJECT_DETAIL);
 
             lblSelectCourse.setVisible(false);
             lblSelectSubject.setVisible(false);
@@ -177,16 +183,35 @@ public class AcademicAddSubjectToCourseFormController implements Initializable {
 
             loadSubjectTable();
 
-            ComboLoader.loadCoursesList(cmbCourse);
-            ComboLoader.loadSubjectList(cmbSubject);
+            loadCoursesList();
+            loadSubjectList();
         } catch (SQLException | ClassNotFoundException | RuntimeException e) {
-            System.out.println(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    public void loadSubjectTable() throws SQLException, ClassNotFoundException,RuntimeException {
+    public void loadSubjectList() throws SQLException, ClassNotFoundException, RuntimeException {
+        List<SubjectDTO> subjectList = subjectService.getSubjectList();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (SubjectDTO ele : subjectList) {
+            observableList.add(ele.getId());
+        }
+        cmbSubject.setItems(observableList);
+    }
+
+    public void loadCoursesList() throws SQLException, ClassNotFoundException, RuntimeException {
+        List<CourseDTO> courseList = courseService.getCourseList();
+        //ArrayList<Course> courseArrayList = CourseModel.getCourseList();
+        ObservableList<String> observableArrayList = FXCollections.observableArrayList();
+        for (CourseDTO ele : courseList) {
+            observableArrayList.add(ele.getId());
+        }
+        cmbCourse.setItems(observableArrayList);
+    }
+
+    public void loadSubjectTable() throws SQLException, ClassNotFoundException, RuntimeException {
         List<SubjectDTO> list = subjectService.getSubjectList();
-      //  ArrayList<Subject> list = SubjectModel.getSubjectList();
+        //  ArrayList<Subject> list = SubjectModel.getSubjectList();
         ObservableList<SubjectTM> observableList = FXCollections.observableArrayList();
         for (SubjectDTO ele : list) {
             observableList.add(new SubjectTM(ele.getId(), ele.getName(), ele.getHours()));

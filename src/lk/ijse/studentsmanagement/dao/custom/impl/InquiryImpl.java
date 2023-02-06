@@ -40,7 +40,7 @@ public class InquiryImpl implements InquiryDAO {
     }
 
     @Override
-    public Inquiry update(Inquiry entity) throws SQLException, ClassNotFoundException {
+    public Inquiry update(Inquiry entity) throws SQLException, ClassNotFoundException, RuntimeException {
         try {
             if (CrudUtil.execute("UPDATE inquiry SET name = ?, city = ?, email = ?, mobile = ?,gender = ?  WHERE studentID = ?",
                     entity.getName(),
@@ -57,7 +57,7 @@ public class InquiryImpl implements InquiryDAO {
     }
 
     @Override
-    public Inquiry delete(Inquiry entity) throws SQLException, ClassNotFoundException {
+    public Inquiry delete(Inquiry entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
@@ -68,8 +68,9 @@ public class InquiryImpl implements InquiryDAO {
             return new Inquiry(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getString(4),
-                    resultSet.getString(3),
+                    resultSet.getString(3)
+                    , resultSet.getString(4),
+
                     resultSet.getString(5),
                     resultSet.getString(6),
                     resultSet.getString(7),
@@ -88,8 +89,8 @@ public class InquiryImpl implements InquiryDAO {
                             resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
-                            resultSet.getString(5),
                             resultSet.getString(4),
+                            resultSet.getString(5),
                             resultSet.getString(6),
                             resultSet.getString(7),
                             resultSet.getString(8)

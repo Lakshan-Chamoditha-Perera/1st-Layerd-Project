@@ -4,7 +4,8 @@ import lk.ijse.studentsmanagement.dao.custom.QueryDAO;
 import lk.ijse.studentsmanagement.dto.InquiryIQTestDetailDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
 import lk.ijse.studentsmanagement.entity.Registration;
-import lk.ijse.studentsmanagement.util.CrudUtil;
+import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,7 +42,6 @@ public class QueryImpl implements QueryDAO {
         }
         return list;
     }
-
     @Override
     public List<RegistrationExamResultDTO> getTranscript(Registration registration) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute(
@@ -65,5 +65,21 @@ public class QueryImpl implements QueryDAO {
         }
         return list;
     }
+
+    @Override
+    public List<CourseSubjectDetailTM> getCourseSubjectDetailList(String courseId) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.execute("SELECT course_subject_detail.courseId, course_subject_detail.subjectID, subject.name FROM course_subject_detail INNER JOIN subject ON course_subject_detail.subjectID = subject.id WHERE courseId = ?", courseId);
+        List<CourseSubjectDetailTM> list = new ArrayList<>();
+        while (resultSet.next()) {
+            list.add(
+                    new CourseSubjectDetailTM(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3)
+                    ));
+        }
+        return list;
+    }
+
 
 }

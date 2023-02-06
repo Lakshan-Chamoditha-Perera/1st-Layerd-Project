@@ -16,4 +16,6 @@ public interface PaymentService extends SuperService <PaymentDTO> {
     List<PaymentDTO> getPayments(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException;
 
     double getPaymentsSum() throws SQLException, ClassNotFoundException;
+
+    List<PaymentDTO> loadAllPayments() throws SQLException, ClassNotFoundException;
 }

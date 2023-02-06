@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static lk.ijse.studentsmanagement.service.util.Types.SubjectType2;
+
 public class SubjectServiceImpl implements SubjectService {
     private final SubjectDAO subjectDAO;
     private final Connection connection;
@@ -34,7 +36,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<SubjectDTO> getSubjectList() throws SQLException, ClassNotFoundException,RuntimeException {
+    public List<SubjectDTO> getSubjectList() throws SQLException, ClassNotFoundException, RuntimeException {
         List<Subject> subjectList = subjectDAO.getSubjectList();
         if (subjectList.size() > 0) {
             return subjectList.stream().map(subject -> converter.toSubjectDTO(subject, Types.SubjectType1)).collect(Collectors.toList());
@@ -49,7 +51,12 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectDTO delete(SubjectDTO subjectDTO) throws SQLException, ClassNotFoundException {
-        subjectDAO.delete(converter.toSubjectEntity(subjectDTO, Types.SubjectType2));
+        subjectDAO.delete(converter.toSubjectEntity(subjectDTO, SubjectType2));
         return subjectDTO;
+    }
+
+    @Override
+    public String getSubjectName(SubjectDTO subjectDTO) throws SQLException, ClassNotFoundException {
+        return subjectDAO.getSubjectName(converter.toSubjectEntity(subjectDTO, SubjectType2));
     }
 }

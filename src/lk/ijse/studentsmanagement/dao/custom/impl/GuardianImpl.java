@@ -30,12 +30,12 @@ public class GuardianImpl implements GuardianDAO {
     }
 
     @Override
-    public Guardian update(Guardian entity) throws SQLException, ClassNotFoundException {
+    public Guardian update(Guardian entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
     @Override
-    public Guardian delete(Guardian entity) throws SQLException, ClassNotFoundException {
+    public Guardian delete(Guardian entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 

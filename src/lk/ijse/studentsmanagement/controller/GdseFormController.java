@@ -10,8 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.studentsmanagement.comboLoad.ComboLoader;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.dto.BatchDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
@@ -43,7 +41,7 @@ public class GdseFormController implements Initializable {
     public TableColumn colEmail;
     public TableColumn colStatus;
     public TableView<RegistrationTM> tblGDSE;
-    public TableView <BatchTM>tblOnGoingBatches;
+    public TableView<BatchTM> tblOnGoingBatches;
     BatchService batchService;
     RegistrationService registrationService;
 
@@ -90,18 +88,20 @@ public class GdseFormController implements Initializable {
             colStartDate.setCellValueFactory(new PropertyValueFactory<>("starting_date"));
             colMaxCount.setCellValueFactory(new PropertyValueFactory<>("maxStdCount"));
 
-            LoadBatchIDS( "GDSE");
+            LoadBatchIDS("GDSE");
             setBatchTable("GDSE");
         } catch (SQLException | ClassNotFoundException | RuntimeException e) {
             new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
         }
     }
+
     public void LoadBatchIDS(String courseName) throws SQLException, ClassNotFoundException {
         List<BatchDTO> list = batchService.getBatches(courseName);
         ObservableList<String> observableList = FXCollections.observableArrayList();
         for (BatchDTO ele : list) observableList.add(ele.getId());
         cmbGDSE.setItems(observableList);
     }
+
     public void setBatchTable(String course) throws SQLException, ClassNotFoundException {
         //load batch table in specific course
         List<BatchDTO> batches = batchService.getBatches(course);

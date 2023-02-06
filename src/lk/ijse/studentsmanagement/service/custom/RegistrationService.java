@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.service.custom;
 
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
+import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
 import lk.ijse.studentsmanagement.service.SuperService;
 
 import java.sql.SQLException;
@@ -18,4 +19,8 @@ public interface RegistrationService extends SuperService <RegistrationDTO> {
     String getRegistrationEmail(String text) throws SQLException, ClassNotFoundException,RuntimeException;
 
     List<String> getRegistrationEmailList(String value) throws SQLException, ClassNotFoundException;
+
+    List<RegistrationDTO> loadBatchRegistrations(String value) throws SQLException, ClassNotFoundException;
+
+    List<RegistrationExamResultDTO> getTranscript(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException;
 }

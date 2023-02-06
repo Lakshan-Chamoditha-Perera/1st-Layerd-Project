@@ -5,6 +5,7 @@ import lk.ijse.studentsmanagement.dao.DaoTypes;
 import lk.ijse.studentsmanagement.dao.custom.CourseDAO;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.CourseDTO;
+import lk.ijse.studentsmanagement.dto.CourseSubjectDetailDTO;
 import lk.ijse.studentsmanagement.entity.Course;
 import lk.ijse.studentsmanagement.service.custom.CourseService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
@@ -48,4 +49,5 @@ public class CourseServiceImpl  implements CourseService {
     public CourseDTO view(CourseDTO courseDTO) throws SQLException, ClassNotFoundException, RuntimeException {
           return converter.toCourseDTO(courseDAO.getCourseDetail(converter.toCourseEntity(courseDTO, Types.CourseType1)));
     }
+
 }

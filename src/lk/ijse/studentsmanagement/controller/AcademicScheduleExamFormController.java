@@ -14,17 +14,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.dto.BatchDTO;
 import lk.ijse.studentsmanagement.dto.CourseSubjectDetailDTO;
 import lk.ijse.studentsmanagement.dto.ExamDTO;
-import lk.ijse.studentsmanagement.entity.Subject;
-import lk.ijse.studentsmanagement.model.SubjectModel;
+import lk.ijse.studentsmanagement.dto.SubjectDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.BatchService;
 import lk.ijse.studentsmanagement.service.custom.CourseSubjectDetailService;
 import lk.ijse.studentsmanagement.service.custom.ExamService;
+import lk.ijse.studentsmanagement.service.custom.SubjectService;
 import lk.ijse.studentsmanagement.tblModels.ExamTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
@@ -65,6 +64,7 @@ public class AcademicScheduleExamFormController implements Initializable {
     BatchService batchService;
     ExamService examService;
     CourseSubjectDetailService courseSubjectDetailService;
+    SubjectService subjectService;
     @FXML
     private AnchorPane pane;
     @FXML
@@ -133,8 +133,8 @@ public class AcademicScheduleExamFormController implements Initializable {
             BatchDTO batchDTO = batchService.getCourseID(cmbBatchID.getValue());
             loadBatchCourseSubjectID(batchDTO.getId());
 
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -163,6 +163,7 @@ public class AcademicScheduleExamFormController implements Initializable {
             courseSubjectDetailService = ServiceFactory.getInstance().getService(ServiceTypes.COURSE_SUBJECT_DETAIL);
             examService = ServiceFactory.getInstance().getService(ServiceTypes.EXAM);
             batchService = ServiceFactory.getInstance().getService(ServiceTypes.BATCH);
+            subjectService = ServiceFactory.getInstance().getService(ServiceTypes.SUBJECT);
             loadExamID();
             loadBatchIDS();
             loadAllExams();
@@ -208,25 +209,37 @@ public class AcademicScheduleExamFormController implements Initializable {
     public void cmbSubjectOnAction(ActionEvent actionEvent) {
         try {
             if (cmbSubjectID.getValue() != null) {
-                String name = SubjectModel.getSubjectName(new Subject(cmbSubjectID.getValue()));
-                if (name != null) {
-                    lblSubjectName.setText(name);
-                    loadExamTable(cmbBatchID.getValue(), cmbSubjectID.getValue());
-                } else {
-                    new Alert(Alert.AlertType.ERROR, "Can not find subject name").show();
-                }
+                String subjectName = subjectService.getSubjectName(new SubjectDTO(cmbSubjectID.getValue()));
+//                String subjectName = SubjectModel.getSubjectName(new Subject(cmbSubjectID.getValue()));
+                lblSubjectName.setText(subjectName);
+                loadExamTable(cmbBatchID.getValue(), cmbSubjectID.getValue());
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "ERROR").show();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
     private void loadExamTable(String batchId, String subjectId) throws SQLException, ClassNotFoundException {
         if (batchId != null | subjectId != null) {
-            TableLoader.loadExamBatchSubjectTable(tblExam, batchId, subjectId);
+            List<ExamDTO> list = examService.getExams(batchId, subjectId);
+            //    ArrayList<Exam> list = ExamModel.getExams(batchId, subjectId);
+            ObservableList<ExamTM> observableArrayList = FXCollections.observableArrayList();
+            for (ExamDTO ele : list) {
+                observableArrayList.add(
+                        new ExamTM(
+                                ele.getExamId(),
+                                ele.getSubjectId(),
+                                ele.getBatchId(),
+                                ele.getDescription(),
+                                ele.getExamDate(),
+                                ele.getLab(),
+                                ele.getTime()
+                        )
+                );
+            }
+            tblExam.setItems(observableArrayList);
         }
     }
-
 
     public void cmbTimeOnMouseClicked(MouseEvent mouseEvent) {
         lblPickTime.setVisible(false);

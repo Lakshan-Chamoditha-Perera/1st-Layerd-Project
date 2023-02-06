@@ -12,13 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import lk.ijse.studentsmanagement.dto.InquiryDTO;
-import lk.ijse.studentsmanagement.model.InquiryModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
-import lk.ijse.studentsmanagement.util.RegExPatterns;
-import lk.ijse.studentsmanagement.entity.Inquiry;
 import lk.ijse.studentsmanagement.util.Navigation;
+import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
 
 import java.io.IOException;
@@ -56,15 +54,22 @@ public class UpdateInquaryFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        int i = 0;
         if (RegExPatterns.getNamePattern().matcher(txtName.getText()).matches()) {
+            System.out.println(i++);
             if (RegExPatterns.getEmailPattern().matcher(txtEmail.getText()).matches()) {
+                System.out.println(i++);
                 if (RegExPatterns.getCityPattern().matcher(txtCity.getText()).matches()) {
+                    System.out.println(i++);
                     if (RegExPatterns.getMobilePattern().matcher(txtMobile.getText()).matches()) {
-                            try {
-                                updateInquiry();
-                            } catch (SQLException | ClassNotFoundException e) {
-                                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-                            }
+                        System.out.println(i++);
+                        try {
+                            System.out.println(i++);
+                            updateInquiry();
+                            System.out.println(i++);
+                        } catch (SQLException | ClassNotFoundException e) {
+                            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                        }
                     } else {
                         txtMobile.setFocusColor(Color.RED);
                         lblInvalidMobile.setVisible(true);
@@ -121,6 +126,7 @@ public class UpdateInquaryFormController implements Initializable {
     private void viewInquiry() {
         try {
             InquiryDTO inquiry = inquiryService.view(new InquiryDTO(txtID.getText()));
+          //  System.out.println(inquiry);
             if (inquiry != null) {
                 btnUpdate.setDisable(false);
                 rBtnMale.setVisible(true);

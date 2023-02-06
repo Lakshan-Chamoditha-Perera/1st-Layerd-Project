@@ -7,7 +7,6 @@ import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.BatchDTO;
 import lk.ijse.studentsmanagement.entity.Batch;
 import lk.ijse.studentsmanagement.service.custom.BatchService;
-import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
 import lk.ijse.studentsmanagement.service.util.Types;
 
@@ -35,7 +34,7 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public BatchDTO save(BatchDTO dto) throws SQLException, ClassNotFoundException, RuntimeException {
-        Batch batch = batchDAO.save(converter.toBatchEntity(dto));
+        Batch batch = batchDAO.save(converter.toBatchEntity(dto,BatchType1));
         if (batch!=null) return dto;
         throw new RuntimeException("not added");
     }
@@ -77,5 +76,26 @@ public class BatchServiceImpl implements BatchService {
     public BatchDTO getCourseID(String value) throws SQLException, ClassNotFoundException,RuntimeException {
         Batch courseID = batchDAO.getCourseID(value);
         return converter.toBatchDTO(courseID,BatchType4);
+    }
+
+    @Override
+    public List<BatchDTO> getAll() throws SQLException, ClassNotFoundException ,RuntimeException{
+        List<Batch> allBatchDetails = batchDAO.getAllBatchDetails();
+        if(allBatchDetails.size()>0) return allBatchDetails.stream().map(batch -> converter.toBatchDTO(batch, BatchType1)).collect(Collectors.toList());
+        throw new RuntimeException("Empty batch list");
+    }
+
+    @Override
+    public BatchDTO delete(BatchDTO batchDTO) throws SQLException, ClassNotFoundException,RuntimeException {
+        Batch delete = batchDAO.delete(converter.toBatchEntity(batchDTO, BatchType2));
+        if (delete!=null) return batchDTO;
+        throw new RuntimeException("not deleted");
+    }
+
+    @Override
+    public BatchDTO updateBatchDetail(BatchDTO batchDTO) throws SQLException, ClassNotFoundException, RuntimeException {
+        Batch batch = batchDAO.update(converter.toBatchEntity(batchDTO, BatchType3));
+        if(batch!=null) return batchDTO;
+        throw new RuntimeException("not updated");
     }
 }

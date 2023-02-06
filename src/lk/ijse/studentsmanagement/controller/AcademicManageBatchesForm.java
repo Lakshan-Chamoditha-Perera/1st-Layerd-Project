@@ -3,6 +3,8 @@ package lk.ijse.studentsmanagement.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,10 +16,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
-import lk.ijse.studentsmanagement.model.BatchModel;
+import lk.ijse.studentsmanagement.dto.BatchDTO;
+import lk.ijse.studentsmanagement.service.ServiceFactory;
+import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.BatchService;
 import lk.ijse.studentsmanagement.tblModels.BatchTM;
-import lk.ijse.studentsmanagement.entity.Batch;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
@@ -27,6 +30,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AcademicManageBatchesForm implements Initializable {
@@ -46,6 +50,7 @@ public class AcademicManageBatchesForm implements Initializable {
     public JFXTextField txtCrowd;
     public Label lblInvalidAmount;
     public JFXTextField txtFee;
+    BatchService batchService;
     @FXML
     private AnchorPane pane;
 
@@ -64,9 +69,10 @@ public class AcademicManageBatchesForm implements Initializable {
         colMaxCount.setCellValueFactory(new PropertyValueFactory<>("maxStdCount"));
 
         try {
-            TableLoader.loadAllBatches(tableBatches);
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+            batchService = ServiceFactory.getInstance().getService(ServiceTypes.BATCH);
+            loadAllBatches();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
         lblInvalidAmount.setVisible(false);
@@ -76,22 +82,31 @@ public class AcademicManageBatchesForm implements Initializable {
         btnUpdate.setDisable(true);
     }
 
+    public void loadAllBatches() throws SQLException, ClassNotFoundException {
+        List<BatchDTO> allBatch = batchService.getAll();
+        //ArrayList<Batch> list = BatchModel.getAllBAtches();
+        ObservableList<BatchTM> observableArrayList = FXCollections.observableArrayList();
+        for (BatchDTO ele : allBatch) {
+            observableArrayList.add(new BatchTM(ele.getId(), ele.getBatchNo(), ele.getCourseId(), ele.getFee(), ele.getStarting_date(), ele.getMaxStdCount()));
+        }
+        tableBatches.setItems(observableArrayList);
+    }
+
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         try {
             BatchTM selectedItem = tableBatches.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                boolean isDeleted = BatchModel.deleteBatch(new Batch(selectedItem.getId()));
-                if (isDeleted) {
-                    new Alert(Alert.AlertType.INFORMATION, "Deleted").showAndWait();
-                    TableLoader.loadAllBatches(tableBatches);
-                } else {
-                    new Alert(Alert.AlertType.INFORMATION, "Something went Wrong!").show();
+                BatchDTO batchDTO = batchService.delete(new BatchDTO(selectedItem.getId()));
+                //boolean isDeleted = BatchModel.deleteBatch(new Batch(selectedItem.getId()));
+                if (batchDTO != null) {
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted").show();
+                    loadAllBatches();
                 }
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Select Batch First!").show();
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+        } catch (ClassNotFoundException | SQLException | RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -102,13 +117,8 @@ public class AcademicManageBatchesForm implements Initializable {
                 if (RegExPatterns.getDoublePattern().matcher(txtFee.getText()).matches()) {
                     if (!cmbDate.getValue().isBefore(LocalDate.now())) {
                         if (RegExPatterns.getIntPattern().matcher(txtCrowd.getText()).matches()) {
-                            boolean isUpdated = update();
-                            if (isUpdated) {
-                                new Alert(Alert.AlertType.INFORMATION, "Updated").showAndWait();
-                                TableLoader.loadAllBatches(tableBatches);
-                            } else {
-                                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
-                            }
+                            update();
+                            loadAllBatches();
                         } else {
                             lblInvalidCount.setVisible(true);
                             txtCrowd.setFocusColor(Color.RED);
@@ -123,21 +133,15 @@ public class AcademicManageBatchesForm implements Initializable {
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "Select Batch First!").show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
         }
     }
 
-    private boolean update() throws SQLException, ClassNotFoundException {
+    private void update() throws SQLException, ClassNotFoundException, RuntimeException {
         BatchTM selectedItem = tableBatches.getSelectionModel().getSelectedItem();
-        return BatchModel.updateBatchDetails(
-                new Batch(
-                        selectedItem.getId(),
-                        Double.parseDouble(txtFee.getText()),
-                        Date.valueOf(cmbDate.getValue()),
-                        Integer.parseInt(txtCrowd.getText())
-                )
-        );
+        BatchDTO batchDTO = batchService.updateBatchDetail(new BatchDTO(selectedItem.getId(), Double.parseDouble(txtFee.getText()), Date.valueOf(cmbDate.getValue()), Integer.parseInt(txtCrowd.getText())));
+        new Alert(Alert.AlertType.INFORMATION, "Updated").show();
     }
 
     public void cmbDateOnMouseClicked(MouseEvent mouseEvent) {

@@ -1,13 +1,10 @@
 package lk.ijse.studentsmanagement.service.util;
 
-import lk.ijse.studentsmanagement.dao.custom.CourseSubjectDetailDAO;
 import lk.ijse.studentsmanagement.dto.*;
 import lk.ijse.studentsmanagement.entity.*;
+import lk.ijse.studentsmanagement.tblModels.AttendanceTM;
 
 import java.util.Objects;
-
-import static lk.ijse.studentsmanagement.service.util.Types.RegistrationType1;
-import static lk.ijse.studentsmanagement.service.util.Types.RegistrationType2;
 
 public class Converter {
     public InquiryDTO toInquiryDTO(Inquiry entity) {
@@ -48,11 +45,16 @@ public class Converter {
         return new IQTestDTO(iqTest.getId(), iqTest.getDate(), iqTest.getTime(), iqTest.getLab(), iqTest.getAmount());
     }
 
-    public ExamDTO toExamDTO(Exam exam,Types type) {
+    public ExamDTO toExamDTO(Exam exam, Types type) {
         switch (type) {
-            case ExamType1: return new ExamDTO(exam.getExamId(), exam.getSubjectId(), exam.getBatchId(), exam.getDescription(), exam.getExamDate(), exam.getLab(), exam.getTime());
-            case ExamType2: return new ExamDTO(exam.getExamId());
-            default: throw new RuntimeException("Exam type does not match");
+            case ExamType1:
+                return new ExamDTO(exam.getExamId(), exam.getSubjectId(), exam.getBatchId(), exam.getDescription(), exam.getExamDate(), exam.getLab(), exam.getTime());
+            case ExamType2:
+                return new ExamDTO(exam.getExamId());
+            case ExamType3:
+                return new ExamDTO(exam.getExamId(), exam.getSubjectId(), exam.getBatchId(), exam.getDescription(), exam.getExamDate());
+            default:
+                throw new RuntimeException("Exam type does not match");
         }
     }
 
@@ -68,7 +70,8 @@ public class Converter {
                 return new BatchDTO(lastOngoingBatch.getBatchNo());
             case BatchType3:
                 return new BatchDTO(lastOngoingBatch.getId());
-            case BatchType4: return new BatchDTO(lastOngoingBatch.getId(),lastOngoingBatch.getCourseId());
+            case BatchType4:
+                return new BatchDTO(lastOngoingBatch.getId(), lastOngoingBatch.getCourseId());
             default:
                 throw new RuntimeException("Batch type does not match");
         }
@@ -92,13 +95,7 @@ public class Converter {
             case RegistrationType2:
                 return new Registration(registrationDTO.getRegistrationId());
             case RegistrationType3:
-                return new Registration(registrationDTO.getRegistrationId(),
-                        registrationDTO.getName(),
-                        registrationDTO.getAddress(),
-                        registrationDTO.getCity(),
-                        registrationDTO.getPostalCode(),
-                        registrationDTO.getMobile(),
-                        registrationDTO.getEmail(), registrationDTO.getDob(), registrationDTO.getSchool());
+                return new Registration(registrationDTO.getRegistrationId(), registrationDTO.getName(), registrationDTO.getAddress(), registrationDTO.getCity(), registrationDTO.getPostalCode(), registrationDTO.getMobile(), registrationDTO.getEmail(), registrationDTO.getDob(), registrationDTO.getSchool());
             default:
                 throw new RuntimeException("Registration type does not match");
         }
@@ -123,22 +120,28 @@ public class Converter {
         return new PaymentDTO(payment.getId(), payment.getRegistrationId(), payment.getType(), payment.getRemark(), payment.getAmount(), payment.getDate());
     }
 
-    public RegistrationDTO toRegistrationDTO(Registration registration,Types type) throws RuntimeException{
-       switch (type){
-           case RegistrationType1: return new RegistrationDTO(registration.getRegistrationId(), registration.getNic(), registration.getBatchId(), registration.getCourseId(), registration.getGardianId(), registration.getName(), registration.getAddress(), registration.getCity(), registration.getPostalCode(), registration.getMobile(), registration.getEmail(), registration.getDob(), registration.getGender(), registration.getSchool(), registration.getHigherEDU(), registration.getStatus());
-           case RegistrationType2: return  new RegistrationDTO(
-                   registration.getRegistrationId(),
-                   registration.getName(),
-                   registration.getMobile(),
-                   registration.getEmail(),
-                   registration.getStatus()
-           );
-           default : throw new RuntimeException("Registration type does not found");
-       }
+    public RegistrationDTO toRegistrationDTO(Registration registration, Types type) throws RuntimeException {
+        switch (type) {
+            case RegistrationType1:
+                return new RegistrationDTO(registration.getRegistrationId(), registration.getNic(), registration.getBatchId(), registration.getCourseId(), registration.getGardianId(), registration.getName(), registration.getAddress(), registration.getCity(), registration.getPostalCode(), registration.getMobile(), registration.getEmail(), registration.getDob(), registration.getGender(), registration.getSchool(), registration.getHigherEDU(), registration.getStatus());
+            case RegistrationType2:
+                return new RegistrationDTO(registration.getRegistrationId(), registration.getName(), registration.getMobile(), registration.getEmail(), registration.getStatus());
+            case RegistrationType3:
+                return new RegistrationDTO(registration.getRegistrationId(), registration.getBatchId(), registration.getName(), registration.getStatus());
+            default:
+                throw new RuntimeException("Registration type does not found");
+        }
     }
 
-    public IQTest toIQTestEntity(IQTestDTO iqTestDTO) {
-        return new IQTest(iqTestDTO.getId());
+    public IQTest toIQTestEntity(IQTestDTO iqTestDTO, Types type) {
+        switch (type) {
+            case IQTestType1:
+                return new IQTest(iqTestDTO.getId());
+            case IQTestType2:
+                return new IQTest(iqTestDTO.getId(), iqTestDTO.getDate(), iqTestDTO.getTime(), iqTestDTO.getLab(), iqTestDTO.getAmount());
+            default:
+                throw new RuntimeException("IQ_Test type does not found");
+        }
     }
 
     public Course toCourseEntity(CourseDTO courseDTO, Types type) {
@@ -148,56 +151,102 @@ public class Converter {
         throw new RuntimeException("Registration type does not match");
     }
 
-    public Batch toBatchEntity(BatchDTO batchDTO) {
-        return new Batch(
-                batchDTO.getId(),
-                batchDTO.getBatchNo(),
-                batchDTO.getCourseId(),
-                batchDTO.getFee(),
-                batchDTO.getStarting_date(),
-                batchDTO.getMaxStdCount()
-        );
+    public Batch toBatchEntity(BatchDTO batchDTO, Types type) {
+        switch (type) {
+            case BatchType1:
+                return new Batch(batchDTO.getId(), batchDTO.getBatchNo(), batchDTO.getCourseId(), batchDTO.getFee(), batchDTO.getStarting_date(), batchDTO.getMaxStdCount());
+            case BatchType2:
+                return new Batch(batchDTO.getId());
+            case BatchType3:
+                return new Batch(batchDTO.getId(), batchDTO.getFee(), batchDTO.getStarting_date(), batchDTO.getMaxStdCount());
+            default:
+                throw new RuntimeException("Batch type does not match");
+        }
     }
 
-    public SubjectDTO toSubjectDTO(Subject subject, Types type)throws RuntimeException {
-       switch(type){
-           case SubjectType1:  return new SubjectDTO(
-                   subject.getId(),
-                   subject.getName(),
-                   subject.getHours()
-           );
-           case SubjectType2: return null;
-           default: throw new RuntimeException("Subject type does not match");
-       }
+    public SubjectDTO toSubjectDTO(Subject subject, Types type) throws RuntimeException {
+        switch (type) {
+            case SubjectType1:
+                return new SubjectDTO(subject.getId(), subject.getName(), subject.getHours());
+            case SubjectType2:
+                return null;
+            default:
+                throw new RuntimeException("Subject type does not match");
+        }
     }
 
-    public Subject toSubjectEntity(SubjectDTO subjectDTO,Types type) throws RuntimeException{
-        switch(type){
-            case SubjectType1:  return new Subject(
-                    subjectDTO.getId(),
-                    subjectDTO.getName(),
-                    subjectDTO.getHours()
-            );
-            case SubjectType2: return new Subject(subjectDTO.getId());
-            default: throw new RuntimeException("Subject type does not match");
+    public Subject toSubjectEntity(SubjectDTO subjectDTO, Types type) throws RuntimeException {
+        switch (type) {
+            case SubjectType1:
+                return new Subject(subjectDTO.getId(), subjectDTO.getName(), subjectDTO.getHours());
+            case SubjectType2:
+                return new Subject(subjectDTO.getId());
+            default:
+                throw new RuntimeException("Subject type does not match");
         }
 
     }
 
     public TestPaymentDTO toTestPaymentDTO(TestPayment testPayment) {
-        return new TestPaymentDTO(
-                testPayment.getId(),
-                testPayment.getStudentID(),
-                testPayment.getDate(),
-                testPayment.getRemark(),
-                testPayment.getAmount()
-        );
+        return new TestPaymentDTO(testPayment.getId(), testPayment.getStudentID(), testPayment.getDate(), testPayment.getRemark(), testPayment.getAmount());
     }
 
     public CourseSubjectDetailDTO toCourseSubjectDetailDTO(CourseSubjectDetail courseSubjectDetail) {
-       return new CourseSubjectDetailDTO(
-               courseSubjectDetail.getCourseId(),
-               courseSubjectDetail.getSubjectId()
-       );
+        return new CourseSubjectDetailDTO(courseSubjectDetail.getCourseId(), courseSubjectDetail.getSubjectId());
+    }
+
+    public CourseSubjectDetail toCourseSubjectDetailEntity(CourseSubjectDetailDTO courseSubjectDetailDTO) {
+        return new CourseSubjectDetail(courseSubjectDetailDTO.getCourseId(), courseSubjectDetailDTO.getSubjectId());
+    }
+
+    public Exam toExamEntity(ExamDTO examDTO, Types types) throws RuntimeException {
+        switch (types) {
+            case ExamType1:
+                return new Exam(examDTO.getBatchId());
+            case ExamType2:
+                return new Exam(examDTO.getExamId(), examDTO.getSubjectId(), examDTO.getBatchId(), examDTO.getDescription(), examDTO.getExamDate());
+            case ExamType3:
+                return new Exam(examDTO.getExamId(), examDTO.getSubjectId(), examDTO.getBatchId(), examDTO.getDescription(), examDTO.getExamDate(), examDTO.getLab(), examDTO.getTime());
+            case ExamType4:
+                return new Exam(examDTO.getExamId(), examDTO.getBatchId());
+            default:
+                throw new RuntimeException("Exam Type does not match");
+        }
+
+    }
+
+    public RegistrationExamResultDTO toRegistrationExamResultDTO(RegistrationExamResult registrationExamResult) {
+        return new RegistrationExamResultDTO(registrationExamResult.getExamId(), registrationExamResult.getRegistrationId(), registrationExamResult.getMark(), registrationExamResult.getResult());
+    }
+
+    public RegistrationExamResult toRegistrationExamResultsEntity(RegistrationExamResultDTO registrationExamResultDTO, Types type) {
+        switch (type) {
+            case RegistrationExamResultType1:
+                return new RegistrationExamResult(registrationExamResultDTO.getExamId(), registrationExamResultDTO.getRegistrationId());
+            case RegistrationExamResultType2:
+                return new RegistrationExamResult(registrationExamResultDTO.getExamId(), registrationExamResultDTO.getRegistrationId(), registrationExamResultDTO.getMark(), registrationExamResultDTO.getResult());
+            default:
+                throw new RuntimeException("RegistrationExamResult Type does not match");
+        }
+    }
+
+    public SystemUser toSystemUserEntity(SystemUserDTO systemUserDTO) {
+        return new SystemUser(
+                systemUserDTO.getUserName(), systemUserDTO.getPassword(), systemUserDTO.getPasswordHint()
+        );
+    }
+
+    public SystemUserDTO toSystemUserDTO(SystemUser systemUser) {
+        return new SystemUserDTO(
+                systemUser.getUserName(), systemUser.getPassword(), systemUser.getPasswordHint()
+        );
+    }
+
+    public AttendanceDTO toAttendanceDTO(Attendance attendance) {
+        return new AttendanceDTO(attendance.getRegistrationId(), attendance.getDate(), attendance.getBatchId(), attendance.getStatus());
+    }
+
+    public Attendance toAttendanceEntity(AttendanceDTO attendance) {
+        return new Attendance(attendance.getRegistrationId(), attendance.getDate(), attendance.getBatchId(), attendance.getStatus());
     }
 }

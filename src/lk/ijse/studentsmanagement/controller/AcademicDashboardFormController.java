@@ -1,8 +1,9 @@
 package lk.ijse.studentsmanagement.controller;
 
-import animatefx.animation.*;
+import animatefx.animation.FadeIn;
+import animatefx.animation.FadeInLeftBig;
+import animatefx.animation.FadeInRightBig;
 import com.jfoenix.controls.JFXButton;
-import com.sun.scenario.animation.AnimationPulse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,9 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.studentsmanagement.comboLoad.TableLoader;
 import lk.ijse.studentsmanagement.dto.ExamDTO;
-import lk.ijse.studentsmanagement.entity.Exam;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.ExamService;
@@ -149,7 +148,7 @@ public class AcademicDashboardFormController implements Initializable {
         }
         btnAttendance.setDisable(true);
         localDateAndTime(lblDate, lblTime);
-        setGreeting(lblGreetings,wishImageView);
+        setGreeting(lblGreetings, wishImageView);
         new FadeIn(pane2).play();
         new FadeInRightBig(lblAnythingDo).play();
         new FadeInRightBig(lblWelcome).play();
@@ -198,10 +197,10 @@ public class AcademicDashboardFormController implements Initializable {
     }
 
     public void btnManageSubjectOnAction(ActionEvent actionEvent) throws IOException {
-         Navigation.navigate(Routes.ACADEMIC_MANAGE_SUBJECTS,pane);
+        Navigation.navigate(Routes.ACADEMIC_MANAGE_SUBJECTS, pane);
     }
 
     public void btnPaymentsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ACADEMIC_PAYMENTS,pane);
+        Navigation.navigate(Routes.ACADEMIC_PAYMENTS, pane);
     }
 }

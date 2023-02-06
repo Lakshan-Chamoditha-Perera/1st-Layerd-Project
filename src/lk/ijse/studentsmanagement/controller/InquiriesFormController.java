@@ -11,19 +11,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.studentsmanagement.dto.InquiryDTO;
-import lk.ijse.studentsmanagement.model.InquiryModel;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
 import lk.ijse.studentsmanagement.tblModels.InquiryTM;
-import lk.ijse.studentsmanagement.entity.Inquiry;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,16 +40,20 @@ public class InquiriesFormController implements Initializable {
     InquiryService inquiryService;
 
     public void btnAddStdOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ADD_STUDENT,pane);
+        Navigation.navigate(Routes.ADD_STUDENT, pane);
     }
 
     public void btnSearchOnAction(ActionEvent actionEvent) {
 
     }
 
-    public void btnViewStdOnAction(ActionEvent actionEvent) throws IOException {Navigation.navigate(Routes.VIEW_STUDENT,pane);}
+    public void btnViewStdOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.VIEW_STUDENT, pane);
+    }
 
-    public void btnUpdateStdOnAction(ActionEvent actionEvent) throws IOException {Navigation.navigate(Routes.UPDATE_STUDENT,pane);}
+    public void btnUpdateStdOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.UPDATE_STUDENT, pane);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,7 +71,7 @@ public class InquiriesFormController implements Initializable {
             inquiryService = ServiceFactory.getInstance().getService(ServiceTypes.INQUIRY);
             addToTable();
         } catch (SQLException | ClassNotFoundException | RuntimeException e) {
-          new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }
@@ -79,7 +80,7 @@ public class InquiriesFormController implements Initializable {
 
         List<InquiryDTO> allInquires = inquiryService.getAllInquires();
         ObservableList<InquiryTM> inquiryTMObservableList = FXCollections.observableArrayList();
-        for (InquiryDTO ele: allInquires) {
+        for (InquiryDTO ele : allInquires) {
             inquiryTMObservableList.add(new InquiryTM(
                     ele.getStudentID(),
                     ele.getName(),

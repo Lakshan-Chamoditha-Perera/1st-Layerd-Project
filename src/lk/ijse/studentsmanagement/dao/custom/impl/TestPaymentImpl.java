@@ -32,12 +32,12 @@ public class TestPaymentImpl implements TestPaymentDAO {
     }
 
     @Override
-    public TestPayment update(TestPayment entity) throws SQLException, ClassNotFoundException {
+    public TestPayment update(TestPayment entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 
     @Override
-    public TestPayment delete(TestPayment entity) throws SQLException, ClassNotFoundException {
+    public TestPayment delete(TestPayment entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;
     }
 

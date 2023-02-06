@@ -7,7 +7,6 @@ import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.PaymentDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
 import lk.ijse.studentsmanagement.entity.Payment;
-import lk.ijse.studentsmanagement.entity.Registration;
 import lk.ijse.studentsmanagement.service.custom.PaymentService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
@@ -32,14 +31,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDTO save(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException, DuplicateException {
-        if(CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)",
-                paymentDTO.getId(),
-                paymentDTO.getRegistrationId(),
-                paymentDTO.getType(),
-                paymentDTO.getRemark(),
-                paymentDTO.getAmount(),
-                paymentDTO.getDate()
-        )) return paymentDTO;
+        if (CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)", paymentDTO.getId(), paymentDTO.getRegistrationId(), paymentDTO.getType(), paymentDTO.getRemark(), paymentDTO.getAmount(), paymentDTO.getDate()))
+            return paymentDTO;
         return null;
     }
 
@@ -51,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public List<PaymentDTO> getPayments(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException, RuntimeException {
         List<Payment> payments = paymentDAO.getPayments(converter.toRegistrationEntity(registrationDTO, Types.RegistrationType1));
-        if(payments.size()>0){
+        if (payments.size() > 0) {
             return payments.stream().map(converter::toPaymentDTO).collect(Collectors.toList());
         }
         throw new RuntimeException("Empty Payments list...");
@@ -60,6 +53,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public double getPaymentsSum() throws SQLException, ClassNotFoundException {
         return paymentDAO.getPaymentsSum();
+    }
+
+    @Override
+    public List<PaymentDTO> loadAllPayments() throws SQLException, ClassNotFoundException, RuntimeException {
+        List<Payment> allPayments = paymentDAO.getAllPayments();
+        if (allPayments.size() > 0)
+            return allPayments.stream().map(converter::toPaymentDTO).collect(Collectors.toList());
+        throw new RuntimeException("no any payment yet!");
     }
 
 }

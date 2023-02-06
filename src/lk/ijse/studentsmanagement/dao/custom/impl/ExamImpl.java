@@ -16,7 +16,7 @@ public class ExamImpl implements ExamDAO {
     }
 
     @Override
-    public Exam save(Exam entity) throws SQLException, ClassNotFoundException {
+    public Exam save(Exam entity) throws SQLException, ClassNotFoundException,RuntimeException {
         if (CrudUtil.execute("INSERT INTO exam VALUES (?,?,?,?,?,?,?)",
                 entity.getExamId(),
                 entity.getSubjectId(),
@@ -30,7 +30,7 @@ public class ExamImpl implements ExamDAO {
     }
 
     @Override
-    public Exam update(Exam entity) throws SQLException, ClassNotFoundException {
+    public Exam update(Exam entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if(CrudUtil.execute("UPDATE exam SET  subjectID = ?, batchId = ?, description = ?, date = ?, lab = ?, Time = ? WHERE id = ?",
                 entity.getSubjectId(),
                 entity.getBatchId(),
@@ -40,20 +40,23 @@ public class ExamImpl implements ExamDAO {
                 entity.getTime(),
                 entity.getExamId()
         )) return entity;
-
-        throw new RuntimeException();
+        return null;
     }
 
     @Override
-    public Exam delete(Exam entity) throws SQLException, ClassNotFoundException {
+    public Exam delete(Exam entity) throws SQLException, ClassNotFoundException, RuntimeException {
         if(CrudUtil.execute("DELETE FROM exam WHERE id = ?",
                 entity.getExamId()
         )) return entity;
-        throw new RuntimeException();
+        return null;
     }
 
     @Override
     public Exam view(Exam entity) throws SQLException, ClassNotFoundException, RuntimeException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM exam WHERE id = ?", entity.getExamId());
+        if (resultSet.next()) {
+          return new Exam(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), Date.valueOf(resultSet.getString(5)));
+        }
         return null;
     }
 
@@ -82,9 +85,9 @@ public class ExamImpl implements ExamDAO {
                             Time.valueOf(resultSet.getString(7))
                     )
             );
-            return list;
+
         }
-        throw new RuntimeException();
+        return list;
     }
 
     @Override
@@ -143,11 +146,11 @@ public class ExamImpl implements ExamDAO {
     }
 
     @Override
-    public String getSubjectName(Exam exam) throws SQLException, ClassNotFoundException {
+    public String getSubjectName(Exam exam) throws SQLException, ClassNotFoundException,RuntimeException {
         ResultSet resultSet = CrudUtil.execute("SELECT name FROM subject WHERE id = (SELECT subjectID FROM exam WHERE id = ?)",exam.getExamId() );
         if(resultSet.next()){
             return resultSet.getString(1);
         }
-        throw new RuntimeException();
+        throw new RuntimeException("empty name");
     }
 }

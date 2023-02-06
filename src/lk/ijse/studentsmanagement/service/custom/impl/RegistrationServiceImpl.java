@@ -4,9 +4,11 @@ import lk.ijse.studentsmanagement.dao.DAOFactory;
 import lk.ijse.studentsmanagement.dao.DaoTypes;
 import lk.ijse.studentsmanagement.dao.custom.InquiryDAO;
 import lk.ijse.studentsmanagement.dao.custom.PaymentDAO;
+import lk.ijse.studentsmanagement.dao.custom.QueryDAO;
 import lk.ijse.studentsmanagement.dao.custom.RegistrationDAO;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
+import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
 import lk.ijse.studentsmanagement.entity.Registration;
 import lk.ijse.studentsmanagement.service.custom.RegistrationService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
@@ -19,11 +21,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static lk.ijse.studentsmanagement.service.util.Types.RegistrationType1;
+import static lk.ijse.studentsmanagement.service.util.Types.RegistrationType3;
 
 public class RegistrationServiceImpl implements RegistrationService {
     private final RegistrationDAO registrationDAO;
     private final PaymentDAO paymentDAO;
     private final InquiryDAO inquiryDAO;
+    QueryDAO queryDAO;
     private final Connection connection;
     private final Converter converter;
 
@@ -33,6 +37,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationDAO = DAOFactory.getInstance().getDAO(connection, DaoTypes.REGISTRATION);
         paymentDAO = DAOFactory.getInstance().getDAO(connection, DaoTypes.PAYMENTS);
         inquiryDAO = DAOFactory.getInstance().getDAO(connection, DaoTypes.INQUIRY);
+        queryDAO = DAOFactory.getInstance().getDAO(connection, DaoTypes.QUERY);
     }
 
     @Override
@@ -72,7 +77,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public RegistrationDTO update(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException {
-        Registration registration = registrationDAO.update(converter.toRegistrationEntity(registrationDTO, Types.RegistrationType3));
+        Registration registration = registrationDAO.update(converter.toRegistrationEntity(registrationDTO, RegistrationType3));
         if (registration != null) return registrationDTO;
         throw new RuntimeException("Registration not updated");
     }
@@ -93,9 +98,26 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public List<String> getRegistrationEmailList(String value) throws SQLException, ClassNotFoundException ,RuntimeException{
+    public List<String> getRegistrationEmailList(String value) throws SQLException, ClassNotFoundException, RuntimeException {
         List<String> registrationEmailList = registrationDAO.getRegistrationEmailList(value);
-        if(registrationEmailList.size()>0) return registrationEmailList;
+        if (registrationEmailList.size() > 0) return registrationEmailList;
         throw new RuntimeException("Empty registration list");
+    }
+
+    @Override
+    public List<RegistrationDTO> loadBatchRegistrations(String value) throws SQLException, ClassNotFoundException, RuntimeException {
+        List<Registration> registrations = registrationDAO.loadBatchRegistrations(value);
+        if (registrations.size() > 0)
+            return registrations.stream().map(registration -> converter.toRegistrationDTO(registration, RegistrationType3)).collect(Collectors.toList());
+        throw new RuntimeException("No any student in Batch ");
+    }
+
+    @Override
+    public List<RegistrationExamResultDTO> getTranscript(RegistrationDTO registrationDTO) throws SQLException, ClassNotFoundException,RuntimeException {
+        List<RegistrationExamResultDTO> transcript = queryDAO.getTranscript(converter.toRegistrationEntity(registrationDTO, Types.RegistrationType2));
+        if(transcript.size()>0){
+            return transcript;
+        }
+        throw new RuntimeException("Empty list");
     }
 }

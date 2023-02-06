@@ -8,20 +8,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import lk.ijse.studentsmanagement.model.SystemUserModel;
-import lk.ijse.studentsmanagement.smtp.Mail;
-import lk.ijse.studentsmanagement.entity.SystemUser;
+import lk.ijse.studentsmanagement.dto.SystemUserDTO;
+import lk.ijse.studentsmanagement.service.ServiceFactory;
+import lk.ijse.studentsmanagement.service.ServiceTypes;
+import lk.ijse.studentsmanagement.service.custom.SystemUserService;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -31,16 +27,18 @@ public class LoginPageController implements Initializable {
     public JFXPasswordField txtPassword;
     public Label lblPassword;
     public Label lblUsername;
+    Pattern[] pattern = new Pattern[2];
+    SystemUserService systemUserService;
 
     public void btnClickOnAction(ActionEvent actionEvent) throws IOException {
-        if (pattern[0].matcher(txtUserName.getText()).matches()){
-            if(pattern[1].matcher(txtPassword.getText()).matches()){
+        if (pattern[0].matcher(txtUserName.getText()).matches()) {
+            if (pattern[1].matcher(txtPassword.getText()).matches()) {
                 login();
-            }else {
+            } else {
                 txtPassword.setFocusColor(Color.valueOf("RED"));
                 txtPassword.requestFocus();
             }
-        }else{
+        } else {
             txtUserName.setFocusColor(Color.valueOf("RED"));
             txtUserName.requestFocus();
         }
@@ -48,12 +46,11 @@ public class LoginPageController implements Initializable {
 
     private void login() throws IOException {
         try {
-            SystemUser systemUser = SystemUserModel.search(new SystemUser(txtUserName.getText(), txtPassword.getText()));
+            SystemUserDTO systemUser = systemUserService.view(new SystemUserDTO(txtUserName.getText(), txtPassword.getText()));
             if (systemUser != null) {
                 if (systemUser.getUserName().equals(txtUserName.getText())) {
                     if (systemUser.getPassword().equals(txtPassword.getText())) {
                         switch (systemUser.getUserName()) {
-
                             case "counselor":
 //                                Mail.outMail(
 //                                        "New login to system." +
@@ -79,15 +76,18 @@ public class LoginPageController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Invalid User").show();
             }
-        } catch (SQLException | ClassNotFoundException  e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-    Pattern[] pattern = new Pattern[2];
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            systemUserService = ServiceFactory.getInstance().getService(ServiceTypes.SYSTEM_USER);
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
+        }
         pattern[0] = Pattern.compile("^[a-z0-9A-Z]{4,}$");//username
         pattern[1] = Pattern.compile("^[0-9a-zA-Z]{3,}$");//password
 
