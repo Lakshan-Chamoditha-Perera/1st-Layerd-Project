@@ -67,7 +67,7 @@ public class AcademicRegistrationPaymentsFormController implements Initializable
             JasperReport compileReport = JasperCompileManager.compileReport(
                     JRXmlLoader.load(
                             getClass().getResourceAsStream(
-                                    "/lk/ijse/studentsmanagement/report/RegistrationPaymentReport.jrxml"
+                                    "/RegistrationPaymentReportNew.jrxml"
                             )
                     )
             );

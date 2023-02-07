@@ -170,7 +170,7 @@ public class PaymentsFormController implements Initializable {
             JasperReport compileReport = JasperCompileManager.compileReport(
                     JRXmlLoader.load(
                             getClass().getResourceAsStream(
-                                    "lk/ijse/studentsmanagement/view/report/PaymentReceipts.jrxml"
+                                    "/PaymentReceiptsNew.jrxml"
                             )
                     )
             );

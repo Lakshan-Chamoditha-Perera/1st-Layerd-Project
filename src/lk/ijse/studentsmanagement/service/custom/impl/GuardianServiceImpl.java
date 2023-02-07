@@ -10,8 +10,6 @@ import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.GuardianDTO;
 import lk.ijse.studentsmanagement.entity.Guardian;
 import lk.ijse.studentsmanagement.service.custom.GuardianService;
-import lk.ijse.studentsmanagement.service.custom.RegistrationService;
-import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
 import lk.ijse.studentsmanagement.service.util.Types;
 
@@ -70,9 +68,10 @@ public class GuardianServiceImpl implements GuardianService {
     }
 
     @Override
-    public GuardianDTO view(GuardianDTO guardianDTO) throws SQLException, ClassNotFoundException,RuntimeException{
+    public GuardianDTO view(GuardianDTO guardianDTO) throws SQLException, ClassNotFoundException, RuntimeException {
+        System.out.println(guardianDTO);
         Guardian guardian = guardianDAO.view(converter.toGuardianEntity(guardianDTO, Types.GuardianType2));
-        if(guardian!=null  ){
+        if(guardian!=null){
             return converter.toGuardianDTO(guardian);
         }
         throw new RuntimeException("Guardian Does Not exists");

@@ -6,6 +6,5 @@ import lk.ijse.studentsmanagement.service.SuperService;
 import java.sql.SQLException;
 
 public interface GuardianService extends SuperService <GuardianDTO> {
-
-    GuardianDTO view(GuardianDTO guardianDTO) throws SQLException, ClassNotFoundException;
+    GuardianDTO view(GuardianDTO guardianDTO) throws SQLException, ClassNotFoundException,RuntimeException;
 }

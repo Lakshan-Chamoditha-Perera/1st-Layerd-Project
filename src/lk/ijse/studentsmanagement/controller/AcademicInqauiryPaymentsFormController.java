@@ -48,7 +48,7 @@ public class AcademicInqauiryPaymentsFormController implements Initializable {
 
     @FXML
     void btnPrintOnAction(ActionEvent event) {
-        //  printReport();
+         printReport();
     }
 
 
@@ -80,7 +80,7 @@ public class AcademicInqauiryPaymentsFormController implements Initializable {
 
     private void printReport() {
         try {
-            JasperReport compileReport = JasperCompileManager.compileReport(JRXmlLoader.load(getClass().getResourceAsStream("/IQTestPaymentReport.jrxml")));
+            JasperReport compileReport = JasperCompileManager.compileReport(JRXmlLoader.load(getClass().getResourceAsStream("/IQTestPaymentReportNew.jrxml")));
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, null, DBconnection.getInstance().getConnection());
             JasperViewer.viewReport(jasperPrint, false);
         } catch (SQLException | ClassNotFoundException | JRException e) {

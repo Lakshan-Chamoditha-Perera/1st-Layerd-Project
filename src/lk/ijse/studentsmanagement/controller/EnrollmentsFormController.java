@@ -1,11 +1,7 @@
 package lk.ijse.studentsmanagement.controller;
 
 import com.google.zxing.WriterException;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,13 +15,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import lk.ijse.studentsmanagement.dto.*;
-import lk.ijse.studentsmanagement.service.util.qr.QRGenerator;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.*;
-import lk.ijse.studentsmanagement.util.RegExPatterns;
+import lk.ijse.studentsmanagement.service.util.qr.QRGenerator;
 import lk.ijse.studentsmanagement.smtp.Mail;
 import lk.ijse.studentsmanagement.util.Navigation;
+import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -57,172 +53,122 @@ public class EnrollmentsFormController implements Initializable {
     public JFXButton btnEnroll;
     public Label lblInvalidAmount;
     public Label lblInvalidRemark;
-    @FXML
-    private AnchorPane pane;
-
-    @FXML
-    private JFXTextField txtStdAddress;
-
-    @FXML
-    private JFXTextField txtStdCity;
-
-    @FXML
-    private JFXTextField txtStdMobileNumber;
-
-    @FXML
-    private JFXTextField txtStdEmail;
-
-    @FXML
-    private JFXTextField txtSchool;
-
-    @FXML
-    private JFXRadioButton rBtnMale;
-
-    @FXML
-    private ToggleGroup gender;
-
-    @FXML
-    private JFXRadioButton rBtnFemale;
-
-    @FXML
-    private JFXDatePicker calDob;
-
-    @FXML
-    private JFXTextField txtStdName;
-
-    @FXML
-    private JFXRadioButton rBtnMaster;
-
-    @FXML
-    private ToggleGroup edu;
-
-    @FXML
-    private JFXRadioButton rBtnDegree;
-
-    @FXML
-    private JFXRadioButton rBtnDiploma;
-
-    @FXML
-    private JFXRadioButton rBtnAL;
-
-    @FXML
-    private JFXRadioButton rBtnOL;
-
-    @FXML
-    private Label lblRegID;
-
-    @FXML
-    private JFXTextField txtPostalCode;
-
-    @FXML
-    private Label lblInvalidName;
-
-    @FXML
-    private Label lblInvalidAddress;
-
-    @FXML
-    private Label lblInvalidCity;
-
-    @FXML
-    private Label lblInvalidPostalCode;
-
-    @FXML
-    private Label lblInvalidMobileNumber;
-
-    @FXML
-    private Label lblInvalidMobileNumber1;
-
-    @FXML
-    private Label lblInvalidSchool;
-
-    @FXML
-    private JFXRadioButton rBtnYes;
-
-    @FXML
-    private ToggleGroup familyMember;
-
-    @FXML
-    private JFXRadioButton rBtnNo;
-
-    @FXML
-    private JFXTextField txtParentAddress;
-
-    @FXML
-    private JFXTextField txtParentMobile;
-
-    @FXML
-    private JFXTextField txtParentName;
-
-    @FXML
-    private JFXTextField txtParentEmail;
-
-    @FXML
-    private JFXTextField txtParentDesignation;
-
-    @FXML
-    private JFXTextField txtParentWorkPlace;
-
-    @FXML
-    private JFXTextField txtParentID;
-
-    @FXML
-    private JFXTextField txtSearchParent;
-
-    @FXML
-    private JFXButton btnSearch;
-
-    @FXML
-    private Label lblInvalidParentID;
-
-    @FXML
-    private Label lblInvalidParentName;
-
-    @FXML
-    private Label lblInvalidParentAddress;
-
-    @FXML
-    private Label lblInvalidParentMobile;
-
-    @FXML
-    private Label lblInvalidParentEmail;
-
-    @FXML
-    private Label lblInvalidParentDesignaion;
-
-    @FXML
-    private Label lblInvalidParentWorkingPlace;
-
-    @FXML
-    private Label lblPaymentID;
-
-    @FXML
-    private JFXTextField txtAmount;
-
-    @FXML
-    private JFXTextField txtRemark;
-
-    @FXML
-    private Label txtBatch;
-
-    @FXML
-    private JFXComboBox<String> cmbCourse;
-
     CourseService courseService;
     PaymentService paymentService;
     RegistrationService registrationService;
     BatchService batchService;
     GuardianService guardianService;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private JFXTextField txtStdAddress;
+    @FXML
+    private JFXTextField txtStdCity;
+    @FXML
+    private JFXTextField txtStdMobileNumber;
+    @FXML
+    private JFXTextField txtStdEmail;
+    @FXML
+    private JFXTextField txtSchool;
+    @FXML
+    private JFXRadioButton rBtnMale;
+    @FXML
+    private ToggleGroup gender;
+    @FXML
+    private JFXRadioButton rBtnFemale;
+    @FXML
+    private JFXDatePicker calDob;
+    @FXML
+    private JFXTextField txtStdName;
+    @FXML
+    private JFXRadioButton rBtnMaster;
+    @FXML
+    private ToggleGroup edu;
+    @FXML
+    private JFXRadioButton rBtnDegree;
+    @FXML
+    private JFXRadioButton rBtnDiploma;
+    @FXML
+    private JFXRadioButton rBtnAL;
+    @FXML
+    private JFXRadioButton rBtnOL;
+    @FXML
+    private Label lblRegID;
+    @FXML
+    private JFXTextField txtPostalCode;
+    @FXML
+    private Label lblInvalidName;
+    @FXML
+    private Label lblInvalidAddress;
+    @FXML
+    private Label lblInvalidCity;
+    @FXML
+    private Label lblInvalidPostalCode;
+    @FXML
+    private Label lblInvalidMobileNumber;
+    @FXML
+    private Label lblInvalidMobileNumber1;
+    @FXML
+    private Label lblInvalidSchool;
+    @FXML
+    private JFXRadioButton rBtnYes;
+    @FXML
+    private ToggleGroup familyMember;
+    @FXML
+    private JFXRadioButton rBtnNo;
+    @FXML
+    private JFXTextField txtParentAddress;
+    @FXML
+    private JFXTextField txtParentMobile;
+    @FXML
+    private JFXTextField txtParentName;
+    @FXML
+    private JFXTextField txtParentEmail;
+    @FXML
+    private JFXTextField txtParentDesignation;
+    @FXML
+    private JFXTextField txtParentWorkPlace;
+    @FXML
+    private JFXTextField txtParentID;
+    @FXML
+    private JFXTextField txtSearchParent;
+    @FXML
+    private JFXButton btnSearch;
+    @FXML
+    private Label lblInvalidParentID;
+    @FXML
+    private Label lblInvalidParentName;
+    @FXML
+    private Label lblInvalidParentAddress;
+    @FXML
+    private Label lblInvalidParentMobile;
+    @FXML
+    private Label lblInvalidParentEmail;
+    @FXML
+    private Label lblInvalidParentDesignaion;
+    @FXML
+    private Label lblInvalidParentWorkingPlace;
+    @FXML
+    private Label lblPaymentID;
+    @FXML
+    private JFXTextField txtAmount;
+    @FXML
+    private JFXTextField txtRemark;
+    @FXML
+    private Label txtBatch;
+    @FXML
+    private JFXComboBox<String> cmbCourse;
 
     @FXML
     void btnEnrollClickOnAction(ActionEvent event) {
         SuperDTO dto;
         RegistrationDTO registrationDTO = isStdDetailCorrect();
         try {
-        //    System.out.println("registrationDTO not null");
+            //    System.out.println("registrationDTO not null");
             GuardianDTO guardianDTO = setGuardianDetailDTO();
-         //   System.out.println("guardian not null");
+            //   System.out.println("guardian not null");
             PaymentDTO paymentDTO = setPaymentDTO();
-         //   System.out.println("paymentDTO not null");
+            //   System.out.println("paymentDTO not null");
             if (!rBtnYes.isSelected()) {
                 //add with parent
                 System.out.println("add with parent");
@@ -236,33 +182,34 @@ public class EnrollmentsFormController implements Initializable {
                 registrationDTO.setPayment(paymentDTO);
                 dto = registrationService.save(registrationDTO);
             }
-            if (dto!=null) {
-                System.out.println("All Done");
-                //alertGenerateQRCodeAndPrintBill(registrationDTO);
+            if (dto != null) {
+                new Alert(Alert.AlertType.INFORMATION, "Enroll Successes!").showAndWait();
+                alertGenerateQRCodeAndPrintBill(registrationDTO);
+                Navigation.navigate(Routes.ENROLLMENTS, pane);
             }
-            Navigation.navigate(Routes.ENROLLMENTS, pane);
-        } catch (SQLException | IOException | ClassNotFoundException | RuntimeException e) {
-            System.out.println(e.getMessage());
+
+        } catch (SQLException | IOException | ClassNotFoundException | RuntimeException | WriterException | JRException e) {
+           throw new RuntimeException(e);
         }
     }
 
-    private void alertGenerateQRCodeAndPrintBill(RegistrationDTO registration) throws IOException, WriterException {
+    private void alertGenerateQRCodeAndPrintBill(RegistrationDTO registration) throws IOException, WriterException, JRException {
         printReport();
-        QRGenerator.getGenerator(registration.toString());
-        String msg2 = "\n\n\n\n\nThis email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
-        String msg = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" +
-                "Dear " + registration.getName() + ", Greetings from the Student Enrollment Unit!\n\n" +
-                "Your Students ID is : " + registration.getRegistrationId() +
-                "\n\nThank You!..." + msg2;
-        String subject = "Welcome to Institute of Software Engineering";
-        try {
-            Mail.outMail(msg, registration.getEmail(), subject);
-        } catch (MessagingException e) {
-            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
-        }
+//        QRGenerator.getGenerator(registration.toString());
+//        String msg2 = "\n\n\n\n\nThis email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
+//        String msg = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" +
+//                "Dear " + registration.getName() + ", Greetings from the Student Enrollment Unit!\n\n" +
+//                "Your Students ID is : " + registration.getRegistrationId() +
+//                "\n\nThank You!..." + msg2;
+//        String subject = "Welcome to Institute of Software Engineering";
+//        try {
+//            Mail.outMail(msg, registration.getEmail(), subject);
+//        } catch (MessagingException e) {
+//            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
+//        }
     }
 
-    private void printReport() {
+    private void printReport() throws JRException {
         HashMap hashMap = new HashMap<>();
         hashMap.put("receptNo", lblPaymentID.getText());
         hashMap.put("regId", lblRegID.getText());
@@ -272,19 +219,15 @@ public class EnrollmentsFormController implements Initializable {
         hashMap.put("amount", txtAmount.getText());
         hashMap.put("total", txtAmount.getText());
         hashMap.put("nic", txtStdNic.getText());
-        try {
             JasperReport compileReport = JasperCompileManager.compileReport(
                     JRXmlLoader.load(
                             getClass().getResourceAsStream(
-                                    "/lk/ijse/studentsmanagement/report/RegistrationReceipt.jrxml"
+                                    "/RegistrationReceiptNew.jrxml"
                             )
                     )
             );
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, hashMap, new JREmptyDataSource());
             JasperViewer.viewReport(jasperPrint, false);
-        } catch (JRException e) {
-            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
-        }
     }
 
     private PaymentDTO setPaymentDTO() throws RuntimeException {
@@ -443,23 +386,25 @@ public class EnrollmentsFormController implements Initializable {
 
     @FXML
     void btnSearchOnaction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        if (RegExPatterns.getOldIDPattern().matcher(txtSearchParent.getText()).matches()) {
-           GuardianDTO guardianDTO =  guardianService.view(new GuardianDTO(txtParentID.getText()));
-          //  Guardian guardian = GardianModel.getGardianDetail(new Guardian(txtSearchParent.getText()));
-            if (guardianDTO != null) {
-                txtParentID.setText(guardianDTO.getId());
-                txtParentName.setText(guardianDTO.getName());
-                txtParentEmail.setText(guardianDTO.getEmail());
-                txtParentMobile.setText(guardianDTO.getMobile());
-                txtParentWorkPlace.setText(guardianDTO.getWorkingPlace());
-                txtParentAddress.setText(guardianDTO.getAddress());
-                txtParentDesignation.setText(guardianDTO.getDesignation());
+        try {
+            if (RegExPatterns.getOldIDPattern().matcher(txtSearchParent.getText()).matches()) {
+                System.out.println("txt :" + txtSearchParent.getText());
+                GuardianDTO guardianDTO = guardianService.view(new GuardianDTO(txtSearchParent.getText()));
+                if (guardianDTO != null) {
+                    txtParentID.setText(guardianDTO.getId());
+                    txtParentName.setText(guardianDTO.getName());
+                    txtParentEmail.setText(guardianDTO.getEmail());
+                    txtParentMobile.setText(guardianDTO.getMobile());
+                    txtParentWorkPlace.setText(guardianDTO.getWorkingPlace());
+                    txtParentAddress.setText(guardianDTO.getAddress());
+                    txtParentDesignation.setText(guardianDTO.getDesignation());
+                }
             } else {
-                new Alert(Alert.AlertType.ERROR, "Guardian not Found!").show();
+                lblInvalidSearchDetail.setVisible(true);
+                txtSearchParent.setFocusColor(Color.RED);
             }
-        } else {
-            lblInvalidSearchDetail.setVisible(true);
-            txtSearchParent.setFocusColor(Color.RED);
+        } catch (RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -564,6 +509,7 @@ public class EnrollmentsFormController implements Initializable {
             registrationService = ServiceFactory.getInstance().getService(ServiceTypes.REGISTRATION);
             batchService = ServiceFactory.getInstance().getService(ServiceTypes.BATCH);
             guardianService = ServiceFactory.getInstance().getService(ServiceTypes.GUARDIAN);
+
             activate(true);
             loadCoursesList(cmbCourse);
 
@@ -571,7 +517,7 @@ public class EnrollmentsFormController implements Initializable {
             setRegistrationID(lblRegID);
 
         } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, String.valueOf(e)).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 

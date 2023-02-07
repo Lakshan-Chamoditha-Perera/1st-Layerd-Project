@@ -64,7 +64,7 @@ public class GuardianDTO implements SuperDTO {
 
     @Override
     public String toString() {
-        return "Gardian{" +
+        return "GuardianDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +

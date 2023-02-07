@@ -194,7 +194,7 @@ public class AddInquiryFormController implements Initializable {
         hashMap.put("lab", lblTestLab.getText());
         hashMap.put("total", lblAmount.getText());
         try {
-            JasperReport compileReport = JasperCompileManager.compileReport(JRXmlLoader.load(getClass().getResourceAsStream("/lk/ijse/studentsmanagement/report/OfficialReceipt.jrxml")));
+            JasperReport compileReport = JasperCompileManager.compileReport(JRXmlLoader.load(getClass().getResourceAsStream("/OfficialReceiptNew.jrxml")));
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, hashMap, new JREmptyDataSource());
             JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {

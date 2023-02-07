@@ -41,8 +41,10 @@ public class GuardianImpl implements GuardianDAO {
 
     @Override
     public Guardian view(Guardian entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        ResultSet resultSet = CrudUtil.execute("SELECT * FROM gardian where entity = ?", entity.getId());
+        System.out.println(entity);
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM gardian where id = ?", entity.getId());
         if (resultSet.next()) {
+            System.out.println("gardian");
             return new Guardian(
                     resultSet.getString(1),
                     resultSet.getString(2),
