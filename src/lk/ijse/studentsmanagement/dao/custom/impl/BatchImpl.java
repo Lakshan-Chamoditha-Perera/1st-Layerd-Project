@@ -1,8 +1,8 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.BatchDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Batch;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.Date;

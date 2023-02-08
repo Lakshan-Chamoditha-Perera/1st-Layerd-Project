@@ -2,7 +2,6 @@ package lk.ijse.studentsmanagement.service.util;
 
 import lk.ijse.studentsmanagement.dto.*;
 import lk.ijse.studentsmanagement.entity.*;
-import lk.ijse.studentsmanagement.tblModels.AttendanceTM;
 
 import java.util.Objects;
 

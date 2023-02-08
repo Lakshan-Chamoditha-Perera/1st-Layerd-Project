@@ -1,9 +1,9 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.PaymentDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Payment;
 import lk.ijse.studentsmanagement.entity.Registration;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,12 +20,11 @@ public class PaymentImpl implements PaymentDAO {
     }
 
     @Override
-    public Payment save(Payment entity) throws SQLException, ClassNotFoundException {
+    public Payment save(Payment entity) throws SQLException, ClassNotFoundException,RuntimeException {
         if (CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)", entity.getId(), entity.getRegistrationId(), entity.getType(), entity.getRemark(), entity.getAmount(), entity.getDate()))
             return entity;
         throw new RuntimeException();
     }
-
     @Override
     public Payment update(Payment entity) throws SQLException, ClassNotFoundException, RuntimeException {
         return null;

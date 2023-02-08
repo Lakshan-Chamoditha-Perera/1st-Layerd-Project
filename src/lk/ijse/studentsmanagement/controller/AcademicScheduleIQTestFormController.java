@@ -21,7 +21,7 @@ import lk.ijse.studentsmanagement.dto.IQTestDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.IqTestService;
-import lk.ijse.studentsmanagement.tblModels.IQTestTM;
+import lk.ijse.studentsmanagement.dto.tblModels.IQTestTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;

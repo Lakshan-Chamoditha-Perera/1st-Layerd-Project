@@ -3,6 +3,7 @@ package lk.ijse.studentsmanagement.service.custom.impl;
 import lk.ijse.studentsmanagement.dao.DAOFactory;
 import lk.ijse.studentsmanagement.dao.DaoTypes;
 import lk.ijse.studentsmanagement.dao.custom.PaymentDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.PaymentDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationDTO;
@@ -11,7 +12,6 @@ import lk.ijse.studentsmanagement.service.custom.PaymentService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
 import lk.ijse.studentsmanagement.service.util.Types;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDTO save(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException, DuplicateException {
-        if (CrudUtil.execute("INSERT INTO payments VALUES (?,?,?,?,?,?)", paymentDTO.getId(), paymentDTO.getRegistrationId(), paymentDTO.getType(), paymentDTO.getRemark(), paymentDTO.getAmount(), paymentDTO.getDate()))
+        if (paymentDAO.save(converter.toPaymentEntity(paymentDTO))!=null)
             return paymentDTO;
         return null;
     }

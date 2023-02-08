@@ -24,8 +24,8 @@ import lk.ijse.studentsmanagement.service.custom.InquiryIqTestDetailService;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
 import lk.ijse.studentsmanagement.service.custom.IqTestService;
 import lk.ijse.studentsmanagement.service.custom.TestPaymentService;
-import lk.ijse.studentsmanagement.tblModels.IQTestTM;
-import lk.ijse.studentsmanagement.tblModels.InquiryIQTestDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.IQTestTM;
+import lk.ijse.studentsmanagement.dto.tblModels.InquiryIQTestDetailTM;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 
 import java.net.URL;

@@ -8,7 +8,7 @@ import lk.ijse.studentsmanagement.dto.CourseSubjectDetailDTO;
 import lk.ijse.studentsmanagement.entity.CourseSubjectDetail;
 import lk.ijse.studentsmanagement.service.custom.CourseSubjectDetailService;
 import lk.ijse.studentsmanagement.service.util.Converter;
-import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.CourseSubjectDetailTM;
 
 import java.sql.Connection;
 import java.sql.SQLException;

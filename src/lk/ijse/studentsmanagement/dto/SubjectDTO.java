@@ -1,8 +1,5 @@
 package lk.ijse.studentsmanagement.dto;
 
-import lk.ijse.studentsmanagement.entity.SuperEntity;
-import lk.ijse.studentsmanagement.util.CrudUtil;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -24,14 +21,7 @@ public class SubjectDTO implements SuperDTO {
     public SubjectDTO() {
     }
 
-    public static SubjectDTO getLastSubjectID() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.execute("SELECT id from subject ORDER BY id DESC LIMIT 1");
-        if (resultSet.next()) {
-            return new SubjectDTO(resultSet.getString(1));
-        }
-        return null;
 
-    }
 
     @Override
     public String toString() {

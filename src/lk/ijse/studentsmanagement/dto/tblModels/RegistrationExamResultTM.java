@@ -1,4 +1,4 @@
-package lk.ijse.studentsmanagement.tblModels;
+package lk.ijse.studentsmanagement.dto.tblModels;
 
 public class RegistrationExamResultTM {
     String examId;

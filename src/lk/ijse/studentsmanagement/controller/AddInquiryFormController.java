@@ -198,7 +198,7 @@ public class AddInquiryFormController implements Initializable {
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, hashMap, new JREmptyDataSource());
             JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {
-            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
         }
     }
 

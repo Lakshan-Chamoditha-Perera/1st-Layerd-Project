@@ -21,7 +21,7 @@ import lk.ijse.studentsmanagement.entity.Exam;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.ExamService;
-import lk.ijse.studentsmanagement.tblModels.ExamTM;
+import lk.ijse.studentsmanagement.dto.tblModels.ExamTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;

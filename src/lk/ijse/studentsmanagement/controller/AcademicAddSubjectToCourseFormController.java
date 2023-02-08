@@ -17,8 +17,8 @@ import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.CourseService;
 import lk.ijse.studentsmanagement.service.custom.CourseSubjectDetailService;
 import lk.ijse.studentsmanagement.service.custom.SubjectService;
-import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
-import lk.ijse.studentsmanagement.tblModels.SubjectTM;
+import lk.ijse.studentsmanagement.dto.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.SubjectTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 

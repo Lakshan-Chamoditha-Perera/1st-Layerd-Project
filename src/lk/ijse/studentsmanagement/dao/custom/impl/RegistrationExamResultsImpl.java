@@ -1,8 +1,8 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.RegistrationExamResultsDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.RegistrationExamResult;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

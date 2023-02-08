@@ -4,7 +4,7 @@ import lk.ijse.studentsmanagement.dao.custom.QueryDAO;
 import lk.ijse.studentsmanagement.dto.InquiryIQTestDetailDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
 import lk.ijse.studentsmanagement.entity.Registration;
-import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.CourseSubjectDetailTM;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 
 import java.sql.Connection;

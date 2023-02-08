@@ -1,7 +1,5 @@
 package lk.ijse.studentsmanagement.entity;
 
-import lk.ijse.studentsmanagement.util.CrudUtil;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,15 +19,6 @@ public class Subject implements SuperEntity{
     }
 
     public Subject() {
-    }
-
-    public static Subject getLastSubjectID() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.execute("SELECT id from subject ORDER BY id DESC LIMIT 1");
-        if (resultSet.next()) {
-            return new Subject(resultSet.getString(1));
-        }
-        return null;
-
     }
 
     @Override

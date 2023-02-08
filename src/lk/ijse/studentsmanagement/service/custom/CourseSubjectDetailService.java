@@ -2,7 +2,7 @@ package lk.ijse.studentsmanagement.service.custom;
 
 import lk.ijse.studentsmanagement.dto.CourseSubjectDetailDTO;
 import lk.ijse.studentsmanagement.service.SuperService;
-import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.CourseSubjectDetailTM;
 
 import java.sql.SQLException;
 import java.util.List;

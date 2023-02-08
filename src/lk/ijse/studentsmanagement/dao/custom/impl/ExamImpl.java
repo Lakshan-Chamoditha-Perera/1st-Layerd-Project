@@ -1,8 +1,8 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.ExamDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Exam;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.*;
 import java.util.ArrayList;

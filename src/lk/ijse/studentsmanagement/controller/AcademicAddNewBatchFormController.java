@@ -17,7 +17,7 @@ import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.BatchService;
 import lk.ijse.studentsmanagement.service.custom.CourseService;
-import lk.ijse.studentsmanagement.tblModels.BatchTM;
+import lk.ijse.studentsmanagement.dto.tblModels.BatchTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;

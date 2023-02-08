@@ -19,7 +19,7 @@ import lk.ijse.studentsmanagement.entity.Subject;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.SubjectService;
-import lk.ijse.studentsmanagement.tblModels.SubjectTM;
+import lk.ijse.studentsmanagement.dto.tblModels.SubjectTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;

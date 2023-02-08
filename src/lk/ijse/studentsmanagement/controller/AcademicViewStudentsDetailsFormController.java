@@ -17,7 +17,7 @@ import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.PaymentService;
 import lk.ijse.studentsmanagement.service.custom.RegistrationService;
-import lk.ijse.studentsmanagement.tblModels.PaymentsTM;
+import lk.ijse.studentsmanagement.dto.tblModels.PaymentsTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;

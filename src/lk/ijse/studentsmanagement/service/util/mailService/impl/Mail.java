@@ -1,41 +1,30 @@
 package lk.ijse.studentsmanagement.service.util.mailService.impl;
 
-import lk.ijse.studentsmanagement.service.util.mailService.MailService;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-public class MailServiceImpl implements MailService {
+public class Mail implements Runnable{
     String msg;
     String to;
     String subject;
+    List<String> list;
 
-    public MailServiceImpl(String msg, String to, String subject) {
+    public Mail(String msg, String to, String subject, List<String> list) {
         this.msg = msg;
         this.to = to;
         this.subject = subject;
+        this.list = list;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private void outMailSingle() throws MessagingException {
 
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    @Override
-    public void outMail() throws MessagingException {
         //String to = "ruvinisubhasinghe200009@gmail.com";
         //String from = "perera.alc2000@gmail.com";
-
+        //
         String from = "softwareengineeringIJSE@gmail.com";
         String host = "localhost";
 
@@ -46,7 +35,7 @@ public class MailServiceImpl implements MailService {
         properties.put("mail.smtp.port", 587);
 
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
-            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+            protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("softwareengineeringIJSE@gmail.com", "boetfzbejjithdve");  // have to change some settings in SMTP
             }
         });
@@ -57,6 +46,15 @@ public class MailServiceImpl implements MailService {
         mimeMessage.setSubject(subject);
         mimeMessage.setText(msg);
         Transport.send(mimeMessage);
+
+        System.out.println("Sent... " + to);
+    }
+
+    private void outMail() throws MessagingException {
+        for (String ele : list) {
+            to = ele;
+            outMailSingle();
+        }
     }
 
     /**
@@ -72,24 +70,14 @@ public class MailServiceImpl implements MailService {
      */
     @Override
     public void run() {
-      if(validate()){
-          try {
-              outMail();
-          } catch (MessagingException e) {
-              throw new RuntimeException(e);
-          }
-      }
-    }
-    private boolean validate() {
-        if(!to.isEmpty()){
-            if(!subject.isEmpty()){
-                if(!msg.isEmpty()){
-                    return true;
-                }
-                throw new RuntimeException("empty message!");
-            }
-            throw new RuntimeException("empty subject!");
-        }
-        throw new RuntimeException("empty receiver!");
+       try{
+           if(list!=null) {
+               outMail();
+           }else{
+               outMailSingle();
+           }
+       } catch (MessagingException e) {
+           throw new RuntimeException(e);
+       }
     }
 }

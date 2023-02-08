@@ -16,7 +16,7 @@ import lk.ijse.studentsmanagement.dto.TestPaymentDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.TestPaymentService;
-import lk.ijse.studentsmanagement.tblModels.TestPaymentsTM;
+import lk.ijse.studentsmanagement.dto.tblModels.TestPaymentsTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;

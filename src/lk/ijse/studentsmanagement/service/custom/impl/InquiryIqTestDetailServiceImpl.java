@@ -4,13 +4,13 @@ import lk.ijse.studentsmanagement.dao.DAOFactory;
 import lk.ijse.studentsmanagement.dao.DaoTypes;
 import lk.ijse.studentsmanagement.dao.custom.InquiryIqTestDetailDAO;
 import lk.ijse.studentsmanagement.dao.custom.QueryDAO;
+import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.db.DBconnection;
 import lk.ijse.studentsmanagement.dto.InquiryIQTestDetailDTO;
 import lk.ijse.studentsmanagement.entity.InquiryIQTestDetail;
 import lk.ijse.studentsmanagement.service.custom.InquiryIqTestDetailService;
 import lk.ijse.studentsmanagement.service.util.Converter;
 import lk.ijse.studentsmanagement.service.util.Types;
-import lk.ijse.studentsmanagement.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;

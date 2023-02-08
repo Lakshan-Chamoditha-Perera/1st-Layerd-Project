@@ -12,12 +12,17 @@ import lk.ijse.studentsmanagement.dto.SystemUserDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.SystemUserService;
+import lk.ijse.studentsmanagement.service.util.mailService.impl.Mail;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -52,18 +57,12 @@ public class LoginPageController implements Initializable {
                     if (systemUser.getPassword().equals(txtPassword.getText())) {
                         switch (systemUser.getUserName()) {
                             case "counselor":
-//                                Mail.outMail(
-//                                        "New login to system." +
-//                                                "\n\t Time: "+
-//                                                Date.valueOf(LocalDate.now())+
-//                                                " : "+
-//                                                Time.valueOf(LocalTime.now()),
-//                                        "perera.alc2000@gmail.com",
-//                                        "Alert!");
+                                sendMail("counselor");
                                 Navigation.navigate(Routes.COUNSELOR, pane);
                                 break;
 
                             case "admin":
+                                sendMail("admin");
                                 Navigation.navigate(Routes.ACADEMIC, pane);
                                 break;
                         }
@@ -79,6 +78,15 @@ public class LoginPageController implements Initializable {
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+    }
+
+    private void sendMail(String user) throws RuntimeException {
+        Mail mailService = new Mail(
+                "New login to system.\n\t Time: " + Date.valueOf(String.valueOf(LocalDate.now())) + " : " + Time.valueOf(LocalTime.now() + " by " + user),
+                "perera.alc2000@gmail.com",
+                "Alert", null);
+        Thread thread = new Thread(mailService);
+        thread.start();
     }
 
     @Override

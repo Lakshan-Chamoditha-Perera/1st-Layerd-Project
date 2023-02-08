@@ -17,7 +17,7 @@ import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryIqTestDetailService;
 import lk.ijse.studentsmanagement.service.custom.IqTestService;
-import lk.ijse.studentsmanagement.tblModels.InquiryIQTestDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.InquiryIQTestDetailTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 

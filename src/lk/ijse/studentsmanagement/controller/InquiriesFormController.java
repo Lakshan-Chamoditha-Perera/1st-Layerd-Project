@@ -14,7 +14,7 @@ import lk.ijse.studentsmanagement.dto.InquiryDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
-import lk.ijse.studentsmanagement.tblModels.InquiryTM;
+import lk.ijse.studentsmanagement.dto.tblModels.InquiryTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 

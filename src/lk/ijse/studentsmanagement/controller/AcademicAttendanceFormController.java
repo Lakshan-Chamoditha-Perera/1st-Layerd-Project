@@ -17,7 +17,7 @@ import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.AttendanceService;
 import lk.ijse.studentsmanagement.service.custom.RegistrationService;
 import lk.ijse.studentsmanagement.service.util.qr.QRScanner;
-import lk.ijse.studentsmanagement.tblModels.AttendanceTM;
+import lk.ijse.studentsmanagement.dto.tblModels.AttendanceTM;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 
 import java.net.URL;

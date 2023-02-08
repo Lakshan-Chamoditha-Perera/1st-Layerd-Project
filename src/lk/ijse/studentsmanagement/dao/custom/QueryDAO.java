@@ -4,9 +4,8 @@ import lk.ijse.studentsmanagement.dao.SuperDAO;
 import lk.ijse.studentsmanagement.dto.InquiryIQTestDetailDTO;
 import lk.ijse.studentsmanagement.dto.RegistrationExamResultDTO;
 import lk.ijse.studentsmanagement.entity.Registration;
-import lk.ijse.studentsmanagement.tblModels.CourseSubjectDetailTM;
+import lk.ijse.studentsmanagement.dto.tblModels.CourseSubjectDetailTM;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
