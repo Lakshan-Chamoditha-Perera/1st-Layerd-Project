@@ -36,8 +36,8 @@ public class AcademicAddIQtestMarksFormController implements Initializable {
     public Label txtLab;
     public Label txtExamDate;
     public AnchorPane tblPane;
-    IqTestService iqTestService;
-    InquiryIqTestDetailService inquiryIqTestDetailService;
+    private IqTestService iqTestService;
+   private InquiryIqTestDetailService inquiryIqTestDetailService;
     @FXML
     private AnchorPane pane;
     @FXML

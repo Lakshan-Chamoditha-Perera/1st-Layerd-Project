@@ -18,8 +18,8 @@ import lk.ijse.studentsmanagement.dto.*;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.*;
+import lk.ijse.studentsmanagement.service.util.mailService.Mail;
 import lk.ijse.studentsmanagement.service.util.qr.QRGenerator;
-import lk.ijse.studentsmanagement.smtp.Mail;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
@@ -27,7 +27,6 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -188,13 +187,18 @@ public class EnrollmentsFormController implements Initializable {
                 Navigation.navigate(Routes.ENROLLMENTS, pane);
             }
 
-        } catch (SQLException | IOException | ClassNotFoundException | RuntimeException | WriterException | JRException e) {
-           throw new RuntimeException(e);
+        } catch (SQLException | IOException | ClassNotFoundException | RuntimeException | WriterException |
+                 JRException e) {
+            throw new RuntimeException(e);
         }
     }
 
     private void alertGenerateQRCodeAndPrintBill(RegistrationDTO registration) throws IOException, WriterException, JRException {
         printReport();
+        QRGenerator instance = QRGenerator.getInstance();
+        instance.setId(lblRegID.getText());
+         Thread thread =  new Thread(instance);
+         thread.start();
 //        QRGenerator.getGenerator(registration.toString());
 //        String msg2 = "\n\n\n\n\nThis email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
 //        String msg = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" +
@@ -207,6 +211,10 @@ public class EnrollmentsFormController implements Initializable {
 //        } catch (MessagingException e) {
 //            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
 //        }
+
+    }
+
+    private void generateQrCode() {
     }
 
     private void printReport() throws JRException {
@@ -219,15 +227,15 @@ public class EnrollmentsFormController implements Initializable {
         hashMap.put("amount", txtAmount.getText());
         hashMap.put("total", txtAmount.getText());
         hashMap.put("nic", txtStdNic.getText());
-            JasperReport compileReport = JasperCompileManager.compileReport(
-                    JRXmlLoader.load(
-                            getClass().getResourceAsStream(
-                                    "/RegistrationReceiptNew.jrxml"
-                            )
-                    )
-            );
-            JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, hashMap, new JREmptyDataSource());
-            JasperViewer.viewReport(jasperPrint, false);
+        JasperReport compileReport = JasperCompileManager.compileReport(
+                JRXmlLoader.load(
+                        getClass().getResourceAsStream(
+                                "/RegistrationReceiptNew.jrxml"
+                        )
+                )
+        );
+        JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, hashMap, new JREmptyDataSource());
+        JasperViewer.viewReport(jasperPrint, false);
     }
 
     private PaymentDTO setPaymentDTO() throws RuntimeException {

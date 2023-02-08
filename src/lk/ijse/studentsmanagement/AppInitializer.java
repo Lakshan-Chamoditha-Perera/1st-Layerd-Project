@@ -17,7 +17,7 @@ public class AppInitializer extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         //   primaryStage.setFullScreen(true);
-      //  primaryStage.getIcons().add(new Image("logo.png"));
+        primaryStage.getIcons().add(new Image("logo.png"));
         // primaryStage.
     }
 }

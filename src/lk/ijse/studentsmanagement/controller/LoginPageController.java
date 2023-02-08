@@ -12,7 +12,7 @@ import lk.ijse.studentsmanagement.dto.SystemUserDTO;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.SystemUserService;
-import lk.ijse.studentsmanagement.service.util.mailService.impl.Mail;
+import lk.ijse.studentsmanagement.service.util.mailService.Mail;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.Routes;
 import org.joda.time.LocalDate;
@@ -82,9 +82,10 @@ public class LoginPageController implements Initializable {
 
     private void sendMail(String user) throws RuntimeException {
         Mail mailService = new Mail(
-                "New login to system.\n\t Time: " + Date.valueOf(String.valueOf(LocalDate.now())) + " : " + Time.valueOf(LocalTime.now() + " by " + user),
+                "New login to system.\n\t Time: "+ Date.valueOf(String.valueOf(LocalDate.now())) + " : " + Time.valueOf(LocalTime.now()) + " by " + user,
                 "perera.alc2000@gmail.com",
-                "Alert", null);
+                "Alert", null
+        );
         Thread thread = new Thread(mailService);
         thread.start();
     }

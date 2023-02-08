@@ -10,28 +10,46 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class QRGenerator{
-    public static void getGenerator(String id) throws IOException, WriterException {
-        String path = "/home/shan/Downloads/1st-Semester-Final-Project-master/src/lk/ijse/registrationQRCodes"+id+".png";
+public class QRGenerator implements Runnable{
+    static QRGenerator qrGenerator;
+    private String id;
+
+    private QRGenerator() {
+    }
+
+    public static QRGenerator getInstance() {
+        return qrGenerator == null ? (qrGenerator = new QRGenerator()) : qrGenerator;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void generate() throws IOException, WriterException, RuntimeException {
+        if (id == null) throw new RuntimeException("Id is null");
+        String path = "/home/shan/Downloads/1st-Semester-Final-Project-master/src/lk/ijse/studentsmanagement/service/util/qr/images/registrationQRCodes" + id + ".png";
         BitMatrix encode = new MultiFormatWriter().encode(id, BarcodeFormat.QR_CODE, 200, 200);
         Path path1 = Paths.get(path);
-        ///home/shan/Downloads/1st-Semester-Final-Project-master/src/lk
-        MatrixToImageWriter.writeToPath(encode,path.substring(path.lastIndexOf('.')+1), path1);
-//        Stage stage = new Stage();
-//        ImageView imageView = new ImageView(path);
-//        //Setting image to the image view
-//        imageView.setImage(new Image(Files.newInputStream(path1)));
-//        imageView.setFitWidth(575);
-//        imageView.setPreserveRatio(true);
-//        //Setting the Scene object
-//        Group root = new Group(imageView);
-//
-//        StackPane stackPane = new StackPane();
-//        ImageView image = new ImageView();
-//        image.setParent(new ImageView((Element) Files.newInputStream(path1));
-//        stackPane.getChildren().add();
-//       // Stage stage = new Stage();
-//        stage.setScene(new Scene(stackPane, 800, 600));
-//        stage.show();
+        MatrixToImageWriter.writeToPath(encode, path.substring(path.lastIndexOf('.') + 1), path1);
+    }
+
+    /**
+     * When an object implementing interface <code>Runnable</code> is used
+     * to create a thread, starting the thread causes the object's
+     * <code>run</code> method to be called in that separately executing
+     * thread.
+     * <p>
+     * The general contract of the method <code>run</code> is that it may
+     * take any action whatsoever.
+     *
+     * @see Thread#run()
+     */
+    @Override
+    public void run() {
+        try {
+            generate();
+        } catch (IOException | WriterException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

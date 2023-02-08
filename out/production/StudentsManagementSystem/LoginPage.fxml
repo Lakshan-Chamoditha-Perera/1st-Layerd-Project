@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.studentsmanagement.controller.LoginPageController">
+    <children>
+        <ImageView blendMode="SRC_ATOP" fitHeight="1094.0" fitWidth="1959.0" layoutX="-13.0" pickOnBounds="true">
+            <image>
+                <Image url="@asserts/loginPage.jpg"/>
+            </image>
+        </ImageView>
+        <AnchorPane blendMode="SRC_ATOP" layoutX="540.0" layoutY="234.0" prefHeight="509.0" prefWidth="853.0"
+                    style="-fx-background-color: White; -fx-background-radius: 45; -fx-border-color: grey; -fx-border-radius: 45; -fx-border-color: BLACK;">
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+            <children>
+                <JFXButton layoutX="255.0" layoutY="392.0" onAction="#btnClickOnAction" prefHeight="37.0"
+                           prefWidth="364.0" style="-fx-background-radius: 40; -fx-background-color: #6200EE;"
+                           text="Login"/>
+                <ImageView fitHeight="190.0" fitWidth="596.0" layoutX="129.0" layoutY="12.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@asserts/IJSE_LOGO.png"/>
+                    </image>
+                </ImageView>
+                <JFXTextField fx:id="txtUserName" layoutX="287.0" layoutY="255.0" prefHeight="26.0" prefWidth="324.0"
+                              promptText="User name"/>
+                <ImageView blendMode="DARKEN" fitHeight="26.0" fitWidth="28.0" layoutX="243.0" layoutY="257.0"
+                           pickOnBounds="true">
+                    <image>
+                        <Image url="@asserts/icons8-enter-64.png"/>
+                    </image>
+                </ImageView>
+                <ImageView blendMode="DARKEN" fitHeight="26.0" fitWidth="28.0" layoutX="246.0" layoutY="309.0"
+                           pickOnBounds="true">
+                    <image>
+                        <Image url="@asserts/icons8-password-64.png"/>
+                    </image>
+                </ImageView>
+                <JFXPasswordField fx:id="txtPassword" layoutX="287.0" layoutY="309.0" prefHeight="26.0"
+                                  prefWidth="324.0" promptText="Password"/>
+                <Label fx:id="lblUsername" layoutX="287.0" layoutY="283.0" style="-fx-text-fill: red;"
+                       text="Invalid Username"/>
+                <Label layoutX="375.0" layoutY="460.0" style="-fx-text-fill: grey;" text="Forget password ?"/>
+                <Label fx:id="lblPassword" layoutX="287.0" layoutY="337.0" style="-fx-text-fill: red;"
+                       text="Invalid Password"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

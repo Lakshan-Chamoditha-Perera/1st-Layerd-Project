@@ -96,7 +96,6 @@ public class AcademicRegistrationPaymentsFormController implements Initializable
 
     public void loadAllPayments() throws SQLException, ClassNotFoundException {
         List<PaymentDTO> paymentDTOS = paymentService.loadAllPayments();
-        //  ArrayList<Payment> paymentArrayList = PaymentModel.getAllPayments();
         ObservableList<PaymentsTM> observableList = FXCollections.observableArrayList();
         for (PaymentDTO ele : paymentDTOS) {
             observableList.add(new PaymentsTM(

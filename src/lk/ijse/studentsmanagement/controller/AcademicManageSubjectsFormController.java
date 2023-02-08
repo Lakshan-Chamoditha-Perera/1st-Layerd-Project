@@ -15,11 +15,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.studentsmanagement.dto.SubjectDTO;
+import lk.ijse.studentsmanagement.dto.tblModels.SubjectTM;
 import lk.ijse.studentsmanagement.entity.Subject;
 import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.SubjectService;
-import lk.ijse.studentsmanagement.dto.tblModels.SubjectTM;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
@@ -61,15 +61,11 @@ public class AcademicManageSubjectsFormController implements Initializable {
         try {
             if (RegExPatterns.getNamePattern().matcher(txtSubName.getText()).matches()) {
                 if (txtSubHours.getText() != null) {
-//                    boolean isAdded = add();
-//                    if (isAdded) {
-//                        new Alert(Alert.AlertType.INFORMATION, "ADDED").showAndWait();
-//                        Navigation.navigate(Routes.ACADEMIC_MANAGE_SUBJECTS, pane);
-//                    } else {
-//                        new Alert(Alert.AlertType.INFORMATION, "Something went wrong").show();
-//                    }
                     SubjectDTO add = add();
-                    if (add != null) Navigation.navigate(Routes.ACADEMIC_MANAGE_SUBJECTS, pane);
+                    if (add != null){
+                        new Alert(Alert.AlertType.INFORMATION, "ADDED").showAndWait();
+                        Navigation.navigate(Routes.ACADEMIC_MANAGE_SUBJECTS, pane);
+                    }
                 } else {
                     lblInvalidHour.setVisible(true);
                     txtSubHours.setFocusColor(javafx.scene.paint.Color.RED);
@@ -114,6 +110,7 @@ public class AcademicManageSubjectsFormController implements Initializable {
         SubjectDTO subjectDTO = subjectService.delete(new SubjectDTO(selectedItem.getId()));
         return subjectDTO;
     }
+
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
     }
@@ -142,7 +139,6 @@ public class AcademicManageSubjectsFormController implements Initializable {
 
     public void generateSubjectID() throws SQLException, ClassNotFoundException, RuntimeException {
         Subject subject = subjectService.getLastSubjectID();
-        //Subject lastSubjectID = Subject.getLastSubjectID();
         if (subject == null) {
             lblSubID.setText("ITS0001");
         } else {

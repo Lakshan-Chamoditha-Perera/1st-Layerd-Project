@@ -1,4 +1,4 @@
-package lk.ijse.studentsmanagement.service.util.mailService.impl;
+package lk.ijse.studentsmanagement.service.util.mailService;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -24,7 +24,7 @@ public class Mail implements Runnable{
 
         //String to = "ruvinisubhasinghe200009@gmail.com";
         //String from = "perera.alc2000@gmail.com";
-        //
+
         String from = "softwareengineeringIJSE@gmail.com";
         String host = "localhost";
 

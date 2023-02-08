@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="630.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.studentsmanagement.controller.AcademicRegistrationPaymentsFormController">
+    <children>
+        <TableView fx:id="tblPayments" layoutX="28.0" layoutY="84.0" prefHeight="461.0" prefWidth="778.0">
+            <columns>
+                <TableColumn fx:id="colPaymentID" prefWidth="100.00003051757812" text="Payment ID" />
+                <TableColumn fx:id="colRegistrationID" prefWidth="124.0" text="Registration ID" />
+                <TableColumn fx:id="colType" prefWidth="116.0" text="Type" />
+                <TableColumn fx:id="colRemark" prefWidth="163.0" text="Remark" />
+                <TableColumn fx:id="colDate" prefWidth="142.0" text="Date" />
+                <TableColumn fx:id="colAmount" prefWidth="131.0" text="Amount" />
+            </columns>
+        </TableView>
+        <Separator layoutX="864.0" layoutY="16.0" orientation="VERTICAL" prefHeight="598.0" prefWidth="8.0" />
+        <Label layoutX="14.0" layoutY="16.0" prefHeight="42.0" prefWidth="348.0" text="Payment Table">
+            <font>
+                <Font name="Ubuntu Mono Bold" size="31.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="btnPrint" layoutX="718.0" layoutY="573.0" onAction="#btnPrintOnAction" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: red;" text="Print" textFill="WHITE" />
+      <ImageView fitHeight="469.0" fitWidth="348.0" layoutX="936.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asserts/8610313_5917.jpg" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
