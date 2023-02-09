@@ -25,7 +25,7 @@ public class QRGenerator implements Runnable{
         this.id = id;
     }
 
-    public void generate() throws IOException, WriterException, RuntimeException {
+    private void generate() throws IOException, WriterException, RuntimeException {
         if (id == null) throw new RuntimeException("Id is null");
         String path = "/home/shan/Downloads/1st-Semester-Final-Project-master/src/lk/ijse/studentsmanagement/service/util/qr/images/registrationQRCodes" + id + ".png";
         BitMatrix encode = new MultiFormatWriter().encode(id, BarcodeFormat.QR_CODE, 200, 200);

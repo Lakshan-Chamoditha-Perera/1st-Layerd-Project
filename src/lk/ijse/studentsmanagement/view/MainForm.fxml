@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.studentsmanagement.controller.MainFormController">
+<AnchorPane fx:id="pane" prefHeight="1164.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.studentsmanagement.controller.MainFormController">
     <children>
-        <ImageView fitHeight="1086.0" fitWidth="1920.0" pickOnBounds="true">
+        <ImageView disable="true" fitHeight="1164.0" fitWidth="1928.0" layoutX="-9.0" opacity="0.11" pickOnBounds="true">
          <image>
-            <Image url="@../asserts/loginPage.jpg" />
+            <Image url="@asserts/4565.jpg" />
+         </image></ImageView>
+        <ImageView fitHeight="278.0" fitWidth="736.0" layoutX="579.0" layoutY="154.0" pickOnBounds="true">
+         <image>
+            <Image url="@asserts/IJSE_LOGO.png" />
          </image>
         </ImageView>
-        <ImageView blendMode="LIGHTEN" fitHeight="227.0" fitWidth="628.0" layoutX="611.0" layoutY="304.0" pickOnBounds="true">
-            <image>
-                <Image url="@../asserts/IJSE_LOGO.png" />
-            </image>
-        </ImageView>
-        <JFXButton layoutX="701.0" layoutY="543.0" onAction="#btnStartClickOnAction" prefHeight="32.0" prefWidth="467.0" style="-fx-background-radius: 45; -fx-background-color: White;" text="&lt; Click to continue /&gt;" />
-      <Label fx:id="lblName" layoutX="736.0" layoutY="453.0" prefHeight="27.0" prefWidth="378.0" textFill="WHITE">
+        <JFXButton fx:id="btn" buttonType="RAISED" layoutX="522.0" layoutY="780.0" onAction="#btnStartClickOnAction" prefHeight="72.0" prefWidth="844.0" style="-fx-background-radius: 45; -fx-background-color: White;" text="Click to continue">
          <font>
-            <Font name="Ubuntu Mono Bold" size="18.0" />
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <Label fx:id="lblLoading" layoutX="730.0" layoutY="611.0" prefHeight="38.0" prefWidth="460.0" text="Welocome to Students Management System v.1.00">
+         <font>
+            <Font name="Dyuthi Regular" size="22.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="rctContainer" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="8.0" layoutX="6.0" layoutY="904.0" stroke="BLACK" strokeType="INSIDE" width="1909.0" />
+      <Rectangle fx:id="rctLoading" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="8.0" layoutX="6.0" layoutY="904.0" stroke="BLACK" strokeType="INSIDE" width="1909.0" />
+      <Label layoutX="477.0" layoutY="341.0" text="INSTITUTE OF SOFTWARE ENGINEERING">
+         <font>
+            <Font name="Nakula" size="47.0" />
          </font>
       </Label>
     </children>

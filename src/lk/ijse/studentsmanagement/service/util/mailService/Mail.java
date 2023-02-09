@@ -1,5 +1,7 @@
 package lk.ijse.studentsmanagement.service.util.mailService;
 
+import javafx.scene.control.Alert;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -77,7 +79,7 @@ public class Mail implements Runnable{
                outMailSingle();
            }
        } catch (MessagingException e) {
-           throw new RuntimeException(e);
+           System.out.println(e.getMessage());
        }
     }
 }
