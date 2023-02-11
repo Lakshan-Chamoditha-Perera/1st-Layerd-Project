@@ -23,7 +23,9 @@ import lk.ijse.studentsmanagement.service.ServiceFactory;
 import lk.ijse.studentsmanagement.service.ServiceTypes;
 import lk.ijse.studentsmanagement.service.custom.InquiryService;
 import lk.ijse.studentsmanagement.service.custom.IqTestService;
+import lk.ijse.studentsmanagement.service.custom.SystemUserService;
 import lk.ijse.studentsmanagement.service.custom.TestPaymentService;
+import lk.ijse.studentsmanagement.service.util.mailService.Mail;
 import lk.ijse.studentsmanagement.util.Navigation;
 import lk.ijse.studentsmanagement.util.RegExPatterns;
 import lk.ijse.studentsmanagement.util.Routes;
@@ -170,7 +172,8 @@ public class AddInquiryFormController implements Initializable {
         InquiryDTO inquiry = new InquiryDTO(txtId.getText(), txtName.getText(), txtCity.getText(), txtMobile.getText(), txtEmail.getText(), new SimpleDateFormat("dd-MM-20yy").format(new Date()), (rBtnMale.isSelected()) ? "Male" : "Female", "not-registered", testPayment);
         InquiryDTO inquiryDTO = inquiryService.save(inquiry);
         if (inquiryDTO != null) {
-            // printReport();
+            printReport();
+            sendMail();
 //            String msg2 = "This email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
 //            String msg = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" + "\nPayment ID  " + lblPaymentID.getText() + "                Payment Date " + LocalDate.now() + "\nNIC   :" + txtId.getText() + "\nTotal Amount = Rs." + Double.parseDouble(lblAmount.getText()) + "  PAID\n \n----YOUR TEST DETAILS----" + "\nTEST ID    : " + lblTestID.getText() + "\nDate       : " + cmbExamDates.getValue() + "\nLab        : " + lblTestLab.getText() + "\nStart Time : " + lblTestTime.getText() + "\n\nThank You!...\n\n\n\n\n\n" + msg2;
 //            try {
@@ -181,6 +184,22 @@ public class AddInquiryFormController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Your Registration Succeed!").show();
             Navigation.navigate(Routes.ADD_STUDENT, pane);
         }
+    }
+SystemUserService systemUserService;
+    private void sendMail() {
+        String conclusion = "This email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
+        String header = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" + "\nPayment ID  " + lblPaymentID.getText() +
+                "                Payment Date " + LocalDate.now() +
+                "\nNIC   :" + txtId.getText() +
+                "\nTotal Amount = Rs." + Double.parseDouble(lblAmount.getText()) +
+                "  PAID\n \n----YOUR TEST DETAILS----" +
+                "\nTEST ID    : " + lblTestID.getText() +
+                "\nDate       : " + cmbExamDates.getValue() +
+                "\nLab        : " + lblTestLab.getText() +
+                "\nStart Time : " + lblTestTime.getText() +
+                "\n\nThank You!...\n\n\n\n\n\n" + conclusion;
+        String subject = "OFFICIAL INQUIRY PAYMENT RECEIPT - INSTITUTE OF JAVA AND SOFTWARE ENGINEERING ";
+        systemUserService.sendMail(new Mail(header,txtEmail.getText(),subject,null));
     }
 
     private void printReport() {

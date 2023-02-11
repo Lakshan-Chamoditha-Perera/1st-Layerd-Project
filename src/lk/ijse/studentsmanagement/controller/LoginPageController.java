@@ -75,19 +75,21 @@ public class LoginPageController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Invalid User").show();
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | RuntimeException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-
     private void sendMail(String user) throws RuntimeException {
-        Mail mailService = new Mail(
-                "New login to system.\n\t Time: "+ Date.valueOf(String.valueOf(LocalDate.now())) + " : " + Time.valueOf(LocalTime.now()) + " by " + user,
-                "perera.alc2000@gmail.com",
-                "Alert", null
-        );
-        Thread thread = new Thread(mailService);
-        thread.start();
+        try{
+            Mail mail = new Mail(
+                    "New login to system.\n\t Time: "+ Date.valueOf(String.valueOf(LocalDate.now())) + " : " + Time.valueOf(LocalTime.now()) + " by " + user,
+                    "perera.alc2000@gmail.com",
+                    "Alert", null
+            );
+            systemUserService.sendMail(mail);
+        } catch (Exception e) {
+            throw new RuntimeException("messaging execution");
+        }
     }
 
     @Override

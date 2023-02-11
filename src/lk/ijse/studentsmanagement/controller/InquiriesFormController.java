@@ -43,10 +43,6 @@ public class InquiriesFormController implements Initializable {
         Navigation.navigate(Routes.ADD_STUDENT, pane);
     }
 
-    public void btnSearchOnAction(ActionEvent actionEvent) {
-
-    }
-
     public void btnViewStdOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.VIEW_STUDENT, pane);
     }

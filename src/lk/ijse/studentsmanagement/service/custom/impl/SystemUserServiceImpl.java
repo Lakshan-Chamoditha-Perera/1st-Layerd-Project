@@ -9,6 +9,7 @@ import lk.ijse.studentsmanagement.entity.SystemUser;
 import lk.ijse.studentsmanagement.service.custom.SystemUserService;
 import lk.ijse.studentsmanagement.service.exception.DuplicateException;
 import lk.ijse.studentsmanagement.service.util.Converter;
+import lk.ijse.studentsmanagement.service.util.mailService.Mail;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,5 +35,11 @@ public class SystemUserServiceImpl implements SystemUserService {
         SystemUser systemUser = systemUserDAO.view(converter.toSystemUserEntity(systemUserDTO));
         if(systemUser!=null) return converter.toSystemUserDTO(systemUser);
         return null;
+    }
+
+    @Override
+    public void sendMail(Mail mail) {
+        Thread thread = new Thread(mail);
+        thread.start();
     }
 }

@@ -57,6 +57,7 @@ public class EnrollmentsFormController implements Initializable {
     RegistrationService registrationService;
     BatchService batchService;
     GuardianService guardianService;
+    SystemUserService systemUserService;
     @FXML
     private AnchorPane pane;
     @FXML
@@ -184,6 +185,7 @@ public class EnrollmentsFormController implements Initializable {
             if (dto != null) {
                 new Alert(Alert.AlertType.INFORMATION, "Enroll Successes!").showAndWait();
                 alertGenerateQRCodeAndPrintBill(registrationDTO);
+                sendMail(registrationDTO);
                 Navigation.navigate(Routes.ENROLLMENTS, pane);
             }
 
@@ -193,12 +195,31 @@ public class EnrollmentsFormController implements Initializable {
         }
     }
 
+    private void sendMail(RegistrationDTO registration) {
+        String conclusion = "\n\n\n\n\nThis email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
+        String header = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" +
+                "Dear " + registration.getName() + ", Greetings from the Student Enrollment Unit!\n\n" +
+                "Your Students ID is : " + registration.getRegistrationId() +
+                "\n\nThank You!..." + conclusion;
+        String subject = "Welcome to Institute of Software Engineering";
+        try {
+            systemUserService.sendMail(new Mail(
+                    header,
+                    registration.getEmail(),
+                    subject,
+                    null));
+        } catch (RuntimeException e) {
+            new Alert(Alert.AlertType.INFORMATION, String.valueOf(e)).show();
+        }
+    }
+
     private void alertGenerateQRCodeAndPrintBill(RegistrationDTO registration) throws IOException, WriterException, JRException {
         printReport();
         QRGenerator instance = QRGenerator.getInstance();
         instance.setId(lblRegID.getText());
-         Thread thread =  new Thread(instance);
-         thread.start();
+        Thread thread = new Thread(instance);
+        thread.start();
+
 //        QRGenerator.getGenerator(registration.toString());
 //        String msg2 = "\n\n\n\n\nThis email and any attachment transmitted herewith are confidential and is intended solely for the use of the individual or entity to which they are addressed and may contain information that is privileged or otherwise protected from disclosure. If you are not the intended recipient, you are hereby notified that disclosing, copying, distributing, or taking any action in reliance on this email and the information it contains is strictly prohibited. If you have received this email in error, please notify the sender immediately by reply email and discard all of its contents by deleting this email and the attachment, if any, from your system";
 //        String msg = "\t \t \t WELCOME TO INSTITUTE OF JAVA AND SOFTWARE ENGINEERING \n" +
@@ -512,6 +533,7 @@ public class EnrollmentsFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            systemUserService = ServiceFactory.getInstance().getService(ServiceTypes.SYSTEM_USER);
             courseService = ServiceFactory.getInstance().getService(ServiceTypes.COURSE);
             paymentService = ServiceFactory.getInstance().getService(ServiceTypes.PAYMENTS);
             registrationService = ServiceFactory.getInstance().getService(ServiceTypes.REGISTRATION);
