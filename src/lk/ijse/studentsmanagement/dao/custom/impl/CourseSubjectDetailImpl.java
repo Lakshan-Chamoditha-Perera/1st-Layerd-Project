@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.CourseSubjectDetailDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.CourseSubjectDetail;
 
@@ -25,7 +26,7 @@ public class CourseSubjectDetailImpl implements CourseSubjectDetailDAO {
 
     @Override
     public CourseSubjectDetail update(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override
@@ -36,7 +37,7 @@ public class CourseSubjectDetailImpl implements CourseSubjectDetailDAO {
 
     @Override
     public CourseSubjectDetail view(CourseSubjectDetail entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("view function in dao is not implemented");
     }
 
     @Override

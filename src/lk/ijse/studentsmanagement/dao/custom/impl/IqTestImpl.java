@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.IqTestDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.IQTest;
 
@@ -29,7 +30,7 @@ public class IqTestImpl implements IqTestDAO {
 
     @Override
     public IQTest update(IQTest entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override

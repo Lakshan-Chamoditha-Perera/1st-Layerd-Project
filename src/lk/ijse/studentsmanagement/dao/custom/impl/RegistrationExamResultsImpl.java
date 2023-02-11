@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.RegistrationExamResultsDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.RegistrationExamResult;
 
@@ -50,7 +51,7 @@ public class RegistrationExamResultsImpl implements RegistrationExamResultsDAO {
 
     @Override
     public RegistrationExamResult view(RegistrationExamResult entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("view function in dao is not implemented");
     }
 
     @Override

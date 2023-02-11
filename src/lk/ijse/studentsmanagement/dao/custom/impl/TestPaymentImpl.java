@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.TestPaymentDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.TestPayment;
 
@@ -33,17 +34,17 @@ public class TestPaymentImpl implements TestPaymentDAO {
 
     @Override
     public TestPayment update(TestPayment entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override
     public TestPayment delete(TestPayment entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("delete function in dao is not implemented");
     }
 
     @Override
     public TestPayment view(TestPayment entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("view function in dao is not implemented");
     }
 
     @Override

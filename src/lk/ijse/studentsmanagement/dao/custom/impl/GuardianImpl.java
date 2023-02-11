@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.GuardianDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Guardian;
 
@@ -31,12 +32,12 @@ public class GuardianImpl implements GuardianDAO {
 
     @Override
     public Guardian update(Guardian entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override
     public Guardian delete(Guardian entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("delete function in dao is not implemented");
     }
 
     @Override

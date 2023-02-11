@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.RegistrationDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Registration;
 
@@ -58,7 +59,7 @@ public class RegistrationImpl implements RegistrationDAO {
 
     @Override
     public Registration delete(Registration entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("delete function in dao is not implemented");
     }
 
     @Override

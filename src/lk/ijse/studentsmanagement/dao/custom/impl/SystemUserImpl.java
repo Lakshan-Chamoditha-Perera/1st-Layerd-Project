@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.SystemUserDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.SystemUser;
 
@@ -17,17 +18,17 @@ public class SystemUserImpl implements SystemUserDAO {
 
     @Override
     public SystemUser save(SystemUser entity) throws SQLException, ClassNotFoundException {
-        return null;
+        throw new NotImplementedException("save function in dao is not implemented");
     }
 
     @Override
     public SystemUser update(SystemUser entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override
     public SystemUser delete(SystemUser entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("delete function in dao is not implemented");
     }
 
     @Override

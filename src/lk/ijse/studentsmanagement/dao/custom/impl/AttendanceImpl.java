@@ -1,6 +1,7 @@
 package lk.ijse.studentsmanagement.dao.custom.impl;
 
 import lk.ijse.studentsmanagement.dao.custom.AttendanceDAO;
+import lk.ijse.studentsmanagement.dao.exception.NotImplementedException;
 import lk.ijse.studentsmanagement.dao.util.CrudUtil;
 import lk.ijse.studentsmanagement.entity.Attendance;
 
@@ -27,17 +28,17 @@ public class AttendanceImpl implements AttendanceDAO {
 
     @Override
     public Attendance update(Attendance entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("update function in dao is not implemented");
     }
 
     @Override
     public Attendance delete(Attendance entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("delete function in dao is not implemented");
     }
 
     @Override
     public Attendance view(Attendance entity) throws SQLException, ClassNotFoundException, RuntimeException {
-        return null;
+        throw new NotImplementedException("view function in dao is not implemented");
     }
 
     @Override
